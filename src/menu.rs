@@ -45,7 +45,7 @@ const TAB_SWITCHES: [&[Switch]; TABS] = [
     &[Switch::Music, Switch::BetterSound, Switch::SpatialSound, Switch::VictoryFanfare],
     &[Switch::SmoothCamera, Switch::TurnView, Switch::Lighting, Switch::Shadows, Switch::Storm, Switch::Pixels, Switch::ShowArmour, Switch::ShowHelm, Switch::MagicGlow, Switch::WideView, Switch::MonsterFade, Switch::AvatarOutline],
     &[Switch::Controls, Switch::HoldWalk, Switch::RoadKeys, Switch::NoticeFar, Switch::TalkTruce, Switch::AvoidFlames, Switch::SleepUntil, Switch::PentagramSnap, Switch::PentagramReach, Switch::AvatarMenu],
-    &[Switch::EnemyHealth, Switch::TextSize, Switch::HoverNames, Switch::Minimap, Switch::Guide, Switch::PuzzleSpots, Switch::BetterInventory, Switch::Journal, Switch::SpellNotes, Switch::Practice],
+    &[Switch::EnemyHealth, Switch::TextSize, Switch::HoverNames, Switch::Minimap, Switch::Guide, Switch::PuzzleSpots, Switch::BetterInventory, Switch::Journal, Switch::Practice],
 ];
 
 /// The switches of the menu, in the order of the settings file.
@@ -76,7 +76,6 @@ enum Switch {
     SleepUntil,
     NoticeFar,
     TalkTruce,
-    SpellNotes,
     VictoryFanfare,
     AvatarOutline,
     AvatarMenu,
@@ -91,8 +90,8 @@ enum Switch {
 }
 
 impl Switch {
-    const ALL: [Switch; 37] = [
-        Switch::SmoothCamera, Switch::EnemyHealth, Switch::Controls, Switch::RoadKeys, Switch::TurnView, Switch::Lighting, Switch::Pixels, Switch::Music, Switch::SpatialSound, Switch::TextSize, Switch::ShowArmour, Switch::ShowHelm, Switch::Minimap, Switch::BetterInventory, Switch::HoverNames, Switch::HoldWalk, Switch::Journal, Switch::Practice, Switch::AlbumMusic, Switch::BetterSound, Switch::WideView, Switch::Shadows, Switch::SleepUntil, Switch::NoticeFar, Switch::TalkTruce, Switch::SpellNotes, Switch::VictoryFanfare, Switch::AvatarOutline, Switch::AvatarMenu, Switch::Guide, Switch::PuzzleSpots, Switch::Storm, Switch::PentagramSnap, Switch::PentagramReach, Switch::AvoidFlames, Switch::MonsterFade, Switch::MagicGlow,
+    const ALL: [Switch; 36] = [
+        Switch::SmoothCamera, Switch::EnemyHealth, Switch::Controls, Switch::RoadKeys, Switch::TurnView, Switch::Lighting, Switch::Pixels, Switch::Music, Switch::SpatialSound, Switch::TextSize, Switch::ShowArmour, Switch::ShowHelm, Switch::Minimap, Switch::BetterInventory, Switch::HoverNames, Switch::HoldWalk, Switch::Journal, Switch::Practice, Switch::AlbumMusic, Switch::BetterSound, Switch::WideView, Switch::Shadows, Switch::SleepUntil, Switch::NoticeFar, Switch::TalkTruce, Switch::VictoryFanfare, Switch::AvatarOutline, Switch::AvatarMenu, Switch::Guide, Switch::PuzzleSpots, Switch::Storm, Switch::PentagramSnap, Switch::PentagramReach, Switch::AvoidFlames, Switch::MonsterFade, Switch::MagicGlow,
     ];
 
     /// Key in the settings file.
@@ -123,7 +122,6 @@ impl Switch {
             Switch::SleepUntil => "sleep_until",
             Switch::NoticeFar => "notice_far",
             Switch::TalkTruce => "talk_truce",
-            Switch::SpellNotes => "spell_notes",
             Switch::VictoryFanfare => "victory_fanfare",
             Switch::AvatarOutline => "avatar_outline",
             Switch::AvatarMenu => "avatar_menu",
@@ -166,7 +164,6 @@ impl Switch {
             Switch::SleepUntil => ["Schlafen bis Tageszeit", "Dormir jusqu'\u{85} une heure", "Sleep until a time of day"],
             Switch::NoticeFar => ["Gegner bemerken fr\u{81}her", "Ennemis vigilants", "Enemies notice sooner"],
             Switch::TalkTruce => ["Gegner warten im Gespr\u{84}ch", "Tr\u{88}ve pendant les dialogues", "Enemies wait during talks"],
-            Switch::SpellNotes => ["Zauberbuch (Taste N)", "Grimoire (touche N)", "Spell book (key N)"],
             Switch::VictoryFanfare => ["Sieges-Fanfare", "Fanfare de victoire", "Victory fanfare"],
             Switch::AvatarOutline => ["Umriss, wenn verdeckt", "Contour si cach\u{82}", "Outline when hidden"],
             Switch::AvatarMenu => ["Avatar-Men\u{81} (Cheats)", "Menu de l'Avatar (triches)", "Avatar menu (cheats)"],
@@ -305,7 +302,9 @@ pub struct Options {
     /// the world run on during conversations.
     pub talk_truce: bool,
     /// A spell book (key N) that notes the spells the Avatar has learned
-    /// from books, scrolls and teachers, with words and reagents.
+    /// from books, scrolls and teachers, with words and reagents. Taken out
+    /// of the menu for now (it shows only the earth spells): always off; the
+    /// spells learned are still kept in the savegame.
     pub spell_notes: bool,
     /// Walking through a gate or into a teleporter, the view fades to
     /// black and in again on the other side (eggs.rs). Not a switch of the
@@ -380,7 +379,7 @@ pub const ZOOM_NORMAL: usize = 1;
 
 impl Default for Options {
     fn default() -> Options {
-        Options { smooth_camera: true, enemy_health: true, modern_controls: true, click_walk: true, road_keys: true, turn_view: true, lighting: true, pixels: PIXELS_SHARP, zoom: ZOOM_NORMAL, text_size: 2, better_music: true, spatial_sound: true, show_armour: true, show_helm: true, minimap: true, better_inventory: true, hover_names: 0, hold_walk: true, journal: true, practice: true, album_music: true, better_sound: true, passersby: false, wide_view: true, shadows: true, sleep_until: true, notice_far: true, talk_truce: true, spell_notes: true, map_fade: true, victory_fanfare: true, avatar_outline: OUTLINE_DEFAULT, avatar_menu: false, guide: true, puzzle_spots: true, storm: 1, pentagram_snap: true, pentagram_reach: true, avoid_flames: true, monster_fade: true, seen_end: false, magic_glow: true }
+        Options { smooth_camera: true, enemy_health: true, modern_controls: true, click_walk: true, road_keys: true, turn_view: true, lighting: true, pixels: PIXELS_SHARP, zoom: ZOOM_NORMAL, text_size: 2, better_music: true, spatial_sound: true, show_armour: true, show_helm: true, minimap: true, better_inventory: true, hover_names: 0, hold_walk: true, journal: true, practice: true, album_music: true, better_sound: true, passersby: false, wide_view: true, shadows: true, sleep_until: true, notice_far: true, talk_truce: true, spell_notes: false, map_fade: true, victory_fanfare: true, avatar_outline: OUTLINE_DEFAULT, avatar_menu: false, guide: true, puzzle_spots: true, storm: 1, pentagram_snap: true, pentagram_reach: true, avoid_flames: true, monster_fade: true, seen_end: false, magic_glow: true }
     }
 }
 
@@ -422,7 +421,6 @@ impl Options {
             Switch::SleepUntil => self.sleep_until,
             Switch::NoticeFar => self.notice_far,
             Switch::TalkTruce => self.talk_truce,
-            Switch::SpellNotes => self.spell_notes,
             Switch::VictoryFanfare => self.victory_fanfare,
             Switch::AvatarOutline => self.avatar_outline != 0,
             Switch::AvatarMenu => self.avatar_menu,
@@ -468,7 +466,6 @@ impl Options {
             Switch::SleepUntil => self.sleep_until = !self.sleep_until,
             Switch::NoticeFar => self.notice_far = !self.notice_far,
             Switch::TalkTruce => self.talk_truce = !self.talk_truce,
-            Switch::SpellNotes => self.spell_notes = !self.spell_notes,
             Switch::VictoryFanfare => self.victory_fanfare = !self.victory_fanfare,
             Switch::AvatarOutline => self.avatar_outline = (self.avatar_outline + 1) % OUTLINE_SHARES.len(),
             Switch::AvatarMenu => self.avatar_menu = !self.avatar_menu,

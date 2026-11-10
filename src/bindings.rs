@@ -34,7 +34,7 @@ const fn act(id: &'static str, names: [&'static str; 3], key: Key, pad: Option<P
     Action { id, names, does: Does::Key(key), pad }
 }
 
-pub const ACTIONS: [Action; 35] = [
+pub const ACTIONS: [Action; 34] = [
     act("up", ["Gehen: hoch", "Marcher: haut", "Walk up"], Key::W, None),
     act("down", ["Gehen: runter", "Marcher: bas", "Walk down"], Key::S, None),
     act("left", ["Gehen: links", "Marcher: gauche", "Walk left"], Key::A, None),
@@ -54,7 +54,6 @@ pub const ACTIONS: [Action; 35] = [
     act("quicksave", ["Schnell speichern", "Sauvegarde rapide", "Quick save"], Key::F5, None),
     act("quickload", ["Schnell laden", "Chargement rapide", "Quick load"], Key::F9, None),
     act("journal", ["Tagebuch", "Journal", "Journal"], Key::T, Some(Pad::Back)),
-    act("spells", ["Zauberbuch", "Grimoire", "Spell book"], Key::N, None),
     act("highlight", ["Alles hervorheben", "Tout montrer", "Highlight all"], Key::H, Some(Pad::RStick)),
     act("zoomin", ["Zoom +", "Zoom +", "Zoom in"], Key::Equal, Some(Pad::Up)),
     act("zoomout", ["Zoom -", "Zoom -", "Zoom out"], Key::Minus, Some(Pad::Down)),
