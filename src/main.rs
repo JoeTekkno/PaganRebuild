@@ -165,11 +165,11 @@ mouse: left click = look at, double click = use, drag = move an item (shift: par
 keys:  arrows / WASD = walk (shift = run), I = backpack, C = close containers,
        space, J or both mouse buttons = jump to the pointer (standing at a ledge: climb),
        Tab = draw / put away the weapon; click or F = strike at the nearest enemy (held: keep striking; a click on a health bar attacks that creature), Q = kick, B = block, K = key ring,
-       (fighting by clicking, a switch in the options menu: a click on an enemy walks up and
+       (fighting by clicking, with the modern controls: a click on an enemy walks up and
        strikes, holding the button keeps striking, ctrl+click strikes on the spot),
        V or F10 = options menu: volume, optional improvements, save and load
        (arrows or mouse, Enter; Esc closes), F5 = quick save, F9 = quick load,
-       F6 / F7 = savegame book to save / load in one of eight slots,
+       F6 / F7 = savegame book to save / load (it grows: there is always a free entry),
        space = next page when reading, PgUp/PgDn = jump to another map,
        + / - = zoom in / out (the view is drawn smaller or larger; remembered),
        , / . = turn the view by a quarter (if switched on in the options menu),
@@ -177,8 +177,8 @@ keys:  arrows / WASD = walk (shift = run), I = backpack, C = close containers,
        F4 held = the game runs six times as fast (to get through scenes and long walks),
        F3 = write the last 300 pictures drawn to the folder pagan_frames (to report display errors),
        modern controls (a switch in the options menu, which also lists the keys):
-       left click = use (walking there first), right click = look at, E = use the
-       nearest thing, right button in combat = block, F11 = editor objects,
+       left click = walk there (climbing ledges on the way) or use (walking there first), right click = take into the backpack (on open ground: jump), pointing = highlight, E = use the
+       nearest thing, right click in combat = put the weapon away (double: kick), F11 = editor objects,
        Esc = main menu (introduction, read / write diary, options, credits, quit);
        a movie or the credits end with Esc, Enter, space or a click";
 

@@ -93,7 +93,7 @@ code, kbd {
 .shots figure { margin: 0; }
 .shots .wide { grid-column: 1 / -1; }
 .shots img {
-  display: block; width: 100%; height: auto; image-rendering: pixelated;
+  display: block; width: 100%; height: auto; 
   border: 1px solid var(--edge); border-radius: 3px; box-shadow: 0 6px 16px rgba(0,0,0,.6);
 }
 figcaption { color: var(--muted); font-size: .9rem; font-style: italic; margin-top: 5px; }
@@ -102,12 +102,18 @@ figcaption { color: var(--muted); font-size: .9rem; font-style: italic; margin-t
 .features h3 { margin-top: 10px; }
 .features ul { padding-left: 1.2em; }
 
+.controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 28px; }
+.controls dl { display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); gap: 6px 14px; margin: 0 0 8px; }
+.controls dt { color: var(--ember-hi); font-weight: 600; }
+.controls dd { margin: 0; }
+.controls dt, .controls dd { padding-bottom: 6px; border-bottom: 1px solid rgba(61,55,49,.6); }
+
 .credits p { margin-bottom: 12px; }
 footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10px 0 40px; }
 
 @media (max-width: 680px) {
   body { font-size: 16px; }
-  .shots, .features { grid-template-columns: 1fr; }
+  .shots, .features, .controls { grid-template-columns: 1fr; }
   section.slab { padding: 18px 16px; }
 }
 </style>
@@ -151,20 +157,24 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
 
 <div class="shots">
   <figure class="wide">
-    <img src="pier.png" width="960" height="400" alt="Tenebrae, the execution pier, in wide view">
-    <figcaption><span lang="de">Der Hinrichtungssteg von Tenebrae im Breitbild</span><span lang="en">The execution pier of Tenebrae in wide view</span></figcaption>
-  </figure>
-  <figure class="wide">
-    <img src="tenebrae.png" width="960" height="400" alt="A conversation at the gate of Tenebrae, with the guide's trail on the ground" loading="lazy">
-    <figcaption><span lang="de">Gespräch am Tor von Tenebrae, die Spur des Wegweisers am Boden</span><span lang="en">A conversation at the gate of Tenebrae, the guide's trail on the ground</span></figcaption>
+    <img src="pier.png" width="1920" height="800" alt="The execution on the pier of Tenebrae at the start of the game, in wide view">
+    <figcaption><span lang="de">Die Hinrichtung auf dem Pier von Tenebrae zu Beginn des Spiels, im Breitbild</span><span lang="en">The execution on the pier of Tenebrae at the start of the game, in wide view</span></figcaption>
   </figure>
   <figure>
-    <img src="map.png" width="640" height="400" alt="Map with a list of places (key O)" loading="lazy">
+    <img src="pyros_summon.png" width="960" height="600" alt="Pyros rises from the pentacle" loading="lazy">
+    <figcaption><span lang="de">Pyros erscheint im Pentagramm</span><span lang="en">Pyros rises from the pentacle</span></figcaption>
+  </figure>
+  <figure>
+    <img src="stratos.png" width="960" height="600" alt="The Avatar on the floating rocks near Stratos" loading="lazy">
+    <figcaption><span lang="de">Die schwebenden Felsen bei Stratos</span><span lang="en">The floating rocks near Stratos</span></figcaption>
+  </figure>
+  <figure>
+    <img src="inventory.png" width="960" height="600" alt="The better inventory with fixed slots and the potions on keys 1 to 5" loading="lazy">
+    <figcaption><span lang="de">Besseres Inventar, die Tränke auf den Tasten 1–5</span><span lang="en">Better inventory, the potions on keys 1–5</span></figcaption>
+  </figure>
+  <figure>
+    <img src="map.png" width="1280" height="800" alt="Map with a list of places (key O)" loading="lazy">
     <figcaption><span lang="de">Karte mit Wegweiser (Taste O)</span><span lang="en">Map with guide (key O)</span></figcaption>
-  </figure>
-  <figure>
-    <img src="options.png" width="640" height="400" alt="Options menu, graphics tab" loading="lazy">
-    <figcaption><span lang="de">Optionsmenü, Reiter Grafik</span><span lang="en">Options menu, graphics tab</span></figcaption>
   </figure>
 </div>
 
@@ -197,10 +207,10 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
       <ul>
         <li>Weiche Bewegung von Figuren und Ansicht</li>
         <li>Breitbild: mehr von der Welt zu den Seiten</li>
-        <li>Drehbare Ansicht (<kbd>,</kbd> / <kbd>.</kbd>)</li>
-        <li>Zoom in Stufen von 75 bis 200&nbsp;% (<kbd>+</kbd> / <kbd>-</kbd>)</li>
-        <li>Beleuchtung durch Lampen und Feuer (<kbd>L</kbd>), Schatten der Figuren</li>
-        <li>Grafikfilter: scharf, xBR oder Röhrenmonitor (CRT) (<kbd>G</kbd>)</li>
+        <li>Drehbare Ansicht</li>
+        <li>Zoom in Stufen von 75 bis 200&nbsp;%</li>
+        <li>Beleuchtung durch Lampen und Feuer, Schatten der Figuren</li>
+        <li>Grafikfilter: scharf, xBR oder Röhrenmonitor (CRT)</li>
         <li>Rüstung und Helm sind am Avatar zu sehen, magische Teile leuchten</li>
         <li>Umriss des Avatars, wenn er verdeckt ist</li>
         <li>Gewitterfarben: wie im Original, sanfter oder aus</li>
@@ -217,26 +227,21 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
       </ul>
     </div>
     <div>
-      <h3>Steuerung</h3>
-      <ul>
-        <li>Moderne Steuerung: Linksklick benutzt (der Avatar geht hin), Rechtsklick sieht an, <kbd>E</kbd> benutzt das Nächstliegende</li>
-        <li>Laufen per Klick; Taste gehalten: der Avatar folgt dem Zeiger</li>
-        <li>Kämpfen per Klick auf den Gegner, <kbd>F</kbd> schlägt den nächsten Gegner, <kbd>Q</kbd> tritt, <kbd>B</kbd> blockt</li>
-        <li>Pfeiltasten oder <kbd>WASD</kbd>, wahlweise entlang der schrägen Wege und Mauern</li>
-        <li>Springen und Klettern an Kanten mit der Leertaste</li>
-      </ul>
       <h3>Anzeige und Hilfen</h3>
       <ul>
         <li>Lebensbalken über den Gegnern</li>
         <li>Einstellbare Schriftgröße, Namen unter dem Zeiger</li>
-        <li>Minikarte (<kbd>M</kbd>), Karte mit Ortsliste und Wegweiser (<kbd>O</kbd>)</li>
-        <li>Leicht übersehene Rätselstellen werden benannt (<kbd>H</kbd>)</li>
+        <li>Minikarte, Karte mit Ortsliste und Wegweiser</li>
+        <li>Leicht übersehene Rätselstellen werden benannt</li>
         <li>Besseres Inventar mit festen Plätzen</li>
-        <li>Tagebuch der Aufgaben (<kbd>T</kbd>)</li>
+        <li>Tagebuch der Aufgaben</li>
         <li>Fortschritt von Stärke, Intelligenz und Geschick</li>
       </ul>
-      <h3>Spielablauf</h3>
+      <h3>Steuerung und Spielablauf</h3>
       <ul>
+        <li>Moderne Steuerung mit der Maus (siehe <a href="#steuerung">Steuerung</a>)</li>
+        <li>Automatisches Klettern: beim Laufen per Klick erklettert der Avatar die Kanten auf dem Weg</li>
+        <li>Schnellzugriff auf die Tränke über die Zahlentasten</li>
         <li>Gegner bemerken den Avatar früher</li>
         <li>Gegner warten, solange ein Gespräch läuft</li>
         <li>Figuren meiden Flammen, die sie verletzen</li>
@@ -244,18 +249,6 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
         <li>Gegenstände rasten auf dem Pentagramm ein, der Avatar erreicht das ganze Pentagramm</li>
         <li>Avatar-Menü mit den Cheats des Originals (anfangs aus)</li>
       </ul>
-    </div>
-    <div>
-      <h3>Immer dabei</h3>
-      <ul>
-        <li>Überblenden beim Wechsel durch Tore und Teleporter</li>
-        <li>Schnellspeichern und -laden (<kbd>F5</kbd> / <kbd>F9</kbd>), Speicherbuch mit acht Plätzen (<kbd>F6</kbd> / <kbd>F7</kbd>)</li>
-        <li>Sechsfache Geschwindigkeit, solange <kbd>F4</kbd> gehalten wird</li>
-        <li>Dächer ein/aus (<kbd>R</kbd>), Bildschirmfoto (<kbd>F12</kbd>)</li>
-        <li>Englisch, Deutsch und Französisch</li>
-      </ul>
-    </div>
-    <div>
       <h3>Startoptionen</h3>
       <ul>
         <li><code>--lang</code> Sprache, <code>--game</code> Spielordner</li>
@@ -272,10 +265,10 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
       <ul>
         <li>Smooth movement of figures and view</li>
         <li>Wide view: more of the world to the sides</li>
-        <li>Turnable view (<kbd>,</kbd> / <kbd>.</kbd>)</li>
-        <li>Zoom in steps from 75 to 200&nbsp;% (<kbd>+</kbd> / <kbd>-</kbd>)</li>
-        <li>Lighting from lamps and fires (<kbd>L</kbd>), shadows of the figures</li>
-        <li>Graphics filter: sharp, xBR or tube monitor (CRT) (<kbd>G</kbd>)</li>
+        <li>Turnable view</li>
+        <li>Zoom in steps from 75 to 200&nbsp;%</li>
+        <li>Lighting from lamps and fires, shadows of the figures</li>
+        <li>Graphics filter: sharp, xBR or tube monitor (CRT)</li>
         <li>Armour and helmet show on the Avatar, magic pieces glow</li>
         <li>Outline of the Avatar when he is hidden</li>
         <li>Storm colours: as in the original, gentler or off</li>
@@ -292,26 +285,21 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
       </ul>
     </div>
     <div>
-      <h3>Controls</h3>
-      <ul>
-        <li>Modern controls: left click uses (the Avatar walks there), right click looks, <kbd>E</kbd> uses the nearest thing</li>
-        <li>Walk by clicking; hold the button and the Avatar follows the pointer</li>
-        <li>Fight by clicking on an enemy, <kbd>F</kbd> strikes the nearest enemy, <kbd>Q</kbd> kicks, <kbd>B</kbd> blocks</li>
-        <li>Arrow keys or <kbd>WASD</kbd>, optionally along the slanted roads and walls</li>
-        <li>Jump and climb ledges with the space bar</li>
-      </ul>
       <h3>Display and aids</h3>
       <ul>
         <li>Health bars above enemies</li>
         <li>Adjustable text size, names under the pointer</li>
-        <li>Minimap (<kbd>M</kbd>), map with a list of places and a guide (<kbd>O</kbd>)</li>
-        <li>Easily missed puzzle spots get a name (<kbd>H</kbd>)</li>
+        <li>Minimap, map with a list of places and a guide</li>
+        <li>Easily missed puzzle spots get a name</li>
         <li>Better inventory with fixed slots</li>
-        <li>Quest journal (<kbd>T</kbd>)</li>
+        <li>Quest journal</li>
         <li>Progress of strength, intelligence and dexterity</li>
       </ul>
-      <h3>Gameplay</h3>
+      <h3>Controls and gameplay</h3>
       <ul>
+        <li>Modern mouse controls (see <a href="#controls">Controls</a>)</li>
+        <li>Automatic climbing: walking by click, the Avatar climbs the ledges on the way</li>
+        <li>Quick access to potions with the number keys</li>
         <li>Enemies notice the Avatar sooner</li>
         <li>Enemies wait while a conversation goes on</li>
         <li>People avoid flames that would hurt them</li>
@@ -319,18 +307,6 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
         <li>Items snap into place on a pentacle, and the Avatar reaches all of it</li>
         <li>Avatar menu with the original's cheats (off at first)</li>
       </ul>
-    </div>
-    <div>
-      <h3>Always on</h3>
-      <ul>
-        <li>Fade when passing through gates and teleporters</li>
-        <li>Quick save and load (<kbd>F5</kbd> / <kbd>F9</kbd>), save book with eight slots (<kbd>F6</kbd> / <kbd>F7</kbd>)</li>
-        <li>Six times the speed while <kbd>F4</kbd> is held</li>
-        <li>Roofs on/off (<kbd>R</kbd>), screenshot (<kbd>F12</kbd>)</li>
-        <li>English, German and French</li>
-      </ul>
-    </div>
-    <div>
       <h3>Command line</h3>
       <ul>
         <li><code>--lang</code> language, <code>--game</code> game folder</li>
@@ -338,6 +314,106 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
         <li><code>--no-sound</code>, <code>--no-menu</code>, <code>--cheat</code></li>
         <li>All options: <code>pagan --help</code></li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slab">
+  <h2 id="steuerung"><span lang="de">Steuerung</span><span lang="en" id="controls">Controls</span></h2>
+  <p class="note" lang="de">So arbeitet die moderne Steuerung (voreingestellt). Mit der klassischen Steuerung verhalten sich die Maustasten wie im Original. Tasten und Gamepad lassen sich im Optionsmenü neu belegen.</p>
+  <p class="note" lang="en">This is how the modern controls work (the default). With the classic controls the mouse buttons work as in the original. Keys and gamepad can be reassigned in the options menu.</p>
+
+  <div class="controls" lang="de">
+    <div>
+      <h3>Normal</h3>
+      <dl>
+        <dt>Linksklick auf den Boden</dt><dd>Dorthin laufen; Kanten auf dem Weg erklettert der Avatar von selbst</dd>
+        <dt>Linke Taste halten</dt><dd>Der Avatar folgt dem Zeiger</dd>
+        <dt>Linksklick auf Tür, Hebel, Person</dt><dd>Hingehen und benutzen bzw. ansprechen</dd>
+        <dt>Rechtsklick auf einen Gegenstand</dt><dd>Direkt in den Rucksack</dd>
+        <dt>Rechtsklick auf freien Boden</dt><dd>Dorthin springen</dd>
+        <dt>Zeigen</dt><dd>Hebt Dinge hervor und nennt ihren Namen (Option „Namen beim Zeigen“)</dd>
+        <dt>Ziehen</dt><dd>Gegenstand verschieben; mit <kbd>Shift</kbd> einen Teil eines Stapels; auf den Avatar: in den Rucksack</dd>
+        <dt><kbd>Pfeile</kbd> / <kbd>WASD</kbd></dt><dd>Gehen, mit <kbd>Shift</kbd> rennen (wahlweise entlang der schrägen Wege)</dd>
+        <dt><kbd>Leertaste</kbd> / <kbd>J</kbd></dt><dd>Zum Zeiger springen, an einer Kante hochklettern</dd>
+        <dt><kbd>E</kbd></dt><dd>Das Nächstliegende benutzen</dd>
+        <dt><kbd>I</kbd> / <kbd>C</kbd> / <kbd>K</kbd></dt><dd>Rucksack / Behälter schließen / Schlüsselring</dd>
+        <dt><kbd>1</kbd>–<kbd>5</kbd></dt><dd>Trank: gelb, rot, orange, lila, schwarz</dd>
+        <dt>Gespräch</dt><dd>Antwort anklicken oder ihre Zahl drücken; Klick oder <kbd>Leertaste</kbd> beendet eine Rede</dd>
+      </dl>
+    </div>
+    <div>
+      <h3>Kampf</h3>
+      <dl>
+        <dt><kbd>Tab</kbd></dt><dd>Waffe ziehen / wegstecken</dd>
+        <dt>Linksklick auf einen Gegner</dt><dd>Hingehen und zuschlagen (zieht auch die Waffe); gehalten: weiter schlagen</dd>
+        <dt><kbd>Strg</kbd> + Linksklick</dt><dd>Auf der Stelle zum Zeiger hin schlagen</dd>
+        <dt><kbd>F</kbd></dt><dd>Den nächsten Gegner schlagen; gehalten: weiter schlagen</dd>
+        <dt>Doppelter Rechtsklick / <kbd>Q</kbd></dt><dd>Treten (mit der Maus zum Zeiger hin)</dd>
+        <dt><kbd>B</kbd> halten</dt><dd>Blocken</dd>
+        <dt>Rechtsklick</dt><dd>Waffe wegstecken</dd>
+      </dl>
+      <h3>Sonstiges</h3>
+      <dl>
+        <dt><kbd>V</kbd> / <kbd>F10</kbd></dt><dd>Optionsmenü</dd>
+        <dt><kbd>Esc</kbd></dt><dd>Hauptmenü</dd>
+        <dt><kbd>F5</kbd> / <kbd>F9</kbd></dt><dd>Schnell speichern / laden</dd>
+        <dt><kbd>F6</kbd> / <kbd>F7</kbd></dt><dd>Speicherbuch öffnen: speichern / laden</dd>
+        <dt><kbd>F4</kbd> halten</dt><dd>Sechsfache Geschwindigkeit, für Szenen und lange Wege</dd>
+        <dt><kbd>O</kbd> / <kbd>M</kbd> / <kbd>T</kbd></dt><dd>Karte mit Wegweiser / Minikarte / Tagebuch</dd>
+        <dt><kbd>H</kbd> halten</dt><dd>Alles hervorheben, was man benutzen oder nehmen kann</dd>
+        <dt><kbd>+</kbd> / <kbd>-</kbd></dt><dd>Zoom</dd>
+        <dt><kbd>,</kbd> / <kbd>.</kbd></dt><dd>Ansicht drehen</dd>
+        <dt><kbd>R</kbd> / <kbd>L</kbd> / <kbd>G</kbd></dt><dd>Dächer / Beleuchtung / Grafikfilter</dd>
+        <dt><kbd>F12</kbd></dt><dd>Bildschirmfoto</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="controls" lang="en">
+    <div>
+      <h3>Normal</h3>
+      <dl>
+        <dt>Left click on the ground</dt><dd>Walk there; the Avatar climbs the ledges on the way by himself</dd>
+        <dt>Hold the left button</dt><dd>The Avatar follows the pointer</dd>
+        <dt>Left click on a door, lever, person</dt><dd>Walk up and use it or talk to them</dd>
+        <dt>Right click on an item</dt><dd>Straight into the backpack</dd>
+        <dt>Right click on open ground</dt><dd>Jump there</dd>
+        <dt>Point</dt><dd>Highlights things and shows their name (option "Names on hover")</dd>
+        <dt>Drag</dt><dd>Move an item; with <kbd>Shift</kbd> part of a stack; onto the Avatar: into the backpack</dd>
+        <dt><kbd>Arrows</kbd> / <kbd>WASD</kbd></dt><dd>Walk, run with <kbd>Shift</kbd> (optionally along the slanted roads)</dd>
+        <dt><kbd>Space</kbd> / <kbd>J</kbd></dt><dd>Jump towards the pointer, climb up at a ledge</dd>
+        <dt><kbd>E</kbd></dt><dd>Use the nearest thing</dd>
+        <dt><kbd>I</kbd> / <kbd>C</kbd> / <kbd>K</kbd></dt><dd>Backpack / close containers / key ring</dd>
+        <dt><kbd>1</kbd>–<kbd>5</kbd></dt><dd>Potion: yellow, red, orange, purple, black</dd>
+        <dt>Conversation</dt><dd>Click an answer or press its number; a click or <kbd>Space</kbd> ends a speech</dd>
+      </dl>
+    </div>
+    <div>
+      <h3>Fight</h3>
+      <dl>
+        <dt><kbd>Tab</kbd></dt><dd>Draw / put away the weapon</dd>
+        <dt>Left click on an enemy</dt><dd>Walk up and strike (draws the weapon too); held: keep striking</dd>
+        <dt><kbd>Ctrl</kbd> + left click</dt><dd>Strike on the spot towards the pointer</dd>
+        <dt><kbd>F</kbd></dt><dd>Strike the nearest enemy; held: keep striking</dd>
+        <dt>Double right click / <kbd>Q</kbd></dt><dd>Kick (with the mouse: towards the pointer)</dd>
+        <dt>Hold <kbd>B</kbd></dt><dd>Block</dd>
+        <dt>Right click</dt><dd>Put the weapon away</dd>
+      </dl>
+      <h3>Other</h3>
+      <dl>
+        <dt><kbd>V</kbd> / <kbd>F10</kbd></dt><dd>Options menu</dd>
+        <dt><kbd>Esc</kbd></dt><dd>Main menu</dd>
+        <dt><kbd>F5</kbd> / <kbd>F9</kbd></dt><dd>Quick save / quick load</dd>
+        <dt><kbd>F6</kbd> / <kbd>F7</kbd></dt><dd>Open the save book: save / load</dd>
+        <dt>Hold <kbd>F4</kbd></dt><dd>Six times the speed, for scenes and long walks</dd>
+        <dt><kbd>O</kbd> / <kbd>M</kbd> / <kbd>T</kbd></dt><dd>Map with guide / minimap / journal</dd>
+        <dt>Hold <kbd>H</kbd></dt><dd>Highlight everything you can use or take</dd>
+        <dt><kbd>+</kbd> / <kbd>-</kbd></dt><dd>Zoom</dd>
+        <dt><kbd>,</kbd> / <kbd>.</kbd></dt><dd>Turn the view</dd>
+        <dt><kbd>R</kbd> / <kbd>L</kbd> / <kbd>G</kbd></dt><dd>Roofs / lighting / graphics filter</dd>
+        <dt><kbd>F12</kbd></dt><dd>Screenshot</dd>
+      </dl>
     </div>
   </div>
 </section>
