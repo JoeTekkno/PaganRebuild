@@ -31,7 +31,7 @@ body {
   color: var(--text);
   font: 17px/1.6 "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
 }
-a { color: var(--link); }
+a { color: var(--link); overflow-wrap: anywhere; }
 a:hover { color: #fff; }
 .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
 
@@ -83,10 +83,33 @@ p { margin: 0 0 10px; }
 ol, ul { margin: 0 0 10px; padding-left: 1.4em; }
 li { margin: 3px 0; }
 li::marker { color: var(--ember); }
-code, kbd {
+code {
   font: 14px/1.4 Consolas, "Courier New", monospace; background: #0d0c0b; border: 1px solid var(--edge);
   border-radius: 3px; padding: 1px 5px; color: #f1d9b5; white-space: nowrap;
 }
+kbd {
+  display: inline-block; min-width: 1.7em; padding: 1px 6px; margin: 1px 1px; text-align: center;
+  font: 600 13px/1.5 Consolas, "Courier New", monospace; color: #f1e2c8; white-space: nowrap;
+  background: linear-gradient(#34302b, #1c1a17); border: 1px solid #4d453c; border-bottom-width: 3px;
+  border-bottom-color: #0d0c0b; border-radius: 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+kbd + kbd { margin-left: 3px; }
+.mouse { width: 18px; height: 26px; color: var(--muted); vertical-align: middle; flex: none; }
+.or { color: var(--muted); margin: 0 4px; }
+.ctx { color: var(--muted); font-style: italic; font-size: .92em; margin-left: 6px; }
+
+.controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 28px; }
+.controls h3.other { margin-top: 26px; }
+.controls h4 { margin: 14px 0 6px; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ember); }
+.controls dl { margin: 0 0 6px; }
+.controls .row { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 4px 12px; align-items: center; padding: 6px 8px; border-radius: 3px; }
+.controls .row:nth-child(odd) { background: rgba(255,255,255,.035); }
+.controls dt { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; }
+.controls dd { margin: 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.tile { padding: 8px 10px; border-radius: 4px; background: rgba(0,0,0,.22); border: 1px solid rgba(77,69,60,.7); }
+.tile .keys { display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+.tile .what { font-size: .93rem; color: var(--text); }
 .note { color: var(--muted); font-size: .95rem; }
 
 .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0; }
@@ -102,11 +125,6 @@ figcaption { color: var(--muted); font-size: .9rem; font-style: italic; margin-t
 .features h3 { margin-top: 10px; }
 .features ul { padding-left: 1.2em; }
 
-.controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 28px; }
-.controls dl { display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); gap: 6px 14px; margin: 0 0 8px; }
-.controls dt { color: var(--ember-hi); font-weight: 600; }
-.controls dd { margin: 0; }
-.controls dt, .controls dd { padding-bottom: 6px; border-bottom: 1px solid rgba(61,55,49,.6); }
 
 .credits p { margin-bottom: 12px; }
 footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10px 0 40px; }
@@ -114,6 +132,8 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
 @media (max-width: 680px) {
   body { font-size: 16px; }
   .shots, .features, .controls { grid-template-columns: 1fr; }
+  .controls .row { grid-template-columns: 1fr; gap: 2px; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   section.slab { padding: 18px 16px; }
 }
 </style>
@@ -321,97 +341,140 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
   <p class="note" lang="de">So arbeitet die moderne Steuerung (voreingestellt). Mit der klassischen Steuerung verhalten sich die Maustasten wie im Original. Tasten und Gamepad lassen sich im Optionsmenü neu belegen.</p>
   <p class="note" lang="en">This is how the modern controls work (the default). With the classic controls the mouse buttons work as in the original. Keys and gamepad can be reassigned in the options menu.</p>
 
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="m-body"><rect x="1.5" y="1.5" width="15" height="23" rx="7.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 1.5v9M1.5 10.5h15" stroke="currentColor" stroke-width="1.4"/></g>
+      <symbol id="m-left" viewBox="0 0 18 26"><path d="M9 1.5A7.5 7.5 0 0 0 1.5 9v1.5H9z" fill="#ffb15c"/><use href="#m-body"/></symbol>
+      <symbol id="m-right" viewBox="0 0 18 26"><path d="M9 1.5A7.5 7.5 0 0 1 16.5 9v1.5H9z" fill="#ffb15c"/><use href="#m-body"/></symbol>
+      <symbol id="m-none" viewBox="0 0 18 26"><use href="#m-body"/></symbol>
+    </defs>
+  </svg>
+
   <div class="controls" lang="de">
     <div>
       <h3>Unterwegs</h3>
+      <h4>Maus</h4>
       <dl>
-        <dt>Linksklick auf den Boden</dt><dd>Dorthin laufen; Kanten auf dem Weg erklettert der Avatar von selbst</dd>
-        <dt>Linke Taste halten</dt><dd>Der Avatar folgt dem Zeiger</dd>
-        <dt>Linksklick auf Tür, Hebel, Person</dt><dd>Hingehen und benutzen bzw. ansprechen</dd>
-        <dt>Rechtsklick auf einen Gegenstand</dt><dd>Direkt in den Rucksack</dd>
-        <dt>Rechtsklick auf freien Boden</dt><dd>Dorthin springen</dd>
-        <dt>Zeigen</dt><dd>Hebt Dinge hervor und nennt ihren Namen (Option „Namen beim Zeigen“)</dd>
-        <dt>Ziehen</dt><dd>Gegenstand verschieben; mit <kbd>Shift</kbd> einen Teil eines Stapels; auf den Avatar: in den Rucksack</dd>
-        <dt><kbd>Pfeile</kbd> / <kbd>WASD</kbd></dt><dd>Gehen, mit <kbd>Shift</kbd> rennen (wahlweise entlang der schrägen Wege)</dd>
-        <dt><kbd>Leertaste</kbd> / <kbd>J</kbd></dt><dd>Zum Zeiger springen, an einer Kante hochklettern</dd>
-        <dt><kbd>E</kbd></dt><dd>Das Nächstliegende benutzen</dd>
-        <dt><kbd>I</kbd> / <kbd>C</kbd> / <kbd>K</kbd></dt><dd>Rucksack / Behälter schließen / Schlüsselring</dd>
-        <dt><kbd>1</kbd>–<kbd>5</kbd></dt><dd>Trank: gelb, rot, orange, lila, schwarz</dd>
-        <dt>Gespräch</dt><dd>Antwort anklicken oder ihre Zahl drücken; Klick oder <kbd>Leertaste</kbd> beendet eine Rede</dd>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg><span class="ctx">Boden</span></dt><dd>Dorthin laufen; Kanten auf dem Weg erklettert der Avatar von selbst</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg><span class="ctx">halten</span></dt><dd>Der Avatar folgt dem Zeiger</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg><span class="ctx">Tür, Hebel, Person</span></dt><dd>Hingehen und benutzen bzw. ansprechen</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Rechtsklick"><use href="#m-right"/></svg><span class="ctx">Gegenstand</span></dt><dd>Direkt in den Rucksack</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Rechtsklick"><use href="#m-right"/></svg><span class="ctx">freier Boden</span></dt><dd>Dorthin springen</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Maus"><use href="#m-none"/></svg><span class="ctx">zeigen</span></dt><dd>Hebt Dinge hervor und nennt ihren Namen (Option „Namen beim Zeigen“)</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg><span class="ctx">ziehen</span></dt><dd>Gegenstand verschieben; mit <kbd>Shift</kbd> einen Teil eines Stapels; auf den Avatar: in den Rucksack</dd></div>
+      </dl>
+      <h4>Tastatur</h4>
+      <dl>
+        <div class="row"><dt><kbd>Pfeile</kbd><span class="or">/</span><kbd>WASD</kbd></dt><dd>Gehen, mit <kbd>Shift</kbd> rennen (wahlweise entlang der schrägen Wege)</dd></div>
+        <div class="row"><dt><kbd>Leertaste</kbd><span class="or">/</span><kbd>J</kbd></dt><dd>Zum Zeiger springen, an einer Kante hochklettern</dd></div>
+        <div class="row"><dt><kbd>E</kbd></dt><dd>Das Nächstliegende benutzen</dd></div>
+        <div class="row"><dt><kbd>I</kbd><span class="or">/</span><kbd>C</kbd><span class="or">/</span><kbd>K</kbd></dt><dd>Rucksack / Behälter schließen / Schlüsselring</dd></div>
+        <div class="row"><dt><kbd>1</kbd><span class="or">–</span><kbd>5</kbd></dt><dd>Trank: gelb, rot, orange, lila, schwarz</dd></div>
+      </dl>
+      <h4>Gespräche</h4>
+      <dl>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg><span class="or">/</span><kbd>Zahl</kbd></dt><dd>Antwort wählen</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg><span class="or">/</span><kbd>Leertaste</kbd></dt><dd>Eine Rede beenden</dd></div>
       </dl>
     </div>
     <div>
       <h3>Kampf</h3>
+      <h4>Maus</h4>
       <dl>
-        <dt><kbd>Tab</kbd></dt><dd>Waffe ziehen / wegstecken</dd>
-        <dt>Linksklick auf einen Gegner</dt><dd>Hingehen und zuschlagen (zieht auch die Waffe); gehalten: weiter schlagen</dd>
-        <dt><kbd>Strg</kbd> + Linksklick</dt><dd>Auf der Stelle zum Zeiger hin schlagen</dd>
-        <dt><kbd>F</kbd></dt><dd>Den nächsten Gegner schlagen; gehalten: weiter schlagen</dd>
-        <dt>Doppelter Rechtsklick / <kbd>Q</kbd></dt><dd>Treten (mit der Maus zum Zeiger hin)</dd>
-        <dt><kbd>B</kbd> halten</dt><dd>Blocken</dd>
-        <dt>Rechtsklick</dt><dd>Waffe wegstecken</dd>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg><span class="ctx">Gegner</span></dt><dd>Hingehen und zuschlagen (zieht auch die Waffe); gehalten: weiter schlagen</dd></div>
+        <div class="row"><dt><kbd>Strg</kbd><span class="or">+</span><svg class="mouse" role="img" aria-label="Linksklick"><use href="#m-left"/></svg></dt><dd>Auf der Stelle zum Zeiger hin schlagen</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Rechtsklick"><use href="#m-right"/></svg><span class="ctx">doppelt</span></dt><dd>Zum Zeiger hin treten</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Rechtsklick"><use href="#m-right"/></svg></dt><dd>Waffe wegstecken</dd></div>
       </dl>
-      <h3>Sonstiges</h3>
+      <h4>Tastatur</h4>
       <dl>
-        <dt><kbd>V</kbd> / <kbd>F10</kbd></dt><dd>Optionsmenü</dd>
-        <dt><kbd>Esc</kbd></dt><dd>Hauptmenü</dd>
-        <dt><kbd>F5</kbd> / <kbd>F9</kbd></dt><dd>Schnell speichern / laden</dd>
-        <dt><kbd>F6</kbd> / <kbd>F7</kbd></dt><dd>Speicherbuch öffnen: speichern / laden</dd>
-        <dt><kbd>F4</kbd> halten</dt><dd>Sechsfache Geschwindigkeit, für Szenen und lange Wege</dd>
-        <dt><kbd>O</kbd> / <kbd>M</kbd> / <kbd>T</kbd></dt><dd>Karte mit Wegweiser / Minikarte / Tagebuch</dd>
-        <dt><kbd>H</kbd> halten</dt><dd>Alles hervorheben, was man benutzen oder nehmen kann</dd>
-        <dt><kbd>+</kbd> / <kbd>-</kbd></dt><dd>Zoom</dd>
-        <dt><kbd>,</kbd> / <kbd>.</kbd></dt><dd>Ansicht drehen</dd>
-        <dt><kbd>R</kbd> / <kbd>L</kbd> / <kbd>G</kbd></dt><dd>Dächer / Beleuchtung / Grafikfilter</dd>
-        <dt><kbd>F12</kbd></dt><dd>Bildschirmfoto</dd>
+        <div class="row"><dt><kbd>Tab</kbd></dt><dd>Waffe ziehen / wegstecken</dd></div>
+        <div class="row"><dt><kbd>F</kbd></dt><dd>Den nächsten Gegner schlagen; gehalten: weiter schlagen</dd></div>
+        <div class="row"><dt><kbd>Q</kbd></dt><dd>Treten</dd></div>
+        <div class="row"><dt><kbd>B</kbd><span class="ctx">halten</span></dt><dd>Blocken</dd></div>
       </dl>
+      <h3 class="other">Sonstiges</h3>
+      <div class="tiles">
+        <div class="tile"><div class="keys"><kbd>V</kbd><span class="or">/</span><kbd>F10</kbd></div><div class="what">Optionsmenü</div></div>
+        <div class="tile"><div class="keys"><kbd>Esc</kbd></div><div class="what">Hauptmenü</div></div>
+        <div class="tile"><div class="keys"><kbd>F5</kbd><span class="or">/</span><kbd>F9</kbd></div><div class="what">Schnell speichern / laden</div></div>
+        <div class="tile"><div class="keys"><kbd>F6</kbd><span class="or">/</span><kbd>F7</kbd></div><div class="what">Speicherbuch: speichern / laden</div></div>
+        <div class="tile"><div class="keys"><kbd>F4</kbd><span class="ctx">halten</span></div><div class="what">Sechsfache Geschwindigkeit</div></div>
+        <div class="tile"><div class="keys"><kbd>O</kbd></div><div class="what">Karte mit Wegweiser</div></div>
+        <div class="tile"><div class="keys"><kbd>M</kbd></div><div class="what">Minikarte</div></div>
+        <div class="tile"><div class="keys"><kbd>T</kbd></div><div class="what">Tagebuch</div></div>
+        <div class="tile"><div class="keys"><kbd>H</kbd><span class="ctx">halten</span></div><div class="what">Benutzbares hervorheben</div></div>
+        <div class="tile"><div class="keys"><kbd>+</kbd><span class="or">/</span><kbd>-</kbd></div><div class="what">Zoom</div></div>
+        <div class="tile"><div class="keys"><kbd>,</kbd><span class="or">/</span><kbd>.</kbd></div><div class="what">Ansicht drehen</div></div>
+        <div class="tile"><div class="keys"><kbd>R</kbd></div><div class="what">Dächer</div></div>
+        <div class="tile"><div class="keys"><kbd>L</kbd></div><div class="what">Beleuchtung</div></div>
+        <div class="tile"><div class="keys"><kbd>G</kbd></div><div class="what">Grafikfilter</div></div>
+        <div class="tile"><div class="keys"><kbd>F12</kbd></div><div class="what">Bildschirmfoto</div></div>
+      </div>
     </div>
   </div>
 
   <div class="controls" lang="en">
     <div>
       <h3>Exploring</h3>
+      <h4>Mouse</h4>
       <dl>
-        <dt>Left click on the ground</dt><dd>Walk there; the Avatar climbs the ledges on the way by himself</dd>
-        <dt>Hold the left button</dt><dd>The Avatar follows the pointer</dd>
-        <dt>Left click on a door, lever, person</dt><dd>Walk up and use it or talk to them</dd>
-        <dt>Right click on an item</dt><dd>Straight into the backpack</dd>
-        <dt>Right click on open ground</dt><dd>Jump there</dd>
-        <dt>Point</dt><dd>Highlights things and shows their name (option "Names on hover")</dd>
-        <dt>Drag</dt><dd>Move an item; with <kbd>Shift</kbd> part of a stack; onto the Avatar: into the backpack</dd>
-        <dt><kbd>Arrows</kbd> / <kbd>WASD</kbd></dt><dd>Walk, run with <kbd>Shift</kbd> (optionally along the slanted roads)</dd>
-        <dt><kbd>Space</kbd> / <kbd>J</kbd></dt><dd>Jump towards the pointer, climb up at a ledge</dd>
-        <dt><kbd>E</kbd></dt><dd>Use the nearest thing</dd>
-        <dt><kbd>I</kbd> / <kbd>C</kbd> / <kbd>K</kbd></dt><dd>Backpack / close containers / key ring</dd>
-        <dt><kbd>1</kbd>–<kbd>5</kbd></dt><dd>Potion: yellow, red, orange, purple, black</dd>
-        <dt>Conversation</dt><dd>Click an answer or press its number; a click or <kbd>Space</kbd> ends a speech</dd>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg><span class="ctx">ground</span></dt><dd>Walk there; the Avatar climbs the ledges on the way by himself</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg><span class="ctx">hold</span></dt><dd>The Avatar follows the pointer</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg><span class="ctx">door, lever, person</span></dt><dd>Walk up and use it or talk to them</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Right click"><use href="#m-right"/></svg><span class="ctx">item</span></dt><dd>Straight into the backpack</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Right click"><use href="#m-right"/></svg><span class="ctx">open ground</span></dt><dd>Jump there</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Mouse"><use href="#m-none"/></svg><span class="ctx">point</span></dt><dd>Highlights things and shows their name (option "Names on hover")</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg><span class="ctx">drag</span></dt><dd>Move an item; with <kbd>Shift</kbd> part of a stack; onto the Avatar: into the backpack</dd></div>
+      </dl>
+      <h4>Keyboard</h4>
+      <dl>
+        <div class="row"><dt><kbd>Arrows</kbd><span class="or">/</span><kbd>WASD</kbd></dt><dd>Walk, run with <kbd>Shift</kbd> (optionally along the slanted roads)</dd></div>
+        <div class="row"><dt><kbd>Space</kbd><span class="or">/</span><kbd>J</kbd></dt><dd>Jump towards the pointer, climb up at a ledge</dd></div>
+        <div class="row"><dt><kbd>E</kbd></dt><dd>Use the nearest thing</dd></div>
+        <div class="row"><dt><kbd>I</kbd><span class="or">/</span><kbd>C</kbd><span class="or">/</span><kbd>K</kbd></dt><dd>Backpack / close containers / key ring</dd></div>
+        <div class="row"><dt><kbd>1</kbd><span class="or">–</span><kbd>5</kbd></dt><dd>Potion: yellow, red, orange, purple, black</dd></div>
+      </dl>
+      <h4>Conversations</h4>
+      <dl>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg><span class="or">/</span><kbd>Number</kbd></dt><dd>Pick an answer</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg><span class="or">/</span><kbd>Space</kbd></dt><dd>End a speech</dd></div>
       </dl>
     </div>
     <div>
       <h3>Fight</h3>
+      <h4>Mouse</h4>
       <dl>
-        <dt><kbd>Tab</kbd></dt><dd>Draw / put away the weapon</dd>
-        <dt>Left click on an enemy</dt><dd>Walk up and strike (draws the weapon too); held: keep striking</dd>
-        <dt><kbd>Ctrl</kbd> + left click</dt><dd>Strike on the spot towards the pointer</dd>
-        <dt><kbd>F</kbd></dt><dd>Strike the nearest enemy; held: keep striking</dd>
-        <dt>Double right click / <kbd>Q</kbd></dt><dd>Kick (with the mouse: towards the pointer)</dd>
-        <dt>Hold <kbd>B</kbd></dt><dd>Block</dd>
-        <dt>Right click</dt><dd>Put the weapon away</dd>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg><span class="ctx">enemy</span></dt><dd>Walk up and strike (draws the weapon too); held: keep striking</dd></div>
+        <div class="row"><dt><kbd>Ctrl</kbd><span class="or">+</span><svg class="mouse" role="img" aria-label="Left click"><use href="#m-left"/></svg></dt><dd>Strike on the spot towards the pointer</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Right click"><use href="#m-right"/></svg><span class="ctx">double</span></dt><dd>Kick towards the pointer</dd></div>
+        <div class="row"><dt><svg class="mouse" role="img" aria-label="Right click"><use href="#m-right"/></svg></dt><dd>Put the weapon away</dd></div>
       </dl>
-      <h3>Other</h3>
+      <h4>Keyboard</h4>
       <dl>
-        <dt><kbd>V</kbd> / <kbd>F10</kbd></dt><dd>Options menu</dd>
-        <dt><kbd>Esc</kbd></dt><dd>Main menu</dd>
-        <dt><kbd>F5</kbd> / <kbd>F9</kbd></dt><dd>Quick save / quick load</dd>
-        <dt><kbd>F6</kbd> / <kbd>F7</kbd></dt><dd>Open the save book: save / load</dd>
-        <dt>Hold <kbd>F4</kbd></dt><dd>Six times the speed, for scenes and long walks</dd>
-        <dt><kbd>O</kbd> / <kbd>M</kbd> / <kbd>T</kbd></dt><dd>Map with guide / minimap / journal</dd>
-        <dt>Hold <kbd>H</kbd></dt><dd>Highlight everything you can use or take</dd>
-        <dt><kbd>+</kbd> / <kbd>-</kbd></dt><dd>Zoom</dd>
-        <dt><kbd>,</kbd> / <kbd>.</kbd></dt><dd>Turn the view</dd>
-        <dt><kbd>R</kbd> / <kbd>L</kbd> / <kbd>G</kbd></dt><dd>Roofs / lighting / graphics filter</dd>
-        <dt><kbd>F12</kbd></dt><dd>Screenshot</dd>
+        <div class="row"><dt><kbd>Tab</kbd></dt><dd>Draw / put away the weapon</dd></div>
+        <div class="row"><dt><kbd>F</kbd></dt><dd>Strike the nearest enemy; held: keep striking</dd></div>
+        <div class="row"><dt><kbd>Q</kbd></dt><dd>Kick</dd></div>
+        <div class="row"><dt><kbd>B</kbd><span class="ctx">hold</span></dt><dd>Block</dd></div>
       </dl>
+      <h3 class="other">Other</h3>
+      <div class="tiles">
+        <div class="tile"><div class="keys"><kbd>V</kbd><span class="or">/</span><kbd>F10</kbd></div><div class="what">Options menu</div></div>
+        <div class="tile"><div class="keys"><kbd>Esc</kbd></div><div class="what">Main menu</div></div>
+        <div class="tile"><div class="keys"><kbd>F5</kbd><span class="or">/</span><kbd>F9</kbd></div><div class="what">Quick save / load</div></div>
+        <div class="tile"><div class="keys"><kbd>F6</kbd><span class="or">/</span><kbd>F7</kbd></div><div class="what">Save book: save / load</div></div>
+        <div class="tile"><div class="keys"><kbd>F4</kbd><span class="ctx">hold</span></div><div class="what">Six times the speed</div></div>
+        <div class="tile"><div class="keys"><kbd>O</kbd></div><div class="what">Map with guide</div></div>
+        <div class="tile"><div class="keys"><kbd>M</kbd></div><div class="what">Minimap</div></div>
+        <div class="tile"><div class="keys"><kbd>T</kbd></div><div class="what">Journal</div></div>
+        <div class="tile"><div class="keys"><kbd>H</kbd><span class="ctx">hold</span></div><div class="what">Highlight usable things</div></div>
+        <div class="tile"><div class="keys"><kbd>+</kbd><span class="or">/</span><kbd>-</kbd></div><div class="what">Zoom</div></div>
+        <div class="tile"><div class="keys"><kbd>,</kbd><span class="or">/</span><kbd>.</kbd></div><div class="what">Turn the view</div></div>
+        <div class="tile"><div class="keys"><kbd>R</kbd></div><div class="what">Roofs</div></div>
+        <div class="tile"><div class="keys"><kbd>L</kbd></div><div class="what">Lighting</div></div>
+        <div class="tile"><div class="keys"><kbd>G</kbd></div><div class="what">Graphics filter</div></div>
+        <div class="tile"><div class="keys"><kbd>F12</kbd></div><div class="what">Screenshot</div></div>
+      </div>
     </div>
   </div>
 </section>
