@@ -83,7 +83,7 @@ fn playthrough() {
         commands += &ch.commands;
         commands += &format!(";saveslot:{slot}");
         let t = std::time::Instant::now();
-        let out = Command::new(env!("CARGO_BIN_EXE_pagan"))
+        let out = Command::new(env!("CARGO_BIN_EXE_PaganRebuild"))
             .current_dir(&game)
             .env("PAGAN_SAVE_DIR", &saves)
             .env("APPDATA", &saves)

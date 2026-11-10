@@ -99,7 +99,7 @@ fn regression_cases() {
         let _ = std::fs::remove_dir_all(&saves);
         std::fs::create_dir_all(&saves).unwrap();
         let shot = work.join(format!("{}.png", case.name));
-        let out = Command::new(env!("CARGO_BIN_EXE_pagan"))
+        let out = Command::new(env!("CARGO_BIN_EXE_PaganRebuild"))
             .current_dir(&game)
             .env("PAGAN_SAVE_DIR", &saves)
             // the settings too: never the player's own

@@ -1,5 +1,5 @@
 [package]
-name = "pagan"
+name = "PaganRebuild"
 version = "0.1.10"
 edition = "2021"
 description = "Engine reimplementation for Ultima VIII: Pagan (reads the original game data)"

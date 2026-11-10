@@ -92,9 +92,9 @@ use std::time::{Duration, Instant};
 use view::{Surface, ViewOptions};
 
 const USAGE: &str = "\
-pagan - Ultima VIII engine (work in progress)
+PaganRebuild - Ultima VIII engine (work in progress)
 
-usage: pagan [options]
+usage: PaganRebuild [options]
   --game <dir>        game folder (contains ENGLISH/, GERMAN/ ...); default: search upwards
   --lang <name>       language folder to use (default: ENGLISH)
   --map <n>           put the Avatar on this map
