@@ -1,0 +1,12 @@
+# Chapter 1: Devon on the shore, the execution on the pier, the guards'
+# questions, a dagger from a barrel, Bentic in the library (he names Mythran)
+do: t10;talk:Devon;sayall
+do: reach:Execution pier;say:What just;say:Avatar;say:far away;say:return home;until:free/6000
+# a barrel at the foot of the docks: a box with a dagger and a key ring
+do: reach:12230,5650;operate:20268;operate:20270;pickup:20271;puton:20271;pickup:20272
+expect: puton:20271: worn
+do: reach:Bentic;sayall
+do: reach:Bentic;talk:Bentic;sayall
+expect: On the dock a man named Toran was executed
+expect: The scholar Bentic mentioned a mage named Mythran
+do: journal:text

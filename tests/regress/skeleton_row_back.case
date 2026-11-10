@@ -1,0 +1,7 @@
+# Lower Catacombs: walking back out through the row of skeletons sets them
+# swinging their axes again (each trigger on the way is ready again once
+# the Avatar has left its range)
+args: --map 31 --pos 3500,3500,0
+do: t5;walkto:1:2500,2500;t500;walkto:1:3350,3350;t90;where:35,36
+expect: where 35: 3487,3103,0 shape 119 frame 298 dir 5
+expect: where 36: 3103,3487,0 shape 119 frame 298 dir 1

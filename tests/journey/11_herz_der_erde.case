@@ -1,0 +1,27 @@
+# Chapter 11: the Heart of Earth. The Skull of Quakes on the red hole in
+# the Upper Catacombs (a recall pad below), Mariota's tomb in the Pit of
+# the Dead (the switch lowers its gates; the key in a box on her body),
+# the Conventicle of the Dead, Open Ground on its grave.
+do: bypass:10340,2879,48,50 out of the Zealan shrine back to the door of the Birthplace of Moriens (the shrine's puzzles backwards, and by the recall item a guard on the wall of Central Tenebrae blocks the guide)
+do: rest:28;reach:15600,6143,50;useon:814/0,13301;until:free/3000;t100
+expect: flag postEarthQuake: 1
+do: flag:postEarthQuake
+# down the steps in the new hole and through its door: the recall pad
+do: operate:69/3*;t30;reach:16191,6440,50;walk:16150,6220,0;keys:0,12;t60;flag:sawUpperCatacombsTeleporter
+expect: flag sawUpperCatacombsTeleporter: 1
+do: keys:4,8;t30;keys:4,8;t30
+do: bypass:9300,12024,0,57 through the Upper Catacombs and the Lava Hall into the Pit of the Dead (skeletons and lava streams on the way)
+# Mariota's tomb: the switch on the wall, the box on her bier
+do: rest:28;reach:14335,16420,57;operate:6310;t100
+do: operate:24555;t20;operate:24561;t20;pickup:82/0^24561
+# the Conventicle of the Dead
+do: reach:25420,30300,57;useon:82:59,24900;operate:24900;t60
+expect: useon:82:59,24900: (frame, quality) Some((1, 1083)) -> Some((1, 59))
+# inside: Open Ground from blood and blackmoor; the skeletons by the door,
+# the ghoul that rises from the earth; the spell opens the grave
+do: packin:395/2,637:0,1;packin:395/15,637:0,1;useon:232:0,637:0
+do: walk:25420,30150;fightoff;rest:28;walk:25200,29300;t200;fightoff
+do: operate:746/4;t300;fightoff;pickup:24859
+do: inside:1;hp
+expect: pickup:24859: in the backpack
+reject: actor 1: hp 0

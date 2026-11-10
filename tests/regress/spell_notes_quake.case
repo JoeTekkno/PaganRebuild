@@ -1,0 +1,4 @@
+# Spell book: Lothian's last words teach Call Quake, a spell without words of power
+args: --map 6
+do: goto:7880,25300,80;t5;use:20164;t30;spells:text
+expect: Call Quake*Reagents: Bone, Wood, Dirt, Blackmoor

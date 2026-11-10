@@ -1,0 +1,7 @@
+# On the lava field Pyros calls up two daemons. A while later he sends
+# each of them at the Avatar (before, the order went to nobody and the
+# daemons stood idle)
+args: --map 44 --pos 26878,21354,8
+do: sendto:1,44,23890,15070,32;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;vitals:300;t100;fightstate:62;fightstate:63
+expect: fightstate:62: alignment 0x4 enemies 0xA target 1 in_combat true
+expect: fightstate:63: alignment 0x4 enemies 0xA target 1 in_combat true

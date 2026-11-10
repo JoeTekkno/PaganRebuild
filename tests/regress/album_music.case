@@ -1,0 +1,4 @@
+# The album's pieces are found and used (only where the album files are)
+needs: U8 Pagan - neue Musik
+do: t5
+expect: album 03 - The Docks.wav

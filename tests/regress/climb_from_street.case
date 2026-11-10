@@ -1,0 +1,4 @@
+# From the street a click on the wall top (map 40): the Avatar walks to the wall and climbs up, not into the passage below the wall walk
+args: --map 40 --pos 13259,13960,48
+do: t5;walkclick:350,125;t400;where:1
+expect: where 1: 13259,13852,112

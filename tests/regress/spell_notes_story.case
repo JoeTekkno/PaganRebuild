@@ -1,0 +1,5 @@
+# Spell book: a savegame from before it gets the spells its story shows (necromancers met)
+do: flag:metNec1=1;flag:metNec4=1;saveslot:3;t5;loadslot:3;spells:text
+expect: 4 of 9
+expect: Mask of Death
+expect: Grant Peace

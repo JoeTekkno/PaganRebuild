@@ -1,0 +1,4 @@
+# From the street a click on the side of a pillar (map 40) counts as one on its top: the Avatar climbs onto it
+args: --map 40 --pos 13259,13960,48
+do: t5;walkclick:320,125;t400;where:1
+expect: where 1: 13215,13852,136

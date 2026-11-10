@@ -1,0 +1,7 @@
+# Attacking Arcadion turns the sorcerers against the Avatar (the game sets
+# the flag that was taken for "he is the Master Sorcerer"): no journal
+# entry about defeating Malchir
+args: --map 14 --pos 15240,2340,8
+do: option:modern_controls,on;option:journal,on;t5;combat;fightclick:385,180;t400;flag:avatarMasterSorcerer;journal:text
+expect: flag avatarMasterSorcerer: 1
+reject: After the ritual

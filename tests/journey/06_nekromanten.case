@@ -1,0 +1,47 @@
+# Chapter 6: the ancient necromancers on map 62. Death Speak (blood and
+# bone in the bag, the Key of the Caretaker on it), the spell on the
+# necromancer's body: he wakes and speaks.
+# armour: the playthrough has fought little so far and wears none; on
+# map 62 a helmet and leggings lie on the ground, a chest holds armour, a
+# shield and blackmoor (for Open Ground at the Heart of Earth)
+do: bypass:3960,27960,0,62 to the helmet and leggings in the south of map 62 (the playthrough does not seek out armour yet)
+do: pickup:35864;puton:35864;pickup:35863;puton:35863
+do: bypass:26015,13120,0 to the chest with armour and a shield
+do: operate:35626;t30;pickup:35631;puton:35631;pickup:35630;puton:35630;pickup:35628
+do: bypass:24063,29400,64,62 through the Upper Catacombs to the house with the ghoul, where the floor gives way, and on to the first necromancer
+do: packin:395/2,637:0,1;packin:395/7,637:0,1;useon:232:0,637:0
+do: useon:746/0,35882;until:free/6000;t300
+# the second one (Rock Flesh: wood and dirt)
+do: bypass:28991,19900,96 to the second necromancer (over the ridge, past the daemons: needs Mask of Death, and no executioner's hood is left for it)
+do: packin:395/2,637:0,1;packin:395/7,637:0,1;useon:232:0,637:0
+do: useon:746/0,35723;until:free/6000;t300
+expect: useon:746/0,35723: (frame, quality) Some((0, 2)) -> Some((8, 2))
+# blood and bone from a backpack on the way, the third one (Summon Undead);
+# afterwards he is sent to the plateau with the undead
+do: bypass:17343,22250,0 to the backpack with reagents near the third necromancer
+do: operate:35771;pickup:35773;pickup:35774;pickup:35772
+do: bypass:20543,23250,24 to the third necromancer
+do: packin:395/4,637:0,1;packin:395/6,637:0,1;useon:232:0,637:0
+do: useon:746/0,35804;until:free/6000;t300
+expect: useon:746/0,35804: (frame, quality) Some((0, 3)) -> Some((8, 3))
+# the fourth (Grant Peace): blood and bone from a bag in the south
+do: bypass:2367,16650,0 to a bag with reagents (south part of map 62)
+do: operate:35644;pickup:35645;pickup:35646;pickup:35647;pickup:35648;pickup:35649;pickup:35650;pickup:35651;pickup:35652
+do: bypass:4127,2620,128 back to the fourth necromancer, past the undead on the plateau
+do: packin:395/2,637:0,1;packin:395/7,637:0,1;useon:232:0,637:0
+do: useon:746/0,35483;until:free/6000;t300
+expect: useon:746/0,35483: (frame, quality) Some((0, 4)) -> Some((8, 4))
+# the fifth (Withstand Death), bone from a bag on a ledge
+do: bypass:19903,6800,128 from the meadow to a bag with reagents on a ledge
+do: operate:35563;pickup:35564;pickup:35565;pickup:35566
+do: bypass:18600,12671,56 to the fifth necromancer (lava, fire automatons)
+do: packin:395/2,637:0,1;packin:395/6,637:0,1;useon:232:0,637:0
+do: useon:746/0,35591;until:free/6000;t300
+expect: useon:746/0,35591: (frame, quality) Some((0, 5)) -> Some((8, 5))
+# Galious, the sixth (Create Golem)
+do: bypass:1471,15250,24 to Galious, the sixth necromancer
+do: packin:395/2,637:0,1;packin:395/6,637:0,1;useon:232:0,637:0
+do: useon:746/0,35641;until:free/6000;t300
+expect: useon:746/0,35641: (frame, quality) Some((0, 6)) -> Some((8, 6))
+do: journal:text
+expect: I have spoken with the spirits of the ancient necromancers

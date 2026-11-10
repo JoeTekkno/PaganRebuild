@@ -1,0 +1,4 @@
+# Better inventory: coins of different heap pictures become one stack, on the first slot
+do: option:better_inventory,on;pack:766,1;pack:143,0,1;pack:143,5,25;pack:143,2,3;inv;t5;hover:1,1;find:143
+expect: shape  143 frame   5 at 65536,0,0
+expect: q 29

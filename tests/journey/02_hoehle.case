@@ -1,0 +1,36 @@
+# Chapter 2: through the cave to Mythran's plateau. Across the lake on the
+# stepping stones, up to the level with the ghouls and onto the small
+# plateau with the bones; the levers, the rope bridge and the gate; Mythran.
+do: reach:30255,20576,8;walk:30255,20576,8
+do: hop:30127,20879,8;hop:29935,21263,8;hop:29790,21263,8
+do: walk:29826,21543
+do: hop:30159,21487,8;hop:30543,21487,8;hop:30767,21711,8;hop:30767,22095,8
+do: hop:30543,22319,8;hop:30287,22063,8;hop:30063,22319,8;hop:29790,22319,8
+do: walk:29800,23300;walk:30420,23032,8;hop:30420,23200,56
+do: walk:30000,23700;walk:29700,24000;climb:30064,24330,112
+expect: climb:30064,24330,112: at
+# the levers (left to right as seen: twice, once, twice, not the middle
+# one, once, once, not the last), back over the rope bridge, the lever
+# there opens the gate
+do: bypass:25300,25550,112 the way from the small plateau to the room with the levers
+do: operate:29036;operate:29036;operate:29035;operate:29034;operate:29034;operate:29015;operate:29014
+do: walk:26100,25702;dash:27700,25718;walk:27900,25740
+do: operate:29047;fightoff;rest:28
+do: walk:28500,26900;walk:28500,27300;walk:28700,27800
+do: bypass:3071,1791,48 the way down from the gate to the teleporter, and on the plateau past the red mushrooms
+do: reach:Mythran;talk:Mythran;sayall
+expect: To leave Pagan I must probably gain the power of all four Titans
+# Mythran lets him take what he wants: the Zealan ceremonial shield at the
+# top of the stairs; downstairs the closet with the casks (wait until
+# Mythran is away from its door, it swings into the room), the backpack
+# with Korghin's fang and 137 obsidians; with them Mythran's scroll that
+# opens sealed doors (50 obsidians)
+do: reach:1110,1700;pickup:28574
+do: walk:1300,1600,0;walk:1920,1450;walk:2100,1420,0
+do: until:far=Mythran,200,2200,1350/3000;walk:2175,1390,0;operate:28549;t60;keys:2,12
+do: operate:28542;t10;pickup:28543;pickup:28544;pickup:28545
+do: reach:Mythran;talk:Mythran;say:Hello, Mythran. ;say:I wish to buy scrolls.;say:Aye. ;say:I will pay that. ;say:Goodbye. ;t50
+do: inside:29076
+expect: shape  827 frame   0
+expect: shape  828 frame   0
+do: journal:text

@@ -1,0 +1,5 @@
+# The bedroll refuses while anybody within 2048 is fighting (as in the
+# original: friend or foe); a ghoul attacking from 1200 away was not seen
+# before (only foes within 768 counted)
+do: t2;putin:20310,534;spawn:142,300;t60;goto:13327,5887,8;t1;use:20311;barklog:40
+expect: bark by 20311: This is no time to rest!

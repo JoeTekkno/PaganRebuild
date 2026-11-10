@@ -1,0 +1,8 @@
+# A person a script sends to another map keeps their number: a new
+# creature must not get it (a theurgist who vanished when attacked lost his
+# number to a hatched monster, and with it the scene that held the Avatar
+# still, which never let him go)
+args: --map 40 --pos 11850,9855,48
+do: t4;spawn:142,200;t2;sendto:65,0,5431,3402,0;t2;spawn:142,200;t2
+expect: spawn: actor 65
+expect: spawn: actor 66

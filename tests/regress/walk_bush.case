@@ -1,0 +1,5 @@
+# Click-walk onto a bush in the street (map 40): the Avatar walks to the ground it stands on
+args: --map 40 --pos 12942,4558,112
+do: t5;walkclick:560,140;t250;where:1
+expect: walkclick: walking
+expect: where 1: 12894,3590,48

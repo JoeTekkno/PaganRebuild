@@ -1,0 +1,4 @@
+# With the option "victory fanfare" off, an enemy falling while the weapon
+# is out brings no fanfare (music 109); the fight music goes on
+do: option:album_music,off;option:victory_fanfare,off;vitals:5000;t250;goto:15000,5600,8;t5;spawn:357,-200;t5;combat;t5;slay:62;t10
+expect: music 98, sfx 42

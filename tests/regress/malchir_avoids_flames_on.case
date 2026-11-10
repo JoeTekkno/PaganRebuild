@@ -1,0 +1,5 @@
+# Malchir draws a ring of fire round himself while he fights the Avatar.
+# With the option "avoid_flames" on he keeps out of his own flames (no hit from them)
+args: --map 14 --pos 7700,2400,8
+do: option:avoid_flames,on;flag:MalchirTest=6;flag:malchirMet=1;t70;barklog:300;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;t100;vitals:250;fightstate:27
+expect: fightstate:27: alignment 0x1 enemies 0x0 target 1 in_combat true hp 40 dex

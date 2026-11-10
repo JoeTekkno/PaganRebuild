@@ -1,0 +1,5 @@
+# Walking past the gap in Tenebrae's castle wall does not hide the wall top
+# for a moment: only the middle of the Avatar's footprint counts for roofs
+args: --map 41 --pos 13900,11624,0
+do: t5;roofline:13900,11624,0,14100,11624
+expect: roofline: whole footprint switched 2 times, middle 0 times

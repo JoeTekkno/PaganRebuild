@@ -1,0 +1,4 @@
+# Option "enemies notice sooner": a creature 800 units away (beyond the
+# original's 640) notices the Avatar and attacks
+do: option:notice_far,on;spawn:142,800;t60;fightstate:@
+expect: target 1 in_combat true

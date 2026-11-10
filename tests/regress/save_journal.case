@@ -1,0 +1,4 @@
+# Saved with the journal open: after loading it is still shown as a book
+do: journal;saveslot:3;t5;loadslot:3
+expect: loadslot: Ok(())
+expect: reader open (book)

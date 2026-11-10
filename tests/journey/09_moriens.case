@@ -1,0 +1,22 @@
+# Chapter 9: the pilgrimage. Through the crypt into the Upper Catacombs, the
+# door of the Birthplace of Moriens (Key of the Scion), the Zealan tomb
+# (map 54): the key from the chest by the five levers, the double door
+# north, the Skull of Quakes from the trapped chest.
+do: reach:Upper catacombs
+do: bypass:10340,2879,48 the way through the Upper Catacombs to the door of the Birthplace of Moriens (levels on top of each other)
+do: useon:232/3,23812;operate:23812;t60;walk:10150,2830;t200
+# a ghoul near a lava field on the way: fight it off first (fighting on
+# the move pushes him into the lava)
+do: walk:14304,13256;walk:13824,13544;fightoff;rest:28
+# the door before the tomb: opened, then straight through (standing in
+# the doorway the guide's next click on it would close it again)
+do: reach:11248,11550,50;operate:24779;t60;walk:11224,11330
+do: reach:Tomb, entrance;reach:17983,10850,54
+# (the chest by the levers opens without them)
+do: operate:17694;pickup:17695
+do: reach:18240,9720,54;useon:82:66,17649;operate:17649;t60;walk:18240,9500
+# (the trap hurts: healthy first)
+do: rest:28;reach:18911,8800,54;operate:17609;t60;pickup:17611
+do: rest:28
+do: inside:1
+expect: rest:28: after

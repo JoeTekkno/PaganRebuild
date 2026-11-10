@@ -1,0 +1,5 @@
+# The savegame book: 6 places per double page, at least two; the quick
+# save and the autosave come first; saving opens at the free entry after
+# the last one used (entry 11 is slot 12: slot 9 is the autosave)
+do: saveslot:12;book:save
+expect: savegame book open (save) page 3/3 entry 13

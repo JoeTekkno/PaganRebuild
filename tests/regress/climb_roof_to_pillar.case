@@ -1,0 +1,4 @@
+# From a guardhouse roof a click on a pillar across the wall walk (map 40): down to the wall walk and up the pillar
+args: --map 40 --pos 12774,13754,136
+do: t5;walkclick:405,272;t500;where:1
+expect: where 1: 13154,13822,136

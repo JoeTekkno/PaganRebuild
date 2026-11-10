@@ -1,0 +1,6 @@
+# Click-walk onto a bed (map 8): the Avatar goes as near as it goes and
+# stops; no steps back and forth looking for a ledge to climb (there is
+# none ahead), which made the end of the way zigzag
+args: --map 8 --pos 1187,1739,48
+do: t5;walkclick:420,320;t250;where:1
+expect: where 1: 1771,2067,48

@@ -1,0 +1,6 @@
+# Running down a stair (map 62): a stride covers two of its steps, the
+# Avatar runs on down them (frames 110-115) instead of falling a step deep
+args: --map 62 --pos 1745,14680,48
+do: t5;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;w2r:1;where:1;w2r:12;where:1
+expect: where 1: 1977,14680,8 shape 1 frame 114
+expect: where 1: 2065,14680,0

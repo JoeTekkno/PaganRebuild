@@ -1,0 +1,11 @@
+# The game must go the same way every run (tests, savegames): hash tables
+# come from src/hash.rs, whose order does not change from run to run.
+disallowed-methods = [
+    { path = "std::collections::HashMap::new", reason = "use crate::hash::HashMap (fixed order) and HashMap::default()" },
+    { path = "std::collections::HashMap::with_capacity", reason = "use crate::hash::HashMap (fixed order)" },
+    { path = "std::collections::HashSet::new", reason = "use crate::hash::HashSet (fixed order) and HashSet::default()" },
+    { path = "std::collections::HashSet::with_capacity", reason = "use crate::hash::HashSet (fixed order)" },
+]
+disallowed-types = [
+    { path = "std::collections::hash_map::RandomState", reason = "use crate::hash (fixed order)" },
+]

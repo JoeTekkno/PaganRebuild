@@ -1,0 +1,5 @@
+# Running over a small spider squashes it: the step hits it with a force
+# (it takes half of it as damage; with no force it only sounded hurt).
+args: --map 7 --pos 13500,16900,8
+do: t5;spawn:807,96;snap;w2r:12;diff
+expect: actor 62: hp 4 -> 0, dead false -> true

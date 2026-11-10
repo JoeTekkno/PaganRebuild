@@ -1,0 +1,4 @@
+# Flash parks the Avatar at 0,0,0 for a moment: the monsters around must stay
+do: flag:vardionJoined=1;mana:100;vitals:500;spawn:142;t20;snap;pack:397,0,773;use:@;barklog:400,62;diff;hp
+expect: actor 62: hp
+reject: shape 142 frame 3 gone

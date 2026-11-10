@@ -1,0 +1,4 @@
+# From the wall walk a click on a guardhouse roof (map 40): the Avatar climbs onto the roof, not into the room below it
+args: --map 40 --pos 13355,13803,112
+do: t5;walkclick:180,60;t500;where:1
+expect: where 1: 12587,13587,136

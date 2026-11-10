@@ -1,0 +1,7 @@
+# Caves under the volcano (map 62): five pieces of corridor floor beside the
+# lava lake are missing in the game data (the Avatar fell into the void);
+# with the correction he walks across
+args: --map 62 --pos 15824,5899,48
+do: t5;w4:20;where:1;w4:40;where:1
+expect: where 1: 15824,6131,48
+expect: where 1: 15824,6259,48

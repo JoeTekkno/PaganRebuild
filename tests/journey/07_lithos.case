@@ -1,0 +1,6 @@
+# Chapter 7: before the throne of Lithos, the Mountain King (map 31).
+# He wants Lothian buried in his earth.
+do: bypass:1900,2100,0,31 from Galious through the Upper Catacombs 2, the Stone Cove and the Hall of the Mountain King (golem at the doors, floating platforms, force fields) to the throne of Lithos
+do: keys:0,150;until:free|ask/20000;sayall;until:free/20000
+do: journal:text
+expect: To become his servant I must bury Lothian in his earth

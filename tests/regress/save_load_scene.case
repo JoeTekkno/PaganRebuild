@@ -1,0 +1,5 @@
+# Saving and loading in the middle of a scene: Lithos goes on talking
+args: --map 31 --pos 1768,1776,0
+do: vitals:500;barklog:650;saveslot:5;loadslot:5;barklog:1200
+expect: loadslot: Ok(())
+expect: Lothian must be interred?

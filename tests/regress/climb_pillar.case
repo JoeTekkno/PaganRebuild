@@ -1,0 +1,4 @@
+# Click on a pillar of the wall walk (map 40): the Avatar climbs onto it instead of jumping down to the ground below
+args: --map 40 --pos 13355,13803,112
+do: t5;walkclick:272,166;t250;where:1
+expect: where 1: 13195,13803,136

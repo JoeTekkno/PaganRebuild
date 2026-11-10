@@ -1,0 +1,10 @@
+# Outside the gate of the dungeon on map 57 the Avatar calls up a golem on
+# the mud inside and tells it to open the door. The skeletons inside do not
+# see him through the wall and stand still; the golem finds no way to the
+# door and, as in the original, opens it from where it stands
+args: --map 57 --pos 25407,30340,0
+do: option:avatar_menu,on;mana:60;fightstate:24902;fightstate:24890;look:1;t5;say:Spell Book;t5;say:Earth;t5;say:Create Golem;barklog:200,22024;answer:4;barklog:500,24901;item:24901;fightstate:24902;fightstate:24890
+expect: id 24901 shape  340
+expect: fightstate:24902: alignment 0x8 enemies 0x6 target 0 in_combat false
+expect: fightstate:24890: alignment 0x8 enemies 0x6 target 0 in_combat false
+reject: in_combat true

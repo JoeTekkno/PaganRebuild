@@ -1,0 +1,5 @@
+# Walking slantwise down a stair into its side wall (map 62): the Avatar
+# goes on along the wall down to the bottom instead of stopping mid-stride
+args: --map 62 --pos 1788,14668,48
+do: t5;w1:50;where:1
+expect: where 1: 2288,14272,0

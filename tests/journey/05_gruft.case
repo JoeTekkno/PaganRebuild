@@ -1,0 +1,16 @@
+# Chapter 5: the way into the Upper Catacombs. In the library upstairs in
+# the mausoleum: the bag, blood and blackmoor; the Key of the Caretaker on
+# the bag makes the spell 'Open Ground'; cast in the crypt in front of its
+# earth wall, which sinks away.
+do: bypass:7330,24980,80 upstairs in the mausoleum (the way up the stairs not found)
+do: pickup:20206;pickup:20203;pickup:20264
+do: packin:20207,529:0;packin:20208,529:0;packin:20203,20206;packin:20264,20206
+do: useon:232:0,20206
+# (more reagents for the spells to come: blood, bone, dirt, wood; taken only
+# now, else the vials of blood had stacked up in the bag)
+do: pickup:20263;pickup:20254;pickup:20255;pickup:20258
+do: rest:28
+do: bypass:7700,19550,8 to the crypt (on the way fire hit him from something on the cemetery, 11 and 18 points)
+do: operate:746:0;t300;reach:Upper catacombs/3000
+do: item:1
+expect: map 50 tick

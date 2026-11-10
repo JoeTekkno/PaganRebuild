@@ -1,0 +1,8 @@
+# Upper Catacombs: once the dead have been talked to, an egg clears a region
+# and lays new floor, but leaves the row before it bare (black strip); that
+# row gets floor too
+args: --map 50 --pos 10000,10000,40
+do: option:map_fade,off;flag:talkedToDeadDudes=1;goto:17260,1471,48;t40;pickat:300,165;pickat:360,195
+expect: pickat 300,165: id
+expect: shape  349 frame  12 at 17023,1407,48
+expect: shape  349 frame  14 at 17279,1407,48

@@ -1,0 +1,3 @@
+# Mask of Death: a ghoul (undead) leaves a feigning Avatar alone
+do: mana:100;vitals:500;spawn:142;t60;snap;pack:746,1;use:@;barklog:600;diff
+expect: actor 62: hp 40 -> 40, dead false -> false, immortal false -> false, fighting true -> true, target 1 -> 0

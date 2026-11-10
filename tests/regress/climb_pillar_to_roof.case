@@ -1,0 +1,4 @@
+# From a pillar a click on the back of the roof (map 40): over the trim at the roof's edge onto the roof
+args: --map 40 --pos 12863,13823,136
+do: t5;walkclick:350,140;t500;where:1
+expect: where 1: 12631,13487,136

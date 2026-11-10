@@ -1,0 +1,5 @@
+# A changeling in the Avatar's shape stays so in a savegame and turns back later
+do: vitals:5000;t250;goto:15000,5600,8;t5;spawn:357,-200;t900;where:62;saveslot:5;t5;loadslot:5;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62
+expect: loadslot: Ok(())
+expect: shape 1 frame
+expect: shape 357

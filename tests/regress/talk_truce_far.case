@@ -1,0 +1,4 @@
+# With "enemies wait during talks" a ghoul on its way stops where it is when the conversation begins, instead of walking up to the Avatar
+do: option:talk_truce,on;t60;spawn:142,400;t30;use:2;t450;fightstate:1;where:62
+expect: hp 30
+expect: where 62: 14871,5871,8

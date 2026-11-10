@@ -1,0 +1,6 @@
+# Option "Reach at the pentacle": standing by Bane's pentacle the Avatar
+# lights a candle on its far side without walking there
+args: --map 12 --pos 18540,15900,40
+do: option:pentagram_reach,on;t5;operate:21564;t30;where:1
+expect: operate:21564: frame Some(12) -> Some(13)
+expect: where 1: 18540,15900,40

@@ -1,0 +1,8 @@
+# Upper Catacombs: a corridor laid out from a pattern whose side floor lies
+# 40 too high (corrected to its height): before the earthquake it is a whole
+# floor, so the Avatar walks on its side (not into lava), and no floor hangs
+# in the air over his legs at its end
+args: --map 50 --pos 18226,5438,48
+do: option:map_fade,off;t10;w2:14;where:1;w6:14;w0:22;pickat:322,200
+expect: where 1: 18378,5438,48
+expect: pickat 322,200: id     1 shape    1

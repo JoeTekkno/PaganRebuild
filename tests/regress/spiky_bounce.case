@@ -1,0 +1,9 @@
+# The spiky spheres in the Catacombs roll to and fro between the markers of
+# their lane (they turn when they brush one) instead of rolling away
+args: --map 57 --pos 29860,19616,0
+do: t5;t400;item:24693;t400;item:24693;t1200;item:24693
+expect: id 24693 shape  264 frame   8 at 29951,20095,0
+expect: id 24693 shape  264 frame  12 at 30143,20095,0
+reject: at 3060
+reject: at 3070
+reject: at 3080

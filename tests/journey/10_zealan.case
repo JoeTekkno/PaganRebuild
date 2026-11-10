@@ -1,0 +1,23 @@
+# Chapter 10: the Zealan shrine. Mythran's Zealan ceremonial shield on the
+# altar of the Zealan gods (they speak), Mythran's scroll at the sealed
+# doors, Khumash-Gor's tomb, Grant Peace on him, the obelisk tip from the
+# small box behind the throne (the first piece of blackrock).
+do: bypass:12128,2980,8,54 past the fence maze, the grave (Open Ground), the marble gate and the stair puzzle to the altar of the Zealan gods
+# the shield on the altar (dragged there); the gods speak when he walks on
+do: dropat:828/0:353,180;t60;walk:11950,2980;keys:6,30;until:free/8000
+# the scroll at the sealed doors (the shield on the altar is near enough)
+do: walk:11330,2880;operate:827/0;page;page;until:free/2000;t100
+do: packin:395/10,637:0,1;packin:395/15,637:0,1;useon:232:0,637:0
+do: reach:10400,2880
+do: operate:17388;pickup:17389;t10;useon:746/7,62;t300
+do: hp
+# his scimitar from his body, in the hand instead of the dagger
+do: reach:10386,2830,54;operate:62;t20;pickup:821/0^62;packin:418/0,529/0;puton:821/0
+expect: puton:821/0: worn
+# back to the gods with the obelisk tip: they speak again (the fifth element)
+do: reach:11800,2980;until:free/8000;t200;flag:ancientOnesMet;flag:getPowerAO
+expect: flag ancientOnesMet: 1
+expect: flag getPowerAO: 1
+expect: actor 62: hp 0
+reject: actor 1: hp 0
+reject: Perhaps an additional item is needed

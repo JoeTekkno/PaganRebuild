@@ -1,0 +1,20 @@
+# Chapter 3: the ceremonial dagger. Vividos at the cemetery (the promise to
+# bring it back), Aramina at her house at Bloodwatch (the key), the key
+# under the pillow in the throne room, Mordea's bedroom, the closet and
+# the locked chest; the Ceremony of Eternity.
+do: bypass:7839,24831,56,6 out of Mythran's house and back to town (the house is full of traps)
+do: reach:Vividos;talk:Vividos
+do: say:Yes, I'm here to learn.;say:Traditions.;say:What problems?;say:Missing a tool?;say:Power mad?
+do: say:You need her approval?;say:Get the dagger back.;say:I'll get the dagger.;say:Yes.;sayall
+expect: I promised Vividos to bring back the dagger
+# Aramina has no time in the palace; at her house at Bloodwatch (from
+# midnight) she talks
+do: reach:Library;waithour:1;reach:Aramina;talk:Aramina
+do: say:I'm looking for a dagger.;say:Are you certain?;say:You won't get into trouble.;say:It's in a chest?;say:I promise.;say:bye
+do: reach:Palace;reach:12622,9080;pickup:18562
+do: walk:13439,8400;useon:18562,18525;operate:18525
+do: walk:12820,8000;useon:82:48,18439;operate:18439
+do: walk:12700,7900;useon:82:48,18443;operate:18443;operate:18444;pickup:18445
+do: reach:Vividos;talk:Vividos;sayall;until:free/20000
+expect: In the Ceremony of Eternity he sent Lothian to Lithos
+do: journal:text

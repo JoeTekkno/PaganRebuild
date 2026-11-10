@@ -1,0 +1,4 @@
+# Confusion Blast: the ghoul stops fighting and does not start again on sight
+do: option:avatar_menu,on;mana:100;vitals:500;spawn:142;t60;snap;look:1;t5;say:Spell Book;t5;say:Ether;t5;say:Confusion Blast;barklog:600,62;diff
+expect: In Quas Wis!
+expect: fighting true -> false

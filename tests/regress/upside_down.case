@@ -1,0 +1,5 @@
+# Upside down (the lever on map 50): clicks hit what is shown, so the lever can be pulled back
+args: --map 50 --pos 2684,7700,48
+do: t5;use:15563;t30;dclick:316,324;t60;at:316,75
+expect: dclick:316,324: id 15563
+expect: at:316,75: id 15563

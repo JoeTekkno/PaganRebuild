@@ -1,0 +1,9 @@
+# Hydros is bound only with the Tear of the Seas, like the other Titans
+# with their own piece: the Heart of Earth used on him does nothing and
+# stays uncharged; the Tear then binds him
+args: --map 45 --pos 7071,12600,0
+do: vitals:5000;putin:1,442,1;putin:1,442,2;t300;use:12674;barklog:3,4545;use:12675;barklog:600,4545;t300;guide;find:442;find:793
+expect: shape  442 frame   1
+expect: shape  793 frame   2
+expect: guide: avatar map 43
+reject: shape  793 frame   1

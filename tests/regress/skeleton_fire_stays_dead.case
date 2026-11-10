@@ -1,0 +1,4 @@
+# A skeleton killed by fire does not get up again
+args: --map 50 --pos 2700,9400,48
+do: option:map_fade,off;goto:2700,9400,48;t3;place:119,247,2900,9500,48;event:24741,hatch;t60;hit:62,999,8;t900;fightstate:62
+expect: fightstate:62: alignment 0x0 enemies 0x6 target 1 in_combat false hp 0

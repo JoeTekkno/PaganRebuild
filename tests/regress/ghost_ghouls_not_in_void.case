@@ -1,0 +1,8 @@
+# The ghost in the caves below the Obsidian Fortress calls ghouls out of
+# the ground only where there is firm ground: before, one rose on the black
+# plates of the void between the caves (10148,16595), out of reach and half
+# showing through the dark
+args: --map 14 --pos 9380,16990,72
+do: t5;t150;near:2500
+expect: shape  142 frame
+reject: at 10148,16595,72

@@ -1,0 +1,7 @@
+# The Skull of Quakes set on its pedestal in the necropolis brings down the
+# square tomb in front of it at once and lays open the way below (the
+# Avatar is moved away and back in the same moment: the view has to follow)
+args: --map 50 --pos 15751,6103,48
+do: t5;pack:814;use:@;t5;target:13301;t600;flag:postEarthQuake;find:21
+expect: flag postEarthQuake: 1
+reject: shape   21 frame   2 at 15903,6175,0

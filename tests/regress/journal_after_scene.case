@@ -1,0 +1,7 @@
+# A journal entry reached during a scene (here the Ancient Ones' second
+# speech, which sets its flag at the start) is announced only once the
+# scene is over and the Avatar is free again
+args: --map 54 --pos 11300,2750,8
+do: option:journal,on;t5;flag:ancientOnesMet=1;flag:doneDefault=1;place:828,0,12092,2852,24;putin:17708,442,0;goto:11718,2600,8;t200;notice;t3000;notice
+expect: notice: none
+expect: notice: Journal: The way home

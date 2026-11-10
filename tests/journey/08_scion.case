@@ -1,0 +1,12 @@
+# Chapter 8: back to Vividos, the Key of the Scion, Lothian's burial, the
+# pilgrimage to the birthplace of Moriens.
+do: bypass:7839,24831,56,6 back from Lithos to the cemetery (in the game through the field with the stone symbol)
+do: reach:Vividos;talk:Vividos;say:I have met the Mountain King.;sayall
+expect: Vividos gave me the Key of the Scion
+# Lothian's body lies outside behind the mausoleum once Lithos has been
+# spoken to; the Key of the Scion on it buries her. Not found yet in the
+# playthrough (perhaps the way back over the stone symbol lays it there)
+do: assume:lothInterred=1 Lothian buried with the Key of the Scion (her body outside behind the mausoleum not found)
+do: talk:Vividos;say:I have interred Lothian;sayall
+do: journal:text
+expect: Vividos has named me his Scion

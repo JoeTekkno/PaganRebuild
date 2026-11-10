@@ -1,0 +1,16 @@
+# Chapter 4: apprentice of the necromancers. Vividos takes the Avatar on;
+# executioner's hood (by the large tree, guarded by changelings) and
+# deadman's elbows (West Tenebrae, a ghost that leaves him alone as long
+# as he does not fight); Vividos gives the Key of the Caretaker.
+do: talk:Vividos;say:You are the Necromancer?;say:What is a Scion?;say:You need an apprentice?
+do: say:Yes, I am honored.;say:What must I do?;say:What reagents do you need?;sayall
+expect: I am to bring Vividos two reagents
+do: rest:28
+do: bypass:11700,13000,48,5 to the executioner's hood (the guide leads through a grove where he gets stuck, the changelings are too strong for him yet)
+do: pickup:19979
+do: bypass:15039,2950,48,39 away from the changelings to the deadman's elbows
+do: pickup:29004;pickup:29005;pickup:29006;pickup:29010;pickup:29011
+do: bypass:7839,24831,56,6 back to the cemetery (the guide gets stuck before the way out of West Tenebrae)
+do: reach:Vividos;talk:Vividos;say:I have brought you the reagents;sayall
+expect: Vividos gave me the Key of the Caretaker
+do: journal:text

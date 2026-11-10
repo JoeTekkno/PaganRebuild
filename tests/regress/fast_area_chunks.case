@@ -1,0 +1,4 @@
+# Catacombs (map 50): the dungeon's floor is laid out by eggs as things that live only in the fast area; going so far that part of it leaves the fast area and back again must leave no holes (the Avatar fell through)
+args: --map 50 --pos 5704,5960,48
+do: option:map_fade,off;t5;goto:8104,5960,48;t10;goto:5704,5960,48;t20;where:1
+expect: where 1: 5704,5960,48

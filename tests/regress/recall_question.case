@@ -1,0 +1,5 @@
+# The recall teleporter asks for the destination above the Avatar, where
+# the answers come (option "questions above the Avatar")
+args: --map 50
+do: goto:2700,9400,48;t3;flag:sawPlateauTeleporter=1;place:833,0,2760,9400,48;use:@;t5
+expect: bark by 1: What is your destination?

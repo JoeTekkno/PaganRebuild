@@ -1,0 +1,8 @@
+# What the debug menu of the original sets (here "Key": the Key of the
+# Acolyte) does not show in the journal, also not after saving and
+# loading; once the cheat is undone, reaching it in play counts.
+args: --cheat --map 7 --pos 13500,16900,8
+do: t5;look:1;t10;answer:6;t60;saveslot:5;t5;loadslot:5;t60;journal:text
+do: look:1;t10;answer:6;t60;flag:keyOfTheAcolyte=1;t60;journal:text
+expect: No entries yet.
+expect: I passed the first test and received the Key of the Acolyte

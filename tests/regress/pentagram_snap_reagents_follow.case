@@ -1,0 +1,8 @@
+# Option "Pentacle snaps": a candle that stood a little beside its point
+# takes the reagent in front of it along when it is put onto the point
+# (before, the reagent stayed behind, too far away for the spell)
+args: --map 12 --pos 18540,15900,40
+do: option:pentagram_snap,on;t5;sendto:21563,12,18860,15980,40;sendto:21568,12,18890,16010,40;t2
+do: drag:21563:380,260;t10;where:21563;where:21568
+expect: where 21563: 18838,15958,40
+expect: where 21568: 18806,15976,40

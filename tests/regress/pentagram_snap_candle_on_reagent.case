@@ -1,0 +1,8 @@
+# Option "Pentacle snaps": a candle put onto a point where a reagent lies
+# goes exactly onto the point; the reagent moves in front of it (before,
+# the candle came to lie on the reagent, or beside the point)
+args: --map 12 --pos 18540,15900,40
+do: option:pentagram_snap,on;t5;sendto:21563,12,18560,15930,40;sendto:21568,12,18838,15958,40;t2
+do: drag:21563:380,260;t10;where:21563;where:21568
+expect: where 21563: 18838,15958,40
+expect: where 21568: 18806,15976,40

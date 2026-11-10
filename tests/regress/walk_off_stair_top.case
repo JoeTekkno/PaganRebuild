@@ -1,0 +1,5 @@
+# Walking off the small top beside a stair (map 62): down at once, he does
+# not hang half over the edge
+args: --map 62 --pos 1920,14756,48
+do: t5;w4:60;where:1
+expect: where 1: 1920,14820,0

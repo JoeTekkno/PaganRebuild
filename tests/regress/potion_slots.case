@@ -1,0 +1,9 @@
+# Better inventory: the quick potions (yellow, red, orange, purple, black) lie in the bottom row
+# (slots 18-22, x = 65536 + slot), green and the empty bottle on free slots; key 4 drinks purple
+do: option:better_inventory,on;pack:766,4;pack:766,7;pack:766,3;pack:766,3;pack:766,1;pack:766,5;pack:766,0;inv;t20;hover:1,1;find:766;potion:4;t200;find:766
+expect: shape  766 frame   4 at 65537,
+expect: shape  766 frame   7 at 65558,
+expect: shape  766 frame   3 at 65554,
+expect: shape  766 frame   1 at 65555,
+expect: shape  766 frame   5 at 65557,
+expect: potion: drunk

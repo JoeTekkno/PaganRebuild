@@ -1,0 +1,7 @@
+# A ghost outside Khumash-Gor's tomb now and then makes a threatening
+# gesture instead of throwing a skull, and calls ghouls out of the ground
+# (Khumash-Gor himself never does)
+args: --cheat
+do: t10;spawn:411,300;t1200;find:142
+expect: id    63 shape  142 frame 100 at 14785,5957,8 flags 00C2 q 0 npc 63 map 3 parent 0 family 6 [s] pad 2x2x5
+expect: id    65 shape  142 frame  90 at 14856,5995,8 flags 00C2 q 0 npc 65 map 3 parent 0 family 6 [s] pad 2x2x5

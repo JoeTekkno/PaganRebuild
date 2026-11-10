@@ -1,0 +1,4 @@
+# With "enemies notice sooner" nothing starts a fight on sight while a
+# scene holds the world (the scripts set up their own fights)
+do: option:notice_far,on;stasis:1;spawn:142,300;t60;fightstate:@
+expect: target 0 in_combat false

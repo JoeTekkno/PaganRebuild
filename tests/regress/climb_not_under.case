@@ -1,0 +1,4 @@
+# From the street a click on the wall walk above the passage (map 40), too high to climb: the Avatar stops at the wall instead of walking under the bridge
+args: --map 40 --pos 13259,13960,48
+do: t5;walkclick:380,110;t400;where:1
+expect: where 1: 13159,13900,48

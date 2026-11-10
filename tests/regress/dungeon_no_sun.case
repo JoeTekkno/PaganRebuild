@@ -1,0 +1,6 @@
+# A big dungeon on map 37 (east of the Theurgists' catacombs): looking
+# for the void only at 768 and 1280 counted 0 to 4 directions from step
+# to step, and the Avatar's shadow came and went; here there is no sun
+args: --map 37 --pos 14663,3655,64
+do: t1;sunlit
+expect: sunlit: false

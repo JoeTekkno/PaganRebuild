@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PaganRebuild</title>
+<meta name="description" content="PaganRebuild: a new engine for Ultima VIII: Pagan, written in Rust. Runs on the original game data, without DOSBox.">
+<style>
+:root {
+  --bg: #121110;
+  --stone: #1d1b19;
+  --stone-hi: #2a2724;
+  --edge: #3d3731;
+  --text: #e6ddcf;
+  --muted: #b3a795;
+  --ember: #e8772e;
+  --ember-hi: #ffb15c;
+  --blood: #9c2f22;
+  --link: #ffb15c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 50% -10%, rgba(232,119,46,.18), transparent 55%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 1px, transparent 1px 7px);
+  color: var(--text);
+  font: 17px/1.6 "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+}
+a { color: var(--link); }
+a:hover { color: #fff; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+/* language switch without script: two radio buttons in front of the page */
+.lang-radio { position: absolute; opacity: 0; pointer-events: none; }
+#l-en:checked ~ .page [lang="de"] { display: none; }
+#l-de:checked ~ .page [lang="en"] { display: none; }
+.switch { display: flex; justify-content: flex-end; gap: 6px; padding-top: 14px; }
+.switch label {
+  cursor: pointer; padding: 4px 12px; border: 1px solid var(--edge); border-radius: 3px;
+  color: var(--muted); font: 600 14px/1.4 Georgia, serif; letter-spacing: .08em; background: var(--stone);
+}
+#l-de:checked ~ .page label[for="l-de"],
+#l-en:checked ~ .page label[for="l-en"] { color: #1a1008; background: var(--ember); border-color: var(--ember-hi); }
+#l-de:focus-visible ~ .page label[for="l-de"],
+#l-en:focus-visible ~ .page label[for="l-en"] { outline: 2px solid var(--ember-hi); }
+
+header { text-align: center; padding: 28px 0 8px; }
+.sigil { width: 84px; height: 84px; filter: drop-shadow(0 0 10px rgba(232,119,46,.6)); }
+h1 {
+  margin: 8px 0 4px; font-size: clamp(2.3rem, 9vw, 4rem); font-weight: 700; letter-spacing: .06em;
+  color: var(--ember-hi);
+  text-shadow: 0 0 18px rgba(232,119,46,.55), 0 2px 0 #4a1d0b, 0 4px 10px #000;
+}
+.tagline { margin: 0 auto; max-width: 640px; color: var(--muted); font-style: italic; }
+.cta { margin: 22px 0 6px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.btn {
+  display: inline-block; padding: 10px 22px; border-radius: 3px; text-decoration: none; font-weight: 700;
+  letter-spacing: .04em; border: 1px solid var(--ember-hi);
+  background: linear-gradient(#f08a3c, #b9501b); color: #1a0d05; box-shadow: 0 0 14px rgba(232,119,46,.35);
+}
+.btn:hover { color: #000; background: linear-gradient(#ffa154, #cf5f22); }
+.btn.ghost { background: transparent; color: var(--ember-hi); box-shadow: none; border-color: var(--edge); }
+.btn.ghost:hover { color: #fff; border-color: var(--ember); }
+
+section.slab {
+  margin: 26px 0; padding: 22px 24px; border-radius: 4px;
+  background: linear-gradient(180deg, var(--stone-hi), var(--stone));
+  border: 1px solid var(--edge);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 -2px 0 rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.45);
+}
+h2 {
+  margin: 0 0 12px; font-size: 1.45rem; color: var(--ember-hi); letter-spacing: .05em;
+  border-bottom: 1px solid var(--edge); padding-bottom: 6px;
+}
+h2::before { content: "\2726"; color: var(--blood); margin-right: 10px; font-size: .9em; }
+h3 { margin: 18px 0 6px; font-size: 1.1rem; color: var(--text); letter-spacing: .03em; }
+p { margin: 0 0 10px; }
+ol, ul { margin: 0 0 10px; padding-left: 1.4em; }
+li { margin: 3px 0; }
+li::marker { color: var(--ember); }
+code, kbd {
+  font: 14px/1.4 Consolas, "Courier New", monospace; background: #0d0c0b; border: 1px solid var(--edge);
+  border-radius: 3px; padding: 1px 5px; color: #f1d9b5; white-space: nowrap;
+}
+.note { color: var(--muted); font-size: .95rem; }
+
+.shots { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0; }
+.shots figure { margin: 0; }
+.shots .wide { grid-column: 1 / -1; }
+.shots img {
+  display: block; width: 100%; height: auto; image-rendering: pixelated;
+  border: 1px solid var(--edge); border-radius: 3px; box-shadow: 0 6px 16px rgba(0,0,0,.6);
+}
+figcaption { color: var(--muted); font-size: .9rem; font-style: italic; margin-top: 5px; }
+
+.features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 28px; }
+.features h3 { margin-top: 10px; }
+.features ul { padding-left: 1.2em; }
+
+.credits p { margin-bottom: 12px; }
+footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10px 0 40px; }
+
+@media (max-width: 680px) {
+  body { font-size: 16px; }
+  .shots, .features { grid-template-columns: 1fr; }
+  section.slab { padding: 18px 16px; }
+}
+</style>
+</head>
+<body>
+<input class="lang-radio" type="radio" name="lang" id="l-de" checked>
+<input class="lang-radio" type="radio" name="lang" id="l-en">
+<div class="page">
+<div class="wrap">
+
+<div class="switch">
+  <label for="l-de" title="Deutsch">DE</label>
+  <label for="l-en" title="English">EN</label>
+</div>
+
+<header>
+  <svg class="sigil" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="50" r="45" fill="none" stroke="#e8772e" stroke-width="3"/>
+    <polygon points="50,7 75.3,84.8 9.1,36.7 90.9,36.7 24.7,84.8" fill="none" stroke="#ffb15c" stroke-width="3" stroke-linejoin="round"/>
+  </svg>
+  <h1>PaganRebuild</h1>
+  <p class="tagline" lang="de">Eine neu geschriebene Engine für Ultima VIII: Pagan, in Rust.</p>
+  <p class="tagline" lang="en">A newly written engine for Ultima VIII: Pagan, in Rust.</p>
+  <div class="cta">
+    <a class="btn" href="https://github.com/scareglow23/PaganRebuild/releases"><span lang="de">Download</span><span lang="en">Download</span></a>
+    <a class="btn ghost" href="https://github.com/scareglow23/PaganRebuild"><span lang="de">Quellcode</span><span lang="en">Source code</span></a>
+  </div>
+</header>
+
+<section class="slab">
+  <h2><span lang="de">Was ist das?</span><span lang="en">What is it?</span></h2>
+  <div lang="de">
+    <p>PaganRebuild ist eine neu geschriebene Engine für <em>Ultima VIII: Pagan</em> in Rust. Sie spielt das Spiel direkt mit den Originaldaten, ohne DOSBox, und bringt zuschaltbare Verbesserungen mit.</p>
+    <p><strong>Spieldaten sind nicht enthalten.</strong> Du brauchst eine eigene Kopie des Spiels, z.&nbsp;B. die <a href="https://www.gog.com/de/game/ultima_8_gold_edition">Ultima 8 Gold Edition bei GOG</a>.</p>
+  </div>
+  <div lang="en">
+    <p>PaganRebuild is a newly written engine for <em>Ultima VIII: Pagan</em> in Rust. It plays the game straight from the original data, without DOSBox, and adds improvements you can switch on and off.</p>
+    <p><strong>No game data is included.</strong> You need your own copy of the game, for example the <a href="https://www.gog.com/en/game/ultima_8_gold_edition">Ultima 8 Gold Edition on GOG</a>.</p>
+  </div>
+</section>
+
+<div class="shots">
+  <figure class="wide">
+    <img src="pier.png" width="960" height="400" alt="Tenebrae, the execution pier, in wide view">
+    <figcaption><span lang="de">Der Hinrichtungssteg von Tenebrae im Breitbild</span><span lang="en">The execution pier of Tenebrae in wide view</span></figcaption>
+  </figure>
+  <figure class="wide">
+    <img src="tenebrae.png" width="960" height="400" alt="A conversation at the gate of Tenebrae, with the guide's trail on the ground" loading="lazy">
+    <figcaption><span lang="de">Gespräch am Tor von Tenebrae, die Spur des Wegweisers am Boden</span><span lang="en">A conversation at the gate of Tenebrae, the guide's trail on the ground</span></figcaption>
+  </figure>
+  <figure>
+    <img src="map.png" width="640" height="400" alt="Map with a list of places (key O)" loading="lazy">
+    <figcaption><span lang="de">Karte mit Wegweiser (Taste O)</span><span lang="en">Map with guide (key O)</span></figcaption>
+  </figure>
+  <figure>
+    <img src="options.png" width="640" height="400" alt="Options menu, graphics tab" loading="lazy">
+    <figcaption><span lang="de">Optionsmenü, Reiter Grafik</span><span lang="en">Options menu, graphics tab</span></figcaption>
+  </figure>
+</div>
+
+<section class="slab">
+  <h2><span lang="de">Installation</span><span lang="en">Installation</span></h2>
+  <ol lang="de">
+    <li>Das Release-Zip in den Ultima-8-Ordner entpacken (dorthin, wo <code>ENGLISH\</code> liegt).</li>
+    <li>Optional: das Musik-Zip an dieselbe Stelle entpacken (orchestrale Neuaufnahme).</li>
+    <li><code>PaganRebuild\pagan.exe</code> starten, deutsche Fassung mit <code>--lang german</code>.</li>
+  </ol>
+  <ol lang="en">
+    <li>Extract the release zip into the Ultima 8 folder (where <code>ENGLISH\</code> is).</li>
+    <li>Optional: extract the music zip to the same place (orchestral re-arrangement).</li>
+    <li>Run <code>PaganRebuild\pagan.exe</code> (German version: <code>--lang german</code>).</li>
+  </ol>
+  <p class="note" lang="de">Windows 64-bit. Linux und macOS sind noch nicht getestet. Die französische Fassung startet mit <code>--lang french</code>.</p>
+  <p class="note" lang="en">Windows 64-bit. Linux and macOS are not tested yet. The French version starts with <code>--lang french</code>.</p>
+  <p lang="de"><a href="https://github.com/scareglow23/PaganRebuild/releases">Zu den Downloads (Releases)</a></p>
+  <p lang="en"><a href="https://github.com/scareglow23/PaganRebuild/releases">Go to the downloads (releases)</a></p>
+</section>
+
+<section class="slab">
+  <h2><span lang="de">Funktionen</span><span lang="en">Features</span></h2>
+  <p class="note" lang="de">Die Verbesserungen lassen sich im Optionsmenü (<kbd>V</kbd> oder <kbd>F10</kbd>) einzeln ein- und ausschalten.</p>
+  <p class="note" lang="en">The improvements can be switched on and off one by one in the options menu (<kbd>V</kbd> or <kbd>F10</kbd>).</p>
+
+  <div class="features" lang="de">
+    <div>
+      <h3>Grafik</h3>
+      <ul>
+        <li>Weiche Bewegung von Figuren und Ansicht</li>
+        <li>Breitbild: mehr von der Welt zu den Seiten</li>
+        <li>Drehbare Ansicht (<kbd>,</kbd> / <kbd>.</kbd>)</li>
+        <li>Zoom in Stufen von 75 bis 200&nbsp;% (<kbd>+</kbd> / <kbd>-</kbd>)</li>
+        <li>Beleuchtung durch Lampen und Feuer (<kbd>L</kbd>), Schatten der Figuren</li>
+        <li>Grafikfilter: scharf, xBR oder Röhrenmonitor (CRT) (<kbd>G</kbd>)</li>
+        <li>Rüstung und Helm sind am Avatar zu sehen, magische Teile leuchten</li>
+        <li>Umriss des Avatars, wenn er verdeckt ist</li>
+        <li>Gewitterfarben: wie im Original, sanfter oder aus</li>
+        <li>Gegner blenden ein, statt plötzlich da zu sein</li>
+      </ul>
+      <h3>Ton</h3>
+      <ul>
+        <li>Musik über SoundFont statt des Windows-Synthesizers</li>
+        <li>Album-Musik: die orchestrale Neuaufnahme, wenn ihre Dateien da sind</li>
+        <li>Verbesserter Klang: Effekte und Stimmen neu in 44,1&nbsp;kHz, ohne Rauschen</li>
+        <li>Räumlicher Klang nach Richtung und Entfernung</li>
+        <li>Sieges-Fanfare nach einem Kampf (zuschaltbar)</li>
+        <li>Getrennte Lautstärke für Musik, Effekte und Sprache</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Steuerung</h3>
+      <ul>
+        <li>Moderne Steuerung: Linksklick benutzt (der Avatar geht hin), Rechtsklick sieht an, <kbd>E</kbd> benutzt das Nächstliegende</li>
+        <li>Laufen per Klick; Taste gehalten: der Avatar folgt dem Zeiger</li>
+        <li>Kämpfen per Klick auf den Gegner, <kbd>F</kbd> schlägt den nächsten Gegner, <kbd>Q</kbd> tritt, <kbd>B</kbd> blockt</li>
+        <li>Pfeiltasten oder <kbd>WASD</kbd>, wahlweise entlang der schrägen Wege und Mauern</li>
+        <li>Springen und Klettern an Kanten mit der Leertaste</li>
+      </ul>
+      <h3>Anzeige und Hilfen</h3>
+      <ul>
+        <li>Lebensbalken über den Gegnern</li>
+        <li>Einstellbare Schriftgröße, Namen unter dem Zeiger</li>
+        <li>Minikarte (<kbd>M</kbd>), Karte mit Ortsliste und Wegweiser (<kbd>O</kbd>)</li>
+        <li>Leicht übersehene Rätselstellen werden benannt (<kbd>H</kbd>)</li>
+        <li>Besseres Inventar mit festen Plätzen</li>
+        <li>Tagebuch der Aufgaben (<kbd>T</kbd>) und Zauberbuch mit Worten und Reagenzien (<kbd>N</kbd>)</li>
+        <li>Fortschritt von Stärke, Intelligenz und Geschick</li>
+      </ul>
+      <h3>Spielablauf</h3>
+      <ul>
+        <li>Gegner bemerken den Avatar früher</li>
+        <li>Gegner warten, solange ein Gespräch läuft</li>
+        <li>Figuren meiden Flammen, die sie verletzen</li>
+        <li>Schlafen bis zu einer gewählten Tageszeit</li>
+        <li>Gegenstände rasten auf dem Pentagramm ein, der Avatar erreicht das ganze Pentagramm</li>
+        <li>Avatar-Menü mit den Cheats des Originals (anfangs aus)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Immer dabei</h3>
+      <ul>
+        <li>Überblenden beim Wechsel durch Tore und Teleporter</li>
+        <li>Schnellspeichern und -laden (<kbd>F5</kbd> / <kbd>F9</kbd>), Speicherbuch mit acht Plätzen (<kbd>F6</kbd> / <kbd>F7</kbd>)</li>
+        <li>Sechsfache Geschwindigkeit, solange <kbd>F4</kbd> gehalten wird</li>
+        <li>Dächer ein/aus (<kbd>R</kbd>), Bildschirmfoto (<kbd>F12</kbd>)</li>
+        <li>Englisch, Deutsch und Französisch</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Startoptionen</h3>
+      <ul>
+        <li><code>--lang</code> Sprache, <code>--game</code> Spielordner</li>
+        <li><code>--scale 1–4</code> Fenstergröße, <code>--size</code> Bildgröße</li>
+        <li><code>--no-sound</code>, <code>--no-menu</code>, <code>--cheat</code></li>
+        <li>Alle Optionen: <code>pagan --help</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="features" lang="en">
+    <div>
+      <h3>Graphics</h3>
+      <ul>
+        <li>Smooth movement of figures and view</li>
+        <li>Wide view: more of the world to the sides</li>
+        <li>Turnable view (<kbd>,</kbd> / <kbd>.</kbd>)</li>
+        <li>Zoom in steps from 75 to 200&nbsp;% (<kbd>+</kbd> / <kbd>-</kbd>)</li>
+        <li>Lighting from lamps and fires (<kbd>L</kbd>), shadows of the figures</li>
+        <li>Graphics filter: sharp, xBR or tube monitor (CRT) (<kbd>G</kbd>)</li>
+        <li>Armour and helmet show on the Avatar, magic pieces glow</li>
+        <li>Outline of the Avatar when he is hidden</li>
+        <li>Storm colours: as in the original, gentler or off</li>
+        <li>Enemies fade in instead of popping up</li>
+      </ul>
+      <h3>Sound</h3>
+      <ul>
+        <li>Music played with a SoundFont instead of the Windows synthesizer</li>
+        <li>Album music: the orchestral re-arrangement, when its files are present</li>
+        <li>Better sound: effects and voices rebuilt at 44.1&nbsp;kHz, without hiss</li>
+        <li>Spatial sound by direction and distance</li>
+        <li>Victory fanfare after a fight (optional)</li>
+        <li>Separate volume for music, effects and speech</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Controls</h3>
+      <ul>
+        <li>Modern controls: left click uses (the Avatar walks there), right click looks, <kbd>E</kbd> uses the nearest thing</li>
+        <li>Walk by clicking; hold the button and the Avatar follows the pointer</li>
+        <li>Fight by clicking on an enemy, <kbd>F</kbd> strikes the nearest enemy, <kbd>Q</kbd> kicks, <kbd>B</kbd> blocks</li>
+        <li>Arrow keys or <kbd>WASD</kbd>, optionally along the slanted roads and walls</li>
+        <li>Jump and climb ledges with the space bar</li>
+      </ul>
+      <h3>Display and aids</h3>
+      <ul>
+        <li>Health bars above enemies</li>
+        <li>Adjustable text size, names under the pointer</li>
+        <li>Minimap (<kbd>M</kbd>), map with a list of places and a guide (<kbd>O</kbd>)</li>
+        <li>Easily missed puzzle spots get a name (<kbd>H</kbd>)</li>
+        <li>Better inventory with fixed slots</li>
+        <li>Quest journal (<kbd>T</kbd>) and spell book with words and reagents (<kbd>N</kbd>)</li>
+        <li>Progress of strength, intelligence and dexterity</li>
+      </ul>
+      <h3>Gameplay</h3>
+      <ul>
+        <li>Enemies notice the Avatar sooner</li>
+        <li>Enemies wait while a conversation goes on</li>
+        <li>People avoid flames that would hurt them</li>
+        <li>Sleep until a chosen time of day</li>
+        <li>Items snap into place on a pentacle, and the Avatar reaches all of it</li>
+        <li>Avatar menu with the original's cheats (off at first)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Always on</h3>
+      <ul>
+        <li>Fade when passing through gates and teleporters</li>
+        <li>Quick save and load (<kbd>F5</kbd> / <kbd>F9</kbd>), save book with eight slots (<kbd>F6</kbd> / <kbd>F7</kbd>)</li>
+        <li>Six times the speed while <kbd>F4</kbd> is held</li>
+        <li>Roofs on/off (<kbd>R</kbd>), screenshot (<kbd>F12</kbd>)</li>
+        <li>English, German and French</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Command line</h3>
+      <ul>
+        <li><code>--lang</code> language, <code>--game</code> game folder</li>
+        <li><code>--scale 1–4</code> window size, <code>--size</code> picture size</li>
+        <li><code>--no-sound</code>, <code>--no-menu</code>, <code>--cheat</code></li>
+        <li>All options: <code>pagan --help</code></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slab">
+  <h2><span lang="de">Musik</span><span lang="en">Music</span></h2>
+  <p lang="de">Das Musik-Zip enthält „Ultima VIII: Pagan - Orchestral Re-Arrangement“, mit freundlicher Erlaubnis. Diese Musik steht nicht unter der GPL.</p>
+  <p lang="en">The music zip contains "Ultima VIII: Pagan - Orchestral Re-Arrangement", with kind permission. This music is not under the GPL.</p>
+  <p>Original music: Nenad Vugrinec<br>
+Arrangement and orchestration: Dustin Naegel<br>
+<a href="https://dustinnaegel.bandcamp.com/album/ultima-viii-pagan-orchestral-re-arrangement">https://dustinnaegel.bandcamp.com/album/ultima-viii-pagan-orchestral-re-arrangement</a></p>
+</section>
+
+<section class="slab credits">
+  <h2>Credits</h2>
+  <p>Based on the work of ScummVM (formerly Pentagram), <a href="https://www.scummvm.org/">https://www.scummvm.org/</a>.</p>
+  <p>SoundFont: GeneralUser GS by S. Christian Collins, <a href="https://www.schristiancollins.com/generaluser.php">https://www.schristiancollins.com/generaluser.php</a>.</p>
+  <p>Ultima VIII: Pagan (c) 1994 Origin Systems / Electronic Arts. Fan project, not affiliated with Electronic Arts or Origin Systems.</p>
+  <p lang="de">Lizenz: <a href="https://github.com/scareglow23/PaganRebuild/blob/main/LICENSE">GPL-3.0-or-later</a></p>
+  <p lang="en">License: <a href="https://github.com/scareglow23/PaganRebuild/blob/main/LICENSE">GPL-3.0-or-later</a></p>
+</section>
+
+<footer>PaganRebuild</footer>
+</div>
+</div>
+<script>
+// English for visitors whose browser is not set to German (the page works without this)
+try { if (!/^de\b/i.test(navigator.language || "")) document.getElementById("l-en").checked = true; } catch (e) {}
+</script>
+</body>
+</html>

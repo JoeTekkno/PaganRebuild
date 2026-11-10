@@ -1,0 +1,5 @@
+# Walking off a high wall in the Upper Catacombs (map 50): one step clear of
+# the edge and down, no balancing, no walking on in the air
+args: --map 50 --pos 22943,2719,144
+do: option:map_fade,off;t5;w6:40;where:1
+expect: where 1: 22711,2719,48

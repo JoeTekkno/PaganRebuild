@@ -1,0 +1,4 @@
+# The end: a Blackrock stone dropped on its plate on the ethereal plane sets the flag, taking it away clears it
+args: --map 43 --pos 16200,16700,24
+do: vitals:5000;t2;snap;pack:793,1;drag:@:380,214;t100;diff
+expect: flag earthstone: 0 -> 1

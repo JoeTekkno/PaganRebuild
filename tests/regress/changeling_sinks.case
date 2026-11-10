@@ -1,0 +1,6 @@
+# A changeling at the pentagram in the ether stands a little above the
+# floor; slain, it sinks into the ground (its dying goes on after the short
+# fall instead of stopping at its first frame)
+args: --map 43 --pos 15819,16699,16
+do: t60;hit:62,200,1;t150;where:62
+expect: where 62: 15663,16175,16 shape 357 frame 73

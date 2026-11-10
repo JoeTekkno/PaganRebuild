@@ -1,0 +1,4 @@
+# The savegame book opens for loading on the last page, at the last entry
+# written down (entry 12), even if a game in an earlier entry is newer
+do: saveslot:12;saveslot:2;book:load
+expect: savegame book open (load) page 3/3 entry 12

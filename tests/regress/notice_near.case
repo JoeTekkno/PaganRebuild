@@ -1,0 +1,4 @@
+# Without "enemies notice sooner" a creature 800 units away does not notice
+# the Avatar (as in the original: 640)
+do: option:notice_far,off;spawn:142,800;t60;fightstate:@
+expect: target 0 in_combat false

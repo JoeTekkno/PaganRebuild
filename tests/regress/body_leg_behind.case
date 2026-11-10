@@ -1,0 +1,7 @@
+# A body lying on the ground reaches far beyond its box with arms and legs:
+# a creature standing in front of it is still painted over the leg that
+# sticks out towards it (the body is placed after him, as in a savegame)
+args: --map 54 --pos 11300,2750,8
+do: t5;place:137,77,11668,2938,8;place:401,160,11500,2900,8;t1;pickat:360,244;pickat:362,245
+expect: pickat 360,244: id 17709 shape  137 frame  77 at 11668,2938,8 flags 0000 q 0 npc 0 map 54 parent 0 family 6 [s] pad 2x2x5
+expect: pickat 362,245: id 17709 shape  137 frame  77 at 11668,2938,8 flags 0000 q 0 npc 0 map 54 parent 0 family 6 [s] pad 2x2x5

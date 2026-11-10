@@ -1,0 +1,5 @@
+# Option "Pentacle snaps": a focus put down on Bane's pentacle goes into
+# its middle
+args: --map 12 --pos 18740,15850,40
+do: option:pentagram_snap,on;t5;place:397,0,18700,15840,40;drag:@:322,232;t30;where:@
+expect: 18767,16047,40 shape 397

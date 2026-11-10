@@ -1,0 +1,8 @@
+# The blackrock banishes Pyros: the scene at the egg next to him stops
+# before his retreat (otherwise it kept setting his pictures in between and
+# the retreat jumped), also while the blackrock is out of the world for a
+# moment.
+args: --map 44 --pos 26878,21354,8
+do: putin:1,442,4;sendto:1,44,23890,15070,32;vitals:300;t300;vitals:300;t400;vitals:300;until:free;use:18186;barklog:120,17953;procs
+expect: target 17953 picked
+reject: item 17940 type

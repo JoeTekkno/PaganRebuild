@@ -1,0 +1,8 @@
+# A figure standing right at a wall hung with curtains (Theurgists' hall,
+# map 37): the curtain hangs a few units in front of the wall and the
+# figure reaches behind it, but it is painted over the curtain, not
+# hidden behind it
+args: --map 37 --pos 18089,17647,56
+do: t2;place:269,16,17759,18184,56;t1;pickat:98,208;pickat:100,222
+expect: pickat 98,208: id 31574 shape  269 frame  16 at 17759,18184,56 flags 0000 q 0 npc 0 map 37 parent 0 family 6 [s] pad 2x2x5
+expect: pickat 100,222: id 31574 shape  269 frame  16 at 17759,18184,56 flags 0000 q 0 npc 0 map 37 parent 0 family 6 [s] pad 2x2x5

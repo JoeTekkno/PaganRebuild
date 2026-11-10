@@ -1,0 +1,7 @@
+# Loading a savegame forgets the way searches of the game left behind:
+# the same walk after loading again must find its way as the first time
+# (the memory of the last search made it keep a way that was gone).
+do: t5;saveslot:5;walkto:2:13800,5900;t400;where:2
+do: loadslot:5;walkto:2:13800,5900;t400;where:2
+expect: where 2: 13835,5923,8
+reject: where 2: 13831,5919,8

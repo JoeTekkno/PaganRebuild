@@ -1,0 +1,7 @@
+# Enemy health bars: none for a creature hidden behind a wall, but one while its head looks over a low wall
+# (the ghoul waits during Devon's conversation, so it stands still where the walls are put)
+do: option:enemy_health,on;option:talk_truce,on;t60;spawn:142,400;t30;use:2;t450;bars
+do: place:41,2,14935,5911,8;place:40,2,14903,5911,8;t5;bars
+do: place:41,2,14935,5911,48;place:40,2,14903,5911,48;t5;bars
+expect: bars: [62]
+expect: bars: []

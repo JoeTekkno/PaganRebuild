@@ -1,0 +1,4 @@
+# Better inventory: potions stack; drinking takes one off, empty bottles stack as well
+do: option:better_inventory,on;pack:766,1;pack:766,1;pack:766,1;inv;t20;vitals:5;potion:2;t200;vitals;find:766
+expect: hp 30/30
+expect: frame   1 at 0,0,0 flags 0008 q 2

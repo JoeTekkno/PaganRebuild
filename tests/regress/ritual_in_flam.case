@@ -1,0 +1,12 @@
+# Sorcery: the pentagram on map 41 enchants a wand with Ignite (candles B A A A A)
+args: --map 41 --pos 19760,6650,0
+do: flag:vardionJoined=1;mana:100
+do: place:454,13,19641,6681,0;place:398,0,19653,6693,0
+do: place:454,9,19670,6550,0
+do: place:454,9,19544,6485,0;place:398,2,19556,6497,0
+do: place:454,9,19445,6584,0;place:398,2,19457,6596,0
+do: place:454,9,19510,6710,0
+do: place:397,0,19561,6601,0;t5;snap;use:10544;barklog:700;diff
+expect: In Flam!
+expect: q 0 -> 277
+reject: come for you

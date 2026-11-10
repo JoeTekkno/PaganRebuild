@@ -1,0 +1,34 @@
+# Chapter 12: Argentrock Isle. Out of the Conventicle by the recall item
+# (the skeletons by its door are too strong for him), through the caves
+# (map 49) and the gate opened by the Key of the Scion to the isle; the
+# Test of Wisdom and the Test of Centeredness with Brother Xavier, then
+# Stellos (the foci).
+do: operate:833/0;say:Upper Catacombs ;until:free/2000;t100
+# the recall pad lies in a closed room; its way out is the teleporter south
+do: walk:21503,11167,0;keys:4,8;t30;keys:4,8;t30
+expect: keys:4,8: map 50 at 16190,6434,8
+do: reach:22560,6420,49;rush:22207,10815,49;rest:28
+do: bypass:18750,16127,48 through the caves to the gate (the way goes down a ledge where ghouls wait, more come out of the ground on the way, with strength 15 and 30 hit points he does not get through)
+do: useon:232/3,20563;operate:20563;t60;walk:18960,16127;walk:19406,16162;until:map=37/300;t60
+expect: useon:232/3,20563: (frame, quality) Some((3, 1096)) -> Some((3, 72))
+expect: until:map=37/300: after
+# Xavier: the Test of Wisdom, five of ten questions in a random order
+do: reach:Xavier;talk:Xavier;say:And a fair day;say:What is this place;say:Who is Stratos;say:Worthy of respect;say:Enlightened;say:I wish enlightenment;say:Tell me of the tests;say:Tell me of the Test of Wisdom;say:aye;say:I am ready, please continue;say:Yes, I accept
+do: say:a breezy evening|tend the injured|my sight|the battle is lost|remain quiet|welcome him home|honesty|a weapon destroys|give truthful|comfort a sad
+do: say:a breezy evening|tend the injured|my sight|the battle is lost|remain quiet|welcome him home|honesty|a weapon destroys|give truthful|comfort a sad
+do: say:a breezy evening|tend the injured|my sight|the battle is lost|remain quiet|welcome him home|honesty|a weapon destroys|give truthful|comfort a sad
+do: say:a breezy evening|tend the injured|my sight|the battle is lost|remain quiet|welcome him home|honesty|a weapon destroys|give truthful|comfort a sad
+do: say:a breezy evening|tend the injured|my sight|the battle is lost|remain quiet|welcome him home|honesty|a weapon destroys|give truthful|comfort a sad
+do: say:Tell me of the Test of Centeredness;say:May I take the Test;until:free/3000;flag:passedWisdomTest
+expect: flag passedWisdomTest: 1
+# Stormpeak: from the north onto the plateau, up the rock with the sign
+# of air; the winds push him ten times, each time back to the middle
+do: reach:14664,18552,37;walk:14664,18552,72;hop:14655,18640,112
+do: walk:14760,18670;keys:4,6;keys:3,4;hop:14740,18760,168
+do: hold:14719,18911,168,2500;flag:passedCenteredTest
+expect: flag passedCenteredTest: 1
+do: t100;walk:14835,18930;keys:2,20;t60
+do: reach:Xavier;talk:Xavier;say:Hello, Brother Xavier;say:I have completed both your tests;say:Where is the Honorable Stellos;say:bye;until:free/3000
+do: reach:Stellos;talk:Stellos;sayall:healing;journal:text
+expect: Stellos gave me the key to the silver mine
+reject: actor 1: hp 0

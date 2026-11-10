@@ -1,0 +1,6 @@
+# Malchir is a "mage" until the Avatar has met him, then "Malchir the
+# Master Sorcerer"
+args: --map 14 --pos 8959,2303,24
+do: look:27;barklog:5;flag:malchirMet=1;t70;look:27;barklog:5
+expect: item 27: mage
+expect: item 27: Malchir the Master Sorcerer

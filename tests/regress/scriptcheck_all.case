@@ -1,0 +1,4 @@
+# Every event of every script class runs without a crash (takes about a minute)
+do: scriptcheck:all
+expect: 0 crashes
+reject: usecode: process

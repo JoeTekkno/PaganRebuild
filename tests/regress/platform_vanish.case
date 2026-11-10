@@ -1,0 +1,8 @@
+# Lower Catacombs: the floating platforms of the bridge come and go. The
+# Avatar standing on one falls when it fades away (he hung in the air: a
+# faded platform still counted as floor, and standing still never looked
+# for ground) and drowns in the water far below
+args: --map 31 --pos 24640,20095,128
+do: t5;flag:makePlatformAppear=1;goto:24884,16000,0;t20;goto:24640,20095,128;t350;goto:24940,20095,128;t50;where:1;t250;where:1;t400
+expect: where 1: 24940,20095,128
+expect: the Avatar is dead

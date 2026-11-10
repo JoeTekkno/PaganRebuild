@@ -1,0 +1,7 @@
+# The crumbling floor in the Upper Catacombs shakes the ground; falling into
+# the teleporter below before it stops, the shaking ends with the map
+args: --map 49 --pos 17450,24450,48
+do: t10;fx:quake?;goto:17620,24940,48;t300;where:1;fx:quake?
+expect: quake: 4
+expect: where 1: 3359,2079,8
+expect: quake: 0

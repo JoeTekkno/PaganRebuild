@@ -1,0 +1,6 @@
+# Grant Peace, aimed at an undead creature, lays the undead near the Avatar
+# to rest for good: a skeleton dies of it (magic and fire) and does not get
+# up again
+args: --map 50 --pos 2700,9400,48
+do: option:avatar_menu,on;option:map_fade,off;t3;place:119,247,2900,9500,48;event:24741,hatch;t60;mana:50;look:1;t5;say:Spell Book;t5;say:Earth;t5;say:Grant Peace;t20;target:62;t40;fightstate:62;t900;fightstate:62
+expect: fightstate:62: alignment 0x0 enemies 0x6 target 1 in_combat false hp 0

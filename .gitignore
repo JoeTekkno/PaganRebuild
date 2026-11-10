@@ -1,0 +1,5 @@
+/target
+*.png
+!/docs/*.png
+/pagan_frames/
+/CLAUDE.local.md

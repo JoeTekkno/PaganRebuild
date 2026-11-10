@@ -1,0 +1,4 @@
+# Black potion: standing right next to a creature, the invisible Avatar is still struck (as in the original); staying where he is, he is found again and again
+do: t30;putin:1,766,7;potion:5;t10;spawn:142,64;t400;fightstate:1
+expect: fightstate:1:
+reject: in_combat false hp 30

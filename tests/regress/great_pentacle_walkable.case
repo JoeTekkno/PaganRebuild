@@ -1,0 +1,7 @@
+# The four quarters of the Great Pentacle are floor: their script acts only
+# for a whole small pentacle. A click walks onto them, the pointer does not
+# light them up as something to use
+args: --map 12 --pos 17382,19700,56
+do: t3;usable:12808;usable:12807
+expect: usable 12808: shape 124 use false
+expect: usable 12807: shape 124 use false

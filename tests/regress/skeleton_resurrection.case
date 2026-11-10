@@ -1,0 +1,7 @@
+# Skeletons get up again 5 to 30 seconds after being killed (monster table
+# "resurrection", as in the original and ScummVM), with full hit points,
+# and fight on; killed by fire they stay down
+args: --map 50 --pos 2700,9400,48
+do: option:map_fade,off;goto:2700,9400,48;t3;place:119,247,2900,9500,48;event:24741,hatch;t60;hit:62,999,2;t5;fightstate:62;t900;fightstate:62
+expect: fightstate:62: alignment 0x0 enemies 0x6 target 1 in_combat false hp 0
+expect: fightstate:62: alignment 0x0 enemies 0x6 target 1 in_combat true hp 35

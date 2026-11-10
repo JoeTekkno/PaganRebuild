@@ -1,0 +1,8 @@
+# A trapped book in a bag next to the Avatar: when it is closed the blast
+# hurts whoever stands close to the bag (not around the book's place in
+# the bag's window); the armour softens it (the cheat's magic shield keeps
+# the fire part off)
+args: --cheat --map 37 --pos 14655,2883,64
+do: t1;place:637,0,14600,2900,64;putin:31580,613,18,40;t1;use:31581;t10
+do: page;page;page;page;page;page;page;page;page;page;t100;hp
+expect: actor 1: hp 25 dex 15 side 2 enemies 0

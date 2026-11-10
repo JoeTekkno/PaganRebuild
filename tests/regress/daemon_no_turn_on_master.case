@@ -1,0 +1,7 @@
+# Malchir calls up his daemon against the Avatar. A blow of the daemon
+# that strikes Malchir (he stands next to the Avatar) does not make the
+# daemon his foe: he keeps fighting the Avatar
+args: --map 14 --pos 7700,2400,8
+do: flag:MalchirTest=6;flag:malchirMet=1;t70;barklog:300;vitals:250;t300;vitals:250;t300;vitals:250;t300;fightstate:27
+expect: fightstate:27: alignment 0x1 enemies 0x0 target 1
+reject: target 62

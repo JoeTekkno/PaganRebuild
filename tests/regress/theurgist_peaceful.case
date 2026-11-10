@@ -1,0 +1,6 @@
+# A theurgist that turns up on the Plane of Air (to talk to) does not take
+# the Avatar for a foe when he comes near: no cry for help, no vanishing
+args: --map 37 --pos 25112,19088,56
+do: option:notice_far,off;t5;barklog:600;find:269
+reject: I am attacked
+expect: shape  269

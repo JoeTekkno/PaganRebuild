@@ -1,0 +1,10 @@
+# The ceremony at the Great Pentacle: the acolytes put there by the script
+# face the pentacle, and every candle gets lit - Bane's and the Avatar's lie
+# just at the edge of the search around them (their footpad counts)
+args: --map 14 --pos 7599,2579,8
+do: t5;talk:27;barklog:400;flag:MalchirTest=6;t420;where:31,32;t1400;answer:2;t3500;answer:2;t800;near:700
+expect: where 31: 16895,19199,56 shape 316 frame 39 dir 2
+expect: where 32: 17119,18911,56 shape 192 frame 63 dir 4
+expect: shape  454 frame  1
+reject: frame  12 at 17311,19039,56
+reject: frame  12 at 16991,19359,56

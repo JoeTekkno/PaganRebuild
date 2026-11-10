@@ -1,0 +1,9 @@
+# Better inventory: alike things share a slot (daggers, swords), the Slayer
+# (a special weapon) lies alone; a pile moves as a whole and goes out by amount
+do: option:better_inventory,on;pack:418;pack:418;pack:418;pack:420;pack:816;pack:420;inv;t5;piles;drag:20314:88,85;t2;piles;split:20312:2:360,230;t5;piles
+expect: slot 1: shape 418 frame 0 q 0 x3
+expect: slot 2: shape 420 frame 0 q 0 x2
+expect: slot 3: shape 816 frame 0 q 0 x1
+expect: slot 1: shape 420 frame 0 q 0 x2
+expect: slot 2: shape 418 frame 0 q 0 x3
+expect: slot 2: shape 418 frame 0 q 0 x1

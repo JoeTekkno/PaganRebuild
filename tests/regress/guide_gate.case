@@ -1,0 +1,6 @@
+# Map with guide: at the start of the game the town gate is shut (a guard
+# opens it), so no way leads into Tenebrae; the guide shows the way as far
+# as the gate, to the teleporter behind it
+args:
+do: option:guide,on;t5;guideto:Bibliothek;guidewait;guide
+expect: status Near leg teleporter 0 at 11516,1660,48 to map 40

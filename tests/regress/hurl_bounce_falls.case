@@ -1,0 +1,6 @@
+# A thrown log that strikes another one from the side bounces back and
+# falls to the ground (it used to stay hanging in the air where it struck).
+args: --map 7 --pos 13400,16800,8
+do: t5;place:657,0,13300,16630,20;hurl:23532,-24,0,2,1;t50;where:23532
+expect: where 23532: 13344,16630,8
+reject: where 23532: 13279,16630,20

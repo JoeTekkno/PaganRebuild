@@ -1,0 +1,7 @@
+# Map with guide: inside Tenebrae the way to the library leads over the
+# teleporter to the eastern part of the town (map 41); the teleporters of
+# map 3 are known from the game data although that map is not loaded
+args: --map 40 --pos 13038,14900,48
+do: option:guide,on;t5;guideto:Bibliothek;guidewait;guide;guidelinks:3
+expect: status Shown leg teleporter 48 at 15414,3298,48 to map 41
+expect: guidelink 0: map 3 at 11516,1660,48 range 256x192 to map 40

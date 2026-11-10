@@ -1,0 +1,7 @@
+# Option "Pentacle snaps": a candle let go next to the Avatar over the big
+# floor tile beneath the pentacle goes onto the point there (before, it
+# went to the point nearest the tile's corner, on the far side)
+args: --map 14 --pos 14527,2295,16
+do: option:pentagram_snap,on;option:pentagram_reach,on;t5;place:454,8,14448,2304,16;t2
+do: drag:21144:305,215;t5;where:21144
+expect: where 21144: 14517,2328,16

@@ -1,0 +1,5 @@
+# Spell book: reading the tome of earth magic notes Open Ground and Death Speak; kept in the savegame
+args: --map 6
+do: goto:7880,25300,80;t5;use:20267;t30;saveslot:3;t5;loadslot:3;spells:text
+expect: 2 of 9
+expect: Words: Des Por Ylem

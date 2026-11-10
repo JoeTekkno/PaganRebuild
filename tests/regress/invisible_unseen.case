@@ -1,0 +1,4 @@
+# Black potion: an invisible Avatar is not noticed by a creature that appears nearby
+do: t30;putin:1,766,7;potion:5;t10;spawn:142,400;t600;fightstate:1;fightstate:62
+expect: fightstate:1: alignment 0x2 enemies 0x0 target 0 in_combat false hp 30
+expect: fightstate:62: alignment 0x8 enemies 0x6 target 0 in_combat false

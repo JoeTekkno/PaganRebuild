@@ -1,0 +1,8 @@
+# A teleporter to another place on the same map (map 62) fades out first,
+# as the original does, then the Avatar arrives and the view fades in
+args: --map 62 --pos 25779,3307,0
+do: option:map_fade,on;t5;goto:25695,2975,0;t2;fade;where:1;t40;fade;where:1
+expect: fade: on
+expect: where 1: 25695,2975,0
+expect: fade: none
+expect: where 1: 19167,3519,48

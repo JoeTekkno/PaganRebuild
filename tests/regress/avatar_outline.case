@@ -1,0 +1,6 @@
+# Option "outline when hidden": behind a wall of the Upper Catacombs the Avatar
+# shows as an outline; with the option off not
+args: --map 50 --pos 5859,2314,48
+do: option:map_fade,off;option:avatar_outline,on;t5;outline;option:avatar_outline,off;outline
+expect: outline: 784 pixels
+expect: outline: 0 pixels

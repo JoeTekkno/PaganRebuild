@@ -1,0 +1,6 @@
+# Stratos lifts the Avatar to her island on the Plane of Air (map 37)
+# step by step; he must stay where she puts him, not drop back onto the
+# rock (then he fell into the water after talking to her)
+args: --map 37 --pos 10655,17247,112
+do: t4;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;t4;skip;item:1
+expect: id     1 shape    1 frame 621 at 10734,17325,160

@@ -1,0 +1,4 @@
+# Click on a far pillar of the wall walk (map 40): only reached by a step down first, then climbed
+args: --map 40 --pos 13355,13803,112
+do: t5;walkclick:385,118;t250;where:1
+expect: where 1: 13191,13407,136

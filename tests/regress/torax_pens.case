@@ -1,0 +1,9 @@
+# Map 7, the barn with the toraxen pens: the toraxen hatched to stand in
+# their pens stay there when the Avatar comes in; once he strikes one,
+# the others nearby join in
+args: --map 7 --pos 12400,24300,8
+do: t150;fightstate:65;fightstate:66;strike:65;t60;fightstate:65;fightstate:66
+expect: fightstate:65: alignment 0x4 enemies 0x2 target 0 in_combat false
+expect: fightstate:66: alignment 0x4 enemies 0x2 target 0 in_combat false
+expect: fightstate:65: alignment 0x4 enemies 0x2 target 1 in_combat true
+expect: fightstate:66: alignment 0x4 enemies 0x2 target 1 in_combat true

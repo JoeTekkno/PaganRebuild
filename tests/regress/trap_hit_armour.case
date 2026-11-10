@@ -1,0 +1,7 @@
+# A hit without an attacker (the fire bombs of a trapped book read in the
+# Avatar's own pack: fire and blunt, 20 to 32) is softened by the armour
+# as in the original; before, 31 points killed the armoured Avatar at once
+# (the cheat's magic shield keeps the fire part off)
+args: --cheat
+do: t2;hit:1,31,C;t1;hp
+expect: actor 1: hp 25 dex 15 side 2 enemies 0

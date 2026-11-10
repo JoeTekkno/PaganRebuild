@@ -1,0 +1,4 @@
+# With "enemies wait during talks" a ghoul does not strike the Avatar during a conversation (greeting, answers, farewell)
+do: option:talk_truce,on;t60;spawn:142,120;t90;use:2;t600;fightstate:1
+expect: hp 22
+reject: hp 0

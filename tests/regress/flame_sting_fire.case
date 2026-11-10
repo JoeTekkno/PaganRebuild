@@ -1,0 +1,7 @@
+# Flame Sting sets the ground in front of the Avatar on fire when it
+# strikes: a burst, a fire field for three seconds, then a dying flame
+args: --map 14 --pos 19107,9759,72
+do: putin:1,817;puton:817/0;combat;t40;sendto:57,14,19235,9759,72;t2;attack:2;t12;near:300;t100;near:300
+expect: shape  480 frame
+expect: shape  400 frame   1 at 19203,9759,72
+expect: shape  381 frame

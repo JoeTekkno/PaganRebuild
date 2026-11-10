@@ -1,0 +1,9 @@
+# The invisible path over the lava of the earth plane (pathreveal.rs):
+# a stone put down aimed at the lava under the path goes
+# onto it and shows that stretch, the tile across the gap beyond too; the
+# Avatar jumps onto the tile shown there and lands on the path
+args: --map 47 --pos 15563,5955,48
+do: vitals:5000;t5;pack:798,3;dropat:798/3:326,250;t40;pathshown;hop:15551,6175,48;t60;where:1
+expect: (15615, 5983, 48)
+expect: (15615, 6239, 48)
+expect: where 1: 15580,6204,48

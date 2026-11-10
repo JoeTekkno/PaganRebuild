@@ -1,0 +1,5 @@
+# Option "Puzzle spots": the hollow in the tomb wall for the Skull of
+# Quakes says its name when looked at (before, nothing happens there)
+args: --map 50 --pos 15751,6103,48
+do: option:puzzle_spots,on;t5;look:13301;t2
+expect: bark by 13301: Skull-shaped hollow

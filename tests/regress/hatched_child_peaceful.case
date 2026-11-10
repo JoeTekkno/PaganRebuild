@@ -1,0 +1,8 @@
+# A child hatched from a monster egg in the caves below the Obsidian
+# Fortress does not go looking for a fight (before, it took the fight for
+# an assault, and a sorcerer sentenced the Avatar to death)
+args: --map 14 --pos 8440,17146,72
+do: t5;walkto:1:8232,18006;barklog:900;near:600
+expect: shape  708 frame
+reject: attacked me
+reject: guilty of assault

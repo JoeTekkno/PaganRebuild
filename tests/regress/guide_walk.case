@@ -1,0 +1,8 @@
+# Map with guide: following the way from the library to the landing, the
+# Avatar goes through the teleporter onto map 40, and there the guide goes
+# on with the next teleporter (to map 3); switched off, it shows no way
+args: --map 41 --pos 14896,2880,48
+do: option:guide,on;t5;guideto:Landing;guidewait;guidewalk:500;guide;option:guide,off;guideto:Bibliothek;guidewait;guide
+expect: guide: avatar map 40
+expect: leg teleporter 53 at 13048,15464,48 to map 3
+expect: target Some((41, 14896, 2880)) status Searching leg - way 0 points

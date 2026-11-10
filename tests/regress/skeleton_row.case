@@ -1,0 +1,11 @@
+# Lower Catacombs: the skeletons lined up on both sides of the way stand
+# there swinging their axes; they do not attack the Avatar walking past.
+# The one he strikes fights back and calls its side close by to help
+# (skeleton 6 at the far end is out of reach and stays put)
+args: --map 31 --pos 3831,3959,0
+do: t300;fightstate:35;fightstate:34;strike:36;t100;fightstate:36;fightstate:34;fightstate:6
+expect: fightstate:35: alignment 0x4 enemies 0x2 target 0 in_combat false
+expect: fightstate:34: alignment 0x4 enemies 0x2 target 0 in_combat false
+expect: fightstate:36: alignment 0x4 enemies 0x2 target 1 in_combat true
+expect: fightstate:34: alignment 0x4 enemies 0x2 target 1 in_combat true
+expect: fightstate:6: alignment 0x4 enemies 0x2 target 0 in_combat false

@@ -1,0 +1,6 @@
+# Right click (classic: shift + right click) takes a thing straight into the backpack;
+# a pile of coins too heavy to carry stays, the Avatar himself is nothing to take
+do: t20;give:766,1;take;give:143,0,60000;take;take:1
+expect: take: taken
+expect: take: refused
+expect: take: not takeable

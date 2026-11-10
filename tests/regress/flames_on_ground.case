@@ -1,0 +1,9 @@
+# Arcadion's ring of fire in the Obsidian Fortress: the
+# flames stand on the floor around him; the spell finds a spot inside a wall
+# first and then went on under the flat floor (z 0) and up in the air (z 248)
+args: --map 14 --pos 15559,2175,8
+do: sendto:57,14,15631,2111,16;t5;combat;fightclick:354,180;t150;near:600
+expect: shape  569 frame
+expect: at 15407,2111,8 flags 0080
+reject: at 15407,2111,0 flags 0080
+reject: ,248 flags 0080

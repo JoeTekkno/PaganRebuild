@@ -1,0 +1,4 @@
+# Passers-by keep to the streets: with the Avatar on a flat roof in east Tenebrae none appear up there
+args: --map 41 --pos 14047,14975,104
+do: option:passersby,on;t600;passersby
+expect: passersby: 0

@@ -1,0 +1,10 @@
+# The end: all five stones on their plates bring the black gate; walking in starts the end movie
+args: --map 43 --pos 16200,16700,24
+do: vitals:5000;t2
+# (put down within reach as in the original: for two plates the Avatar steps up to them)
+do: pack:793,0;drag:@:323,226;t40;pack:793,1;drag:@:385,210;t40
+do: goto:16260,16420,24;t2;pack:793,2;drag:@:277,204;t40;goto:16200,16700,24;t2
+do: pack:793,3;drag:@:263,206;t40;goto:15930,16740,24;t2;pack:793,4;drag:@:366,205;t40
+do: barklog:900;find:685;walkto:1:16130,16610;barklog:600;movie:5
+expect: shape  685
+expect: title: movie

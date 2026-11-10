@@ -1,0 +1,6 @@
+# A running jump on ground at height 0 (map 4): its last frames go down,
+# and the Avatar ended at z -18 and walked on sunk into the ground
+# (found by the test bot); he stays at 0
+args: --map 4 --pos 19854,13500,0
+do: t2;w0r:12;jump;w0r:20;where:1
+expect: where 1: 19854,12796,0 shape 1 frame 97

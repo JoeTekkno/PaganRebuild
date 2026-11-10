@@ -1,0 +1,9 @@
+# Option "Pentacle snaps": a candle put down near a point of Bane's pentacle
+# goes onto it (here next to it: a thin wall stands on the point itself,
+# 16 away still counts); a reagent put onto that candle goes right in
+# front of it, towards the middle
+args: --map 12 --pos 18540,15900,40
+do: option:pentagram_snap,on;t5;sendto:21561,12,18560,15930,40;sendto:21569,12,18500,15950,40;t2
+do: drag:21561:309,236;where:21561;drag:21569:319,238;where:21569
+expect: where 21561: 18629,15992,40
+expect: where 21569: 18661,15999,40

@@ -1,0 +1,7 @@
+# The magic shield keeps fire off: the fireballs of the shooters in the
+# caves near the Obsidian Fortress do no harm (the armour table calls its
+# protection "type", which was not read)
+args: --map 14 --pos 19300,18700,72
+do: putin:1,842;puton:842/0;vitals:30;t1500;vitals
+expect: puton:842/0: worn
+expect: vitals: hp 30/30

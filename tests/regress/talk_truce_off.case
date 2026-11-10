@@ -1,0 +1,3 @@
+# Without the option the fight goes on during the conversation, as in the original
+do: option:talk_truce,off;t60;spawn:142,120;t90;use:2;t600;fightstate:1
+expect: hp 0

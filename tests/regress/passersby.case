@@ -1,0 +1,5 @@
+# Passers-by: in the daytime townsfolk appear on the streets of east Tenebrae; switched off, none
+args: --map 41 --pos 14896,2880,48
+do: option:passersby,on;t600;passersby;option:passersby,off;t90;passersby
+expect: passersby: 4
+expect: passersby: 0

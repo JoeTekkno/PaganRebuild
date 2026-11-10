@@ -1,0 +1,5 @@
+# Sleeping until a time of day: the bedroll asks with the times of day, the third choice (FirstEbb) wakes at 4
+do: t250;hours:10;place:534,0,14560,5960,8;use:@;barklog:200,1;answer:3;t600;hours:0
+expect: It is LastEbb. Rest until ...
+expect: FirstEbb (4 o'clock)
+expect: now hour 4 of the day

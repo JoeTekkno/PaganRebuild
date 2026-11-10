@@ -1,0 +1,7 @@
+# A trapped book (quality 40) in a bag on the floor: when it is closed it
+# explodes where the bag is (before: at the book's place in the bag's
+# window, and the explosion went off at the edge of the map)
+args: --map 37 --pos 14655,2883,64
+do: t1;place:637,0,14600,2900,64;putin:31574,613,18,40;t1;use:31575;t10
+do: page;page;page;page;page;page;page;page;page;page;t20;find:578
+expect: id 31576 shape  578 frame   7 at 14970,3236,120

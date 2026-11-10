@@ -1,0 +1,5 @@
+# Black potion: a creature on its way to the Avatar loses him when he vanishes and walks on to where it saw him last; he has gone, so it finds nobody there
+do: t30;spawn:142,400;t40;putin:1,766,7;potion:5;w0r:40;t600;where:62;fightstate:1;fightstate:62
+expect: in_combat false hp 30
+expect: where 62: 145
+expect: fightstate:62: alignment 0x8 enemies 0x6 target 0

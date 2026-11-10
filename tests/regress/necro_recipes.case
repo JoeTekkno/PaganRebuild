@@ -1,0 +1,4 @@
+# Necromancy: the key of the Necromancer turns blood and bone in a pouch into Death Speak
+do: give:637;putin:@,395,0,2;putin:@,395,6,2;t5;snap;pack:232,4;use:@;barklog:200,20311;diff
+expect: Kal Wis Corp!
+expect: new: shape 746 frame 0

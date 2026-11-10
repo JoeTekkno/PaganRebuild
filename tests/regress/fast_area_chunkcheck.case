@@ -1,0 +1,5 @@
+# A dungeon whose chunks are laid out by eggs (map 57): walking away from
+# each such egg and back leaves nothing of its furnishings missing
+args: --map 57
+do: option:map_fade,off;t5;chunkcheck
+expect: chunkcheck: map 57: 17 eggs, 0 with changes

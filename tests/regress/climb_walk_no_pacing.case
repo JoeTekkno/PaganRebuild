@@ -1,0 +1,5 @@
+# A click on a roof the Avatar stands right below (map 37, Tenebrae): once he can get no nearer, he stops instead of pacing to and fro below it until the walk gives up
+args: --map 37 --pos 18024,20168,56
+do: t5;walkclick:50,100;t400;where:1;procs
+expect: where 1: 17276,20500,104
+reject: item 1 type 204

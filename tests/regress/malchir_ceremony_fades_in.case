@@ -1,0 +1,8 @@
+# Malchir takes the Avatar to the Great Pentacle: he fades to black, sends
+# him to map 12 and looks for the pentacle next to him. The map has to have
+# changed by then, or the ceremony never starts and the screen stays black.
+args: --map 14 --pos 7599,2579,8
+do: t5;talk:27;barklog:400;flag:MalchirTest=6;t600;fade;where:1
+expect: fade: none
+expect: where 1: 17023,19455,56
+expect: I am glad that you all were waiting for us

@@ -1,0 +1,4 @@
+# From the wall walk a click on the far roof (map 40): no jump down to the street, from where the roof is too high
+args: --map 40 --pos 13355,13803,112
+do: t5;walkclick:560,240;t500;where:1
+expect: where 1: 13983,13551,136

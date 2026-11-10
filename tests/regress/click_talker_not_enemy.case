@@ -1,0 +1,7 @@
+# Modern controls, fighting by click: a click on Arcadion in the Obsidian
+# Fortress talks to him (his kind would fight the Avatar, but he has
+# something to say and does not fight him); before, it drew the weapon
+args: --map 14 --pos 15240,2340,8
+do: option:modern_controls,on;t5;pickat:385,180;fightclick:385,180
+expect: pickat 385,180: id    57
+expect: fightclick:385,180: not for fighting

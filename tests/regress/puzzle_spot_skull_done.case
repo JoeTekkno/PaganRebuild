@@ -1,0 +1,5 @@
+# Option "Puzzle spots": once the Skull of Quakes lies in its hollow the
+# place is not pointed out any more
+args: --map 50 --pos 15751,6103,48
+do: option:puzzle_spots,on;t5;pack:814;use:@;t5;target:13301;t600;look:13301;t2
+reject: Skull-shaped hollow

@@ -1,0 +1,8 @@
+# Tomb of Khumash-Gor: he speaks from his stone throne and his ghost rises
+# to fight; the throne stays occupied until the peace spell, aimed at the
+# ghost with a click, lays it to rest; then it is empty (frame 1).
+# Cancelling the target leaves everything as it was.
+args: --map 54 --pos 10300,2760,8
+do: option:avatar_menu,on;t500;mana:50;look:1;t5;say:Spell Book;t5;say:Earth;t5;say:Grant Peace;t20;target:0;t20;find:289;say:Grant Peace;t20;target:62;t60;find:289
+expect: id 17394 shape  289 frame   0 at 10186,2782,8 flags 0400 q 0 npc 0 map 0 parent 0 family 0 [s] pad 5x5x4
+expect: id 17394 shape  289 frame   1 at 10186,2782,8 flags 0400 q 0 npc 0 map 0 parent 0 family 0 [s] pad 5x5x4

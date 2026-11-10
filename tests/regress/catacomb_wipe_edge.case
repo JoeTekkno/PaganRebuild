@@ -1,0 +1,9 @@
+# The clearing egg in the upper catacombs (after the talk with the dead)
+# clears its area and lays new floor. The big floor tiles at its western
+# edge stay: a version that searched its area one tile wider took them
+# away and left a black hole beside the Avatar
+args: --map 50 --pos 17700,2400,48
+do: flag:talkedToDeadDudes=1;t5;goto:17026,1850,48;t60;near:500
+expect: shape  352 frame   6 at 16895,1535,48
+expect: shape  352 frame   2 at 16895,1791,48
+expect: shape  352 frame   4 at 16895,2047,48

@@ -1,0 +1,7 @@
+# Fight states stay with their map: changeling 19983 of map 5 (fought
+# there) must not make floor tile 19983 of map 4 walk off and sink into
+# the ground; back on map 5 the changeling has its state again
+args: --map 5
+do: vitals:5000;goto:11327,13050,8;t200;fightstate:19983;map:4;goto:20668,18284,48;t300;where:19983;map:5;fightstate:19983
+expect: where 19983: 20863,18431,48 shape 3
+expect: alignment 0x4 enemies 0x2 target 0 in_combat false hp 35

@@ -1,0 +1,5 @@
+# Bones a skeleton egg wakes up get up frame by frame (the start of the
+# getting-up animation is the lying picture) instead of standing at once
+args: --map 50
+do: goto:2700,9400,48;t3;place:119,247,2900,9500,48;event:24741,hatch;t16;near:300
+expect: shape  119 frame 245 at 2900,9500,48

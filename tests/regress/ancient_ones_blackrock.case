@@ -1,0 +1,7 @@
+# The Ancient Ones speak again when the Avatar comes back with the piece of
+# blackrock from Khumash-Gor's tomb in his backpack: the search for it
+# also looks inside what he carries
+args: --map 54 --pos 11300,2750,8
+do: t5;flag:ancientOnesMet=1;flag:doneDefault=1;place:828,0,12092,2852,24;putin:17708,442,0;goto:11718,2600,8;barklog:400;flag:getPowerAO
+expect: tick 34 item 17402: Well done, mortal.  The item of Blackrock which you now possess is the first key to unlocking tremendous power within yourself.
+expect: flag getPowerAO: 1

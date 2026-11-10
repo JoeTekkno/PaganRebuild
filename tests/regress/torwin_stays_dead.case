@@ -1,0 +1,12 @@
+# Torwin leaps from the cliff into the water and drowns (after the talk
+# about the missing focus and his father). He hits two spots of water: the
+# first sends him away dead, the second no longer finds him here and
+# destroyed him, which made him alive again (and his scene came back). He
+# stays dead.
+args: --map 37 --pos 13807,18975,112
+do: sendto:26,37,13585,18950,112;flag:spokenAboutFoci=1;flag:mordeaDead=1;t5;talk:26
+do: say:I don't believe;say:I am Avatar;say:Someone's Focus;say:I believe you do;say:But you knew;say:Only borrowed;say:your father
+do: say:Toran was your father;say:Why did Mordea;say:I saw his execution;say:You could do nothing;say:Mordea is dead;say:revenge;say:with the Lurker
+do: until:free/2000;t200;hours:2;t600;people
+expect: person 26: map 0
+reject: person 26: map 37

@@ -1,0 +1,5 @@
+# Leaving the dungeon of map 50 by its exit egg: the script goes on after the map change, fades in again
+args: --map 50 --pos 2948,10760,48
+do: t5;goto:2948,10870,48;t400;fade
+expect: fade: none
+expect: map 6 tick

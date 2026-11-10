@@ -1,0 +1,6 @@
+# The pentacle on the floor of the house on the Sorcerers' isle lies at the
+# height of the floor tiles: as in the original it is drawn over them (only
+# full 128 x 128 floor squares are drawn first, not every big flat thing)
+args: --map 12 --pos 18879,20259,56
+do: t5;at:180,200
+expect: at:180,200: id 15184 shape  124

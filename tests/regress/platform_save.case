@@ -1,0 +1,7 @@
+# Lower Catacombs: the floating platforms go on coming and going after
+# loading a savegame, also when one of them was once asked for its fight
+# state (loading ended their scripts: the bridge froze)
+args: --map 31 --pos 24640,20095,128
+do: t5;flag:makePlatformAppear=1;goto:24884,16000,0;t20;goto:24640,20095,128;t20;fightstate:22174;saveslot:3;loadslot:3;t5;procs
+expect: loadslot: Ok(())
+expect: item 22174 type 205

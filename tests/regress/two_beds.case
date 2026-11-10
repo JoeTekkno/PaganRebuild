@@ -1,0 +1,6 @@
+# Two beds used one after the other while the first still asks how long
+# to rest (palace on map 40): the Avatar stayed frozen for good (found by
+# the test bot). The second bed is not used while one runs.
+args: --map 40 --pos 12400,8560,48
+do: t2;use:18509;t20;use:18510;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t15;skip;answer:5;t200;stasis
+expect: stasis: false

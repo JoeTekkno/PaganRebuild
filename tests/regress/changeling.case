@@ -1,0 +1,5 @@
+# A changeling takes the Avatar's shape now and then (as in the original
+# game) and fights so; killed in it, it dies as a changeling
+do: vitals:5000;t250;goto:15000,5600,8;t5;spawn:357,-200;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;t30;where:62;slay:62;t60;where:62
+expect: shape 1 frame
+expect: shape 357 frame 73

@@ -1,0 +1,4 @@
+# Click-walk down from the wall walk (map 40): straight over the edge, no turning back on top first
+args: --map 40 --pos 12942,4558,112
+do: t5;walkclick:450,120;t45;where:1
+expect: where 1: 13082,4682,48

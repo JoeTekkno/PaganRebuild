@@ -1,0 +1,8 @@
+# Pyros is banished with the blackrock: its script fades to black, sends
+# the Avatar to the ether and fades in there. The script belongs to the
+# blackrock the Avatar carries; it goes along to the other map instead of
+# ending there (the screen stayed black)
+args: --map 44 --pos 26878,21354,8
+do: putin:1,442,4;sendto:1,44,23890,15070,32;vitals:300;t100;until:free;use:18186;barklog:900,17953;t300;fade;guide
+expect: fade: none
+expect: guide: avatar map 43

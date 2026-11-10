@@ -1,0 +1,6 @@
+# The spheres for the fire puzzle in the lava caves have no look script
+# and so no name of their own; pointing at one shows a name anyway
+args: --map 44 --pos 30267,12123,112
+do: option:hover_names,on;place:784,0,30300,12123,112;t2;hover:327,221
+expect: hover: Some(
+expect: Some("sphere")

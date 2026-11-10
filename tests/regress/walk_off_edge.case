@@ -1,0 +1,5 @@
+# Walking off an edge with the keys the Avatar steps clear of it and falls
+# at once (no balancing): a rock ledge in the caves (map 62)
+args: --map 62 --pos 17151,4800,48
+do: t5;w4:40;where:1
+expect: where 1: 17151,4992,0

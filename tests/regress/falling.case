@@ -1,0 +1,5 @@
+# Falling: down with "oof" (sfx 143) and the landing animation, standing again afterwards
+do: t250;goto:14527,5887,160;t40;where:1
+expect: sfx 143
+expect: where 1: 14527,5887,8
+expect: frame   0 at 14527,5887,8
