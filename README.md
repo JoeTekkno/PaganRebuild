@@ -43,6 +43,8 @@ SoundFont: GeneralUser GS by S. Christian Collins, https://www.schristiancollins
 
 Ultima VIII: Pagan (c) 1994 Origin Systems / Electronic Arts. Fan project, not affiliated with Electronic Arts or Origin Systems.
 
+PaganRebuild is developed with the help of Claude Code (Anthropic).
+
 ## License
 
 GPL-3.0-or-later, see [LICENSE](LICENSE).
