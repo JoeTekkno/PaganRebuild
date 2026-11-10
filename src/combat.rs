@@ -613,7 +613,8 @@ impl Game {
             self.avatar_died = Some(120);
             self.stasis = true;
             // killed by an enemy: "Game Over" as in the original; drowned,
-            // burnt or caught in a trap: the album's "Death"
+            // burnt or caught in a trap: the album's "Death", or its "Game
+            // Over" when it has none
             self.audio.play_combat_music(if by_enemy { MUSIC_DEATH } else { crate::album::DEATH_WORLD });
         } else {
             // an enemy falls while the weapon is out: a fanfare, then on

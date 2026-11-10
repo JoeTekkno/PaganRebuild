@@ -1,7 +1,7 @@
 //! Music from the remastered soundtrack album instead of the MIDI pieces
 //! (option "album music"). The player brings the album's files; they are
-//! found by their titles, in a folder next to the game or the program, or in
-//! %APPDATA%\pagan\music.
+//! found by their titles, in a folder next to the game or the program (as a
+//! rule "album" in the game folder), or in %APPDATA%\paganlbum.
 //!
 //! The pieces are streamed from the files (WAV or Ogg Vorbis). A piece that
 //! loops goes back to its beginning by blending its last seconds into its
@@ -74,31 +74,84 @@ const TITLES: &[(i32, &str)] = &[
     (121, "the lower catacombs (the path of earth)"),
 ];
 
+/// Other names a title can have in the album's files.
+const ALSO: &[(&str, &str)] = &[("running", "running (discrete version)"), ("game over", "game over (discrete version)")];
+
 /// Pieces that are played once and not looped (a movie's, the death
 /// music, the fanfare).
 const ONCE: &[i32] = &[44, DEATH_WORLD, 49, 50, 109];
 
 /// The death piece when no enemy killed the Avatar (drowned, burnt in lava,
-/// a trap): "Death" from the album. Killed by an enemy, the game's own
-/// death piece (44) plays, "Game Over" as in the original. Without the
-/// album both are the MIDI piece 44.
+/// a trap): "Death" from the album, or "Game Over" when the album has no
+/// "Death". Killed by an enemy, the game's own death piece (44) plays,
+/// "Game Over" as in the original. Without the album both are the MIDI
+/// piece 44.
 pub const DEATH_WORLD: i32 = 1044;
 
-/// Title of a file: its name without the track number in front
-/// ("03 - The Docks.wav" -> "the docks").
-fn title_of(path: &Path) -> Option<String> {
-    let stem = path.file_stem()?.to_str()?.to_lowercase().replace('\u{2019}', "'");
-    let rest = stem.trim_start_matches(|c: char| c.is_ascii_digit());
-    let rest = if rest.len() < stem.len() { rest.trim_start().strip_prefix('-').unwrap_or(rest) } else { rest };
-    Some(rest.trim().to_string())
+/// The game's pieces the album can replace, in order.
+pub fn tracks() -> Vec<i32> {
+    let mut t: Vec<i32> = TITLES.iter().map(|&(n, _)| n).collect();
+    t.sort_unstable();
+    t.dedup();
+    t
 }
 
-/// The album's files in a folder: piece number -> file.
-fn files_in(dir: &Path) -> HashMap<i32, PathBuf> {
-    let mut found = HashMap::default();
-    let Ok(entries) = std::fs::read_dir(dir) else { return found };
-    for e in entries.flatten() {
-        let path = e.path();
+/// Title of a file: its name without what stands in front of the title.
+/// "03 - The Docks.wav" -> "the docks"; a download names artist, album and
+/// track number first: "<artist> - <album> - 16 Stratos- The Titan of
+/// Air.ogg" -> "stratos- the titan of air", and the extras of the album
+/// carry their own number: "... - 22 Bonus Track 01 - The East Road.ogg"
+/// -> "the east road".
+fn title_of(path: &Path) -> Option<String> {
+    let stem = path.file_stem()?.to_str()?.to_lowercase().replace('\u{2019}', "'");
+    let digits = |s: &str| s.len() - s.trim_start_matches(|c: char| c.is_ascii_digit()).len();
+    // "<artist> - <album> - NN title": all up to the first " - " followed by a number
+    let after_number = stem.match_indices(" - ").map(|(i, _)| &stem[i + 3..]).find(|s| digits(s) > 0 && s[digits(s)..].starts_with(' '));
+    let rest = match after_number {
+        Some(s) => &s[digits(s)..],
+        // "NN - title" or just "title"
+        None if digits(&stem) > 0 => {
+            let r = stem[digits(&stem)..].trim_start();
+            r.strip_prefix('-').unwrap_or(r)
+        }
+        None => &stem,
+    };
+    let mut rest = rest.trim();
+    for extra in ["hidden bonus track", "bonus track"] {
+        if let Some(r) = rest.strip_prefix(extra) {
+            let r = r.trim_start();
+            let r = r[digits(r)..].trim_start();
+            rest = r.strip_prefix('-').unwrap_or(r).trim();
+            break;
+        }
+    }
+    Some(rest.to_string())
+}
+
+/// A title for comparing: only its letters and digits, in lower case
+/// (spaces, punctuation and kinds of apostrophe do not count).
+fn letters(s: &str) -> String {
+    s.chars().filter(|c| c.is_alphanumeric()).flat_map(char::to_lowercase).collect()
+}
+
+/// How well a file's title fits a piece's title: 2 the same, 1 one of its
+/// other names, None not at all.
+fn fit(title: &str, piece: &str) -> Option<u8> {
+    let t = letters(title);
+    if t == letters(piece) {
+        Some(2)
+    } else if ALSO.iter().any(|&(p, other)| p == piece && t == letters(other)) {
+        Some(1)
+    } else {
+        None
+    }
+}
+
+/// The album's files among these: piece number -> file. A file under the
+/// piece's own title wins over one under another name, a WAV over an Ogg.
+fn match_files(paths: impl IntoIterator<Item = PathBuf>) -> HashMap<i32, PathBuf> {
+    let mut found: HashMap<i32, (PathBuf, (u8, bool))> = HashMap::default();
+    for path in paths {
         let Some(wav) = path.extension().and_then(|x| x.to_str()).map(|x| x.to_ascii_lowercase()).and_then(|x| match x.as_str() {
             "wav" => Some(true),
             "ogg" => Some(false),
@@ -107,24 +160,40 @@ fn files_in(dir: &Path) -> HashMap<i32, PathBuf> {
             continue;
         };
         let Some(title) = title_of(&path) else { continue };
-        for &(track, t) in TITLES {
-            if t == title {
-                // both there: the WAV (the better one) wins
-                if wav || !found.contains_key(&track) {
-                    found.insert(track, path.clone());
-                }
+        for &(track, piece) in TITLES {
+            let Some(f) = fit(&title, piece) else { continue };
+            let rank = (f, wav);
+            if found.get(&track).is_none_or(|(_, r)| rank > *r) {
+                found.insert(track, (path.clone(), rank));
             }
+        }
+    }
+    found.into_iter().map(|(t, (p, _))| (t, p)).collect()
+}
+
+/// The album's files in a folder: piece number -> file.
+fn files_in(dir: &Path) -> HashMap<i32, PathBuf> {
+    let Ok(entries) = std::fs::read_dir(dir) else { return HashMap::default() };
+    match_files(entries.flatten().map(|e| e.path()))
+}
+
+/// Pieces the album does not have, played from others it has: without
+/// "Death", the death not caused by an enemy plays "Game Over".
+fn fill_in(mut found: HashMap<i32, PathBuf>) -> HashMap<i32, PathBuf> {
+    if !found.contains_key(&DEATH_WORLD) {
+        if let Some(over) = found.get(&44).cloned() {
+            found.insert(DEATH_WORLD, over);
         }
     }
     found
 }
 
-/// Looks for the album: in %APPDATA%\pagan\music, then in the folders of
+/// Looks for the album: in %APPDATA%\paganlbum, then in the folders of
 /// the game folder; the folder with the most pieces wins.
 pub fn find(game_dir: &Path) -> HashMap<i32, PathBuf> {
     let mut dirs = Vec::new();
     if let Some(dir) = crate::user_dir() {
-        dirs.push(dir.join("music"));
+        dirs.push(dir.join("album"));
     }
     // folders in the game folder, and next to the program (when it has a
     // folder of its own inside the game folder or elsewhere)
@@ -134,7 +203,7 @@ pub fn find(game_dir: &Path) -> HashMap<i32, PathBuf> {
             dirs.extend(entries.flatten().map(|e| e.path()).filter(|p| p.is_dir()));
         }
     }
-    dirs.iter().map(|d| files_in(d)).max_by_key(|f| f.len()).unwrap_or_default()
+    fill_in(dirs.iter().map(|d| files_in(d)).max_by_key(|f| f.len()).unwrap_or_default())
 }
 
 /// Pieces the album has inside the one before, and how far in they
@@ -787,6 +856,88 @@ mod tests {
         assert_eq!(title_of(Path::new("03 - The Docks.wav")).as_deref(), Some("the docks"));
         assert_eq!(title_of(Path::new("21 - Mythran\u{2019}s Spell.wav")).as_deref(), Some("mythran's spell"));
         assert_eq!(title_of(Path::new("The Docks.wav")).as_deref(), Some("the docks"));
+    }
+
+    /// The names of the album's download (Ogg Vorbis): artist, album and
+    /// track number in front, ":" turned into "-", the extras with their
+    /// own numbers; with covers and sheet music in the same folder.
+    #[test]
+    fn titles_from_download_names() {
+        const PRE: &str = "Dustin Naegel - Ultima VIII- Pagan \u{2013} Orchestral Re-Arrangement - ";
+        let names = [
+            "01 Theme to Ultima VIII- Pagan.ogg",
+            "02 Banished to Pagan (Intro Cinematic).ogg",
+            "03 The Docks.ogg",
+            "04 Tenebrae.ogg",
+            "05 Fisherman's Reef and East Road.ogg",
+            "06 The Cemetery.ogg",
+            "07 The Upper Catacombs.ogg",
+            "08 Conventicle of the Dead.ogg",
+            "09 Shrine of the Ancient Ones.ogg",
+            "10 The Zealan Gods.ogg",
+            "11 Running into Disaster.ogg",
+            "12 The Lower Catacombs (The Path of Earth).ogg",
+            "13 Carthax Lake (The Path of Water).ogg",
+            "14 Argentrock Isle (The Path of Air).ogg",
+            "15 Daemon's Crag (The Path of Fire).ogg",
+            "16 Stratos- The Titan of Air.ogg",
+            "17 Hydros- The Titan of Water.ogg",
+            "18 Pagan Combat.ogg",
+            "19 The Ethereal Plane.ogg",
+            "20 Britannia Burns (Endgame Cinematic).ogg",
+            "21 Mythran's Spell.ogg",
+            "22 Bonus Track 01 - The East Road (Discrete Version).ogg",
+            "23 Bonus Track 02 - Fisherman's Reef (Discrete Version).ogg",
+            "24 Bonus Track 03 - Ultima VI - Intro Theme.ogg",
+            "25 Hidden Bonus Track 01- The Docks - Piano Arrangement.ogg",
+            "26 Hidden Bonus Track 02 - Strike Commander- Mission One.ogg",
+            "27 Hidden Bonus Track 03 - Toran's Execution.ogg",
+            "28 Hidden Bonus Track 04 - Pyros- The Titan of Fire.ogg",
+            "29 Hidden Bonus Track 05 - Lithos- The Titan of Earth.ogg",
+            "30 Hidden Bonus Track 06 - Running (Discrete Version).ogg",
+            "31 Hidden Bonus Track 07 - Game Over (Discrete Version).ogg",
+            "Alternative Front Cover.JPG",
+            "Back Cover.JPG",
+            "Pagan Theme - Sheet Music, Piano Solo.pdf",
+        ];
+        let paths = names.iter().map(|n| PathBuf::from(format!("{PRE}{n}"))).chain([PathBuf::from("cover.jpg")]);
+        let found = fill_in(match_files(paths));
+        let number = |t: i32| found.get(&t).map(|p| p.file_name().unwrap().to_string_lossy()[PRE.len()..PRE.len() + 2].to_string());
+        // every piece but the fanfare, which the album does not have
+        for t in tracks() {
+            assert_eq!(found.contains_key(&t), t != 109, "piece {t}: {:?}", found.get(&t));
+        }
+        assert_eq!(number(52).as_deref(), Some("03"));
+        assert_eq!(number(48).as_deref(), Some("22"));
+        assert_eq!(number(57).as_deref(), Some("23"));
+        assert_eq!(number(115).as_deref(), Some("16"));
+        assert_eq!(number(53).as_deref(), Some("27"));
+        assert_eq!(number(110).as_deref(), Some("30"));
+        assert_eq!(number(44).as_deref(), Some("31"));
+        // without "Death" the other death plays "Game Over" too
+        assert_eq!(number(DEATH_WORLD).as_deref(), Some("31"));
+        // pieces the game does not use stand for none
+        for unused in ["05", "24", "25", "26"] {
+            assert!(!found.values().any(|p| p.to_string_lossy().contains(&format!("- {unused} "))), "{unused} is used");
+        }
+    }
+
+    /// Without the album nothing is filled in; with its own "Death" that one stays.
+    #[test]
+    fn death_piece() {
+        assert!(fill_in(HashMap::default()).is_empty());
+        let found = fill_in(match_files([PathBuf::from("Game Over.ogg"), PathBuf::from("Death.ogg")]));
+        assert_eq!(found.get(&DEATH_WORLD), Some(&PathBuf::from("Death.ogg")));
+        assert_eq!(found.get(&44), Some(&PathBuf::from("Game Over.ogg")));
+    }
+
+    /// The piece's own title wins over another name, the WAV over the Ogg.
+    #[test]
+    fn own_title_first() {
+        let found = match_files([PathBuf::from("Running (Discrete Version).wav"), PathBuf::from("Running.ogg")]);
+        assert_eq!(found.get(&110), Some(&PathBuf::from("Running.ogg")));
+        let found = match_files([PathBuf::from("03 - The Docks.ogg"), PathBuf::from("03 - The Docks.wav")]);
+        assert_eq!(found.get(&52), Some(&PathBuf::from("03 - The Docks.wav")));
     }
 
     /// The Ogg files against the WAV files they were made from: same

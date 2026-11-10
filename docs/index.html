@@ -182,12 +182,12 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
   <h2><span lang="de">Installation</span><span lang="en">Installation</span></h2>
   <ol lang="de">
     <li>Das Release-Zip in den Ultima-8-Ordner entpacken (dorthin, wo <code>ENGLISH\</code> liegt).</li>
-    <li>Optional: das Musik-Zip an dieselbe Stelle entpacken (orchestrale Neuaufnahme).</li>
+    <li>Optional: PaganRebuild kann das Album „Ultima VIII: Pagan - Orchestral Re-Arrangement“ spielen, die Anleitung steht unter <a href="#musik">Musik</a>.</li>
     <li><code>PaganRebuild\PaganRebuild.exe</code> starten, deutsche Fassung mit <code>--lang german</code>.</li>
   </ol>
   <ol lang="en">
     <li>Extract the release zip into the Ultima 8 folder (where <code>ENGLISH\</code> is).</li>
-    <li>Optional: extract the music zip to the same place (orchestral re-arrangement).</li>
+    <li>Optional: PaganRebuild can play the album "Ultima VIII: Pagan - Orchestral Re-Arrangement"; for instructions see <a href="#music">Music</a>.</li>
     <li>Run <code>PaganRebuild\PaganRebuild.exe</code> (German version: <code>--lang german</code>).</li>
   </ol>
   <p class="note" lang="de">Windows 64-bit. Linux und macOS sind noch nicht getestet. Die französische Fassung startet mit <code>--lang french</code>.</p>
@@ -219,7 +219,7 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
       <h3>Ton</h3>
       <ul>
         <li>Musik über SoundFont statt des Windows-Synthesizers</li>
-        <li>Album-Musik: die orchestrale Neuaufnahme, wenn ihre Dateien da sind</li>
+        <li>Album-Musik: das orchestrale Re-Arrangement von Bandcamp, wenn es im Ordner <code>album</code> liegt</li>
         <li>Verbesserter Klang: Effekte und Stimmen neu in 44,1&nbsp;kHz, ohne Rauschen</li>
         <li>Räumlicher Klang nach Richtung und Entfernung</li>
         <li>Sieges-Fanfare nach einem Kampf (zuschaltbar)</li>
@@ -276,7 +276,7 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
       <h3>Sound</h3>
       <ul>
         <li>Music played with a SoundFont instead of the Windows synthesizer</li>
-        <li>Album music: the orchestral re-arrangement, when its files are present</li>
+        <li>Album music: the orchestral re-arrangement from Bandcamp, when it is in the folder <code>album</code></li>
         <li>Better sound: effects and voices rebuilt at 44.1&nbsp;kHz, without hiss</li>
         <li>Spatial sound by direction and distance</li>
         <li>Victory fanfare after a fight (optional)</li>
@@ -417,9 +417,19 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
 </section>
 
 <section class="slab">
-  <h2><span lang="de">Musik</span><span lang="en">Music</span></h2>
-  <p lang="de">Das Musik-Zip enthält „Ultima VIII: Pagan - Orchestral Re-Arrangement“, mit freundlicher Erlaubnis. Diese Musik steht nicht unter der GPL.</p>
-  <p lang="en">The music zip contains "Ultima VIII: Pagan - Orchestral Re-Arrangement", with kind permission. This music is not under the GPL.</p>
+  <h2 id="musik"><span lang="de">Musik</span><span lang="en" id="music">Music</span></h2>
+  <p lang="de">PaganRebuild kann statt der MIDI-Musik das Album „Ultima VIII: Pagan - Orchestral Re-Arrangement“ spielen. Das Album ist nicht enthalten:</p>
+  <ol lang="de">
+    <li>Das Album bei <a href="https://dustinnaegel.bandcamp.com/album/ultima-viii-pagan-orchestral-re-arrangement">Bandcamp</a> im Format „Ogg Vorbis“ herunterladen.</li>
+    <li>Das Zip in einen Ordner <code>album</code> im Ultima-8-Ordner entpacken (neben <code>ENGLISH\</code>).</li>
+    <li>Im Optionsmenü unter Ton bei „Musik“ die Einstellung „Album“ wählen.</li>
+  </ol>
+  <p lang="en">PaganRebuild can play the album "Ultima VIII: Pagan - Orchestral Re-Arrangement" instead of the MIDI music. The album is not included:</p>
+  <ol lang="en">
+    <li>Download the album from <a href="https://dustinnaegel.bandcamp.com/album/ultima-viii-pagan-orchestral-re-arrangement">Bandcamp</a> as "Ogg Vorbis".</li>
+    <li>Extract the zip into a folder <code>album</code> inside the Ultima 8 folder (next to <code>ENGLISH\</code>).</li>
+    <li>In the options menu under Sound, set "Music" to "Album".</li>
+  </ol>
   <p>Original music: Nenad Vugrinec<br>
 Arrangement and orchestration: Dustin Naegel<br>
 <a href="https://dustinnaegel.bandcamp.com/album/ultima-viii-pagan-orchestral-re-arrangement">https://dustinnaegel.bandcamp.com/album/ultima-viii-pagan-orchestral-re-arrangement</a></p>

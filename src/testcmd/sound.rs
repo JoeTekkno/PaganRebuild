@@ -10,14 +10,24 @@ pub(super) fn run(game: &mut Game, surf: &mut Surface, opts: &mut ViewOptions, s
 }
 
 /// The commands of this group by name.
-const COMMANDS: [(&str, super::Group); 6] = [
+const COMMANDS: [(&str, super::Group); 7] = [
     ("sfxwav", cmd_sfxwav),
     ("sfxinfo", cmd_sfxinfo),
     ("speak", cmd_speak),
     ("sounds", cmd_sounds),
     ("musicwav", cmd_musicwav),
     ("albumwav", cmd_musicwav),
+    ("albumfiles", cmd_albumfiles),
 ];
+
+/// albumfiles  the album's file for each piece of the game it can replace
+fn cmd_albumfiles(game: &mut Game, _surf: &mut Surface, _opts: &mut ViewOptions, _st: &mut State, _name: &str, _arg: &str, _cmd: &str) -> Result<Flow, String> {
+    for t in album::tracks() {
+        let file = game.audio.album_file(t).and_then(|p| p.file_name()).map(|n| n.to_string_lossy().into_owned());
+        println!("albumfiles: {t} -> {}", file.as_deref().unwrap_or("-"));
+    }
+    Ok(Flow::Done)
+}
 
 /// sfxwav:<effect>,<0|1>,<file.wav>  a sound effect at 44.1 kHz: 0 as the mixer would
 ///   stretch the original (in straight lines), 1 made anew (option "better sound")

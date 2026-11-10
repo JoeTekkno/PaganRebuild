@@ -128,6 +128,7 @@ usage: PaganRebuild [options]
                         pointer:<x>,<y>[,<png>]  the mouse pointer there (and a picture with it, enlarged)
                         light:<0|1>    lighting off / on, for this run
                         musicwav:<track>,<seconds>,<file.wav>  a piece rendered with the SoundFont
+                        albumfiles     the album's file for each piece it can replace
                         zoom:<percent> the view drawn at that size (200 = zoomed out); textsize:<0-3> text size option
                         turn:<n>       the view turned by n quarters (0 = original side); angle:<degrees>
                         screenpos:<id> where an item is in the view; turnlive:<1|-1> turn as the keys do
@@ -260,7 +261,7 @@ fn find_game(lang: &str) -> Option<PathBuf> {
 }
 
 /// The player's own folder for savegames, settings, SoundFonts and
-/// music: %APPDATA%pagan on Windows, ~/Library/Application Support/pagan
+/// the album: %APPDATA%pagan on Windows, ~/Library/Application Support/pagan
 /// on a Mac, $XDG_DATA_HOME/pagan (~/.local/share/pagan) elsewhere. APPDATA,
 /// if set, wins everywhere (tests point it at a scratch folder).
 pub fn user_dir() -> Option<PathBuf> {
