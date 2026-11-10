@@ -311,7 +311,8 @@ pub struct Options {
     /// menu: always on, only tests turn it off (`option:map_fade,off`).
     pub map_fade: bool,
     /// A fanfare plays when an enemy falls while the weapon is out, as in
-    /// the original (off: the fight music just goes on) (combat.rs).
+    /// the original (off: the fight music just goes on) (combat.rs). Off
+    /// unless switched on.
     pub victory_fanfare: bool,
     /// Where something stands in front of the Avatar, his outline shows
     /// through it once this much of him is hidden (index into
@@ -380,7 +381,7 @@ pub const ZOOM_NORMAL: usize = 1;
 
 impl Default for Options {
     fn default() -> Options {
-        Options { smooth_camera: true, enemy_health: true, modern_controls: true, click_walk: true, road_keys: true, turn_view: true, lighting: true, pixels: PIXELS_SHARP, zoom: ZOOM_NORMAL, text_size: 2, better_music: true, spatial_sound: true, show_armour: true, show_helm: true, minimap: true, better_inventory: true, hover_names: 0, hold_walk: true, journal: true, practice: true, album_music: true, better_sound: true, passersby: false, wide_view: true, shadows: true, sleep_until: true, notice_far: true, talk_truce: true, spell_notes: false, map_fade: true, victory_fanfare: true, avatar_outline: OUTLINE_DEFAULT, avatar_menu: false, guide: true, puzzle_spots: true, storm: 1, pentagram_snap: true, pentagram_reach: true, avoid_flames: true, monster_fade: true, seen_end: false, magic_glow: true }
+        Options { smooth_camera: true, enemy_health: true, modern_controls: true, click_walk: true, road_keys: true, turn_view: true, lighting: true, pixels: PIXELS_SHARP, zoom: ZOOM_NORMAL, text_size: 2, better_music: true, spatial_sound: true, show_armour: true, show_helm: true, minimap: true, better_inventory: true, hover_names: 0, hold_walk: true, journal: true, practice: true, album_music: true, better_sound: true, passersby: false, wide_view: true, shadows: true, sleep_until: true, notice_far: true, talk_truce: true, spell_notes: false, map_fade: true, victory_fanfare: false, avatar_outline: OUTLINE_DEFAULT, avatar_menu: false, guide: true, puzzle_spots: true, storm: 1, pentagram_snap: true, pentagram_reach: true, avoid_flames: true, monster_fade: true, seen_end: false, magic_glow: true }
     }
 }
 
@@ -532,7 +533,7 @@ pub fn settings_path() -> Option<PathBuf> {
 /// Volumes (0..=100) for music, sound effects and speech, and the option
 /// switches, from the settings file.
 pub fn load_settings() -> ([u8; 3], Options) {
-    let mut volumes = [70, 100, 100];
+    let mut volumes = [100, 50, 50];
     let mut options = Options::default();
     let Some(text) = settings_path().and_then(|p| std::fs::read_to_string(p).ok()) else { return (volumes, options) };
     for line in text.lines() {
