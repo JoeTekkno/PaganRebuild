@@ -103,8 +103,6 @@ usage: pagan [options]
   --scale <1|2|3|4>   window scale factor (default: 2)
   --no-sound          run without sound effects, speech and music
   --no-menu           go straight into a new game: no introduction, menu or name entry
-  --cheat             start with the strongest weapon and the best armour equipped;
-                      also unlocks the game's own debug menu (look at the Avatar)
   --screenshot <png>  render one frame to a PNG file and exit
   --do <commands>     with --screenshot: run test commands first, separated by ';'
                         t<n>           run n game ticks
