@@ -44,7 +44,7 @@ const CONTROLS_TAB: usize = 2;
 const TAB_SWITCHES: [&[Switch]; TABS] = [
     &[Switch::Music, Switch::BetterSound, Switch::SpatialSound, Switch::VictoryFanfare],
     &[Switch::SmoothCamera, Switch::TurnView, Switch::Lighting, Switch::Shadows, Switch::Storm, Switch::Pixels, Switch::ShowArmour, Switch::ShowHelm, Switch::MagicGlow, Switch::WideView, Switch::MonsterFade, Switch::AvatarOutline],
-    &[Switch::Controls, Switch::HoldWalk, Switch::RoadKeys, Switch::NoticeFar, Switch::TalkTruce, Switch::AvoidFlames, Switch::SleepUntil, Switch::PentagramSnap, Switch::PentagramReach, Switch::AvatarMenu],
+    &[Switch::Controls, Switch::HoldWalk, Switch::RoadKeys, Switch::NoticeFar, Switch::TalkTruce, Switch::AvoidFlames, Switch::SleepUntil, Switch::PentagramSnap, Switch::PentagramReach],
     &[Switch::EnemyHealth, Switch::TextSize, Switch::HoverNames, Switch::Minimap, Switch::Guide, Switch::PuzzleSpots, Switch::BetterInventory, Switch::Journal, Switch::Practice],
 ];
 
@@ -322,6 +322,7 @@ pub struct Options {
     pub wide_view: bool,
     /// Looking at the Avatar opens the debug menu the original has for
     /// cheaters (spell book, time, keys, ...), as if started with --cheat.
+    /// Not in the menu: only `avatar_menu=on` in settings.ini switches it on.
     /// Off as in the original.
     pub avatar_menu: bool,
     /// A map of the surroundings (key O) with a list of places: the way to
