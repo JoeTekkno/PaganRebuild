@@ -126,12 +126,29 @@ figcaption { color: var(--muted); font-size: .9rem; font-style: italic; margin-t
 .features ul { padding-left: 1.2em; }
 
 
+.tree { margin: 18px 0 8px; padding: 14px 18px; border-radius: 4px; background: rgba(0,0,0,.25); border: 1px solid rgba(77,69,60,.7); }
+.tree ul { list-style: none; margin: 0; padding: 0 0 0 20px; }
+.tree > ul { padding-left: 0; }
+.tree li { position: relative; margin: 0; padding: 3px 0 3px 18px; }
+.tree > ul > li { padding-left: 0; }
+.tree li li::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1px solid #5a5047; }
+.tree li li:last-child::before { bottom: auto; height: 15px; }
+.tree li li::after { content: ""; position: absolute; left: 0; top: 15px; width: 12px; border-top: 1px solid #5a5047; }
+.tree .node { font: 14px/1.6 Consolas, "Courier New", monospace; color: var(--text); white-space: nowrap; }
+.tree .node::before { content: ""; display: inline-block; width: 16px; height: 13px; margin-right: 7px; vertical-align: -1px; background: no-repeat center / contain; }
+.tree .dir::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 13'%3E%3Cpath d='M1 2.5A1.5 1.5 0 0 1 2.5 1h3.6l1.6 1.8h5.8A1.5 1.5 0 0 1 15 4.3v6.2A1.5 1.5 0 0 1 13.5 12h-11A1.5 1.5 0 0 1 1 10.5z' fill='%23c9772f' stroke='%23ffb15c' stroke-width='.8'/%3E%3C/svg%3E"); }
+.tree .file::before { width: 12px; height: 15px; vertical-align: -2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 15'%3E%3Cpath d='M1.5 1h6l3 3v9.5a.5.5 0 0 1-.5.5h-8.5a.5.5 0 0 1-.5-.5V1.5a.5.5 0 0 1 .5-.5z' fill='%232a2622' stroke='%23b3a795' stroke-width='.9'/%3E%3Cpath d='M7.5 1v3h3' fill='none' stroke='%23b3a795' stroke-width='.9'/%3E%3C/svg%3E"); }
+.tree .hint { color: var(--muted); font-style: italic; font-size: .9rem; margin-left: 10px; }
+.tree .new > .node { color: var(--ember-hi); font-weight: 700; }
+.tree .new > .hint { color: var(--ember); }
 .credits p { margin-bottom: 12px; }
 footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10px 0 40px; }
 
 @media (max-width: 680px) {
   body { font-size: 16px; }
   .shots, .features, .controls { grid-template-columns: 1fr; }
+  .tree { padding: 12px 12px; }
+  .tree .hint { display: block; margin: 0 0 0 23px; }
   .controls .row { grid-template-columns: 1fr; gap: 2px; }
   .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   section.slab { padding: 18px 16px; }
@@ -207,6 +224,48 @@ footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 10
     <li>Optional: PaganRebuild can play the album "Ultima VIII: Pagan - Orchestral Re-Arrangement"; for instructions see <a href="#music">Music</a>.</li>
     <li>Run <code>PaganRebuild\PaganRebuild.exe</code>.</li>
   </ol>
+  <figure class="tree" lang="de" aria-label="Ordner nach der Installation">
+    <ul>
+      <li><span class="node dir">Ultima 8</span><span class="hint">dein Spielordner</span>
+        <ul>
+          <li><span class="node dir">ENGLISH</span><span class="hint">Spieldaten, ebenso GERMAN und FRENCH</span></li>
+          <li class="new"><span class="node dir">PaganRebuild</span><span class="hint">aus dem Release-Zip</span>
+            <ul>
+              <li class="new"><span class="node file">PaganRebuild.exe</span><span class="hint">starten</span></li>
+              <li><span class="node file">LICENSE</span></li>
+              <li><span class="node dir">soundfonts</span></li>
+            </ul>
+          </li>
+          <li class="new"><span class="node dir">album</span><span class="hint">optional: das Album von Bandcamp</span>
+            <ul>
+              <li><span class="node file">… .ogg</span></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </figure>
+  <figure class="tree" lang="en" aria-label="Folders after the installation">
+    <ul>
+      <li><span class="node dir">Ultima 8</span><span class="hint">your game folder</span>
+        <ul>
+          <li><span class="node dir">ENGLISH</span><span class="hint">game data, likewise GERMAN and FRENCH</span></li>
+          <li class="new"><span class="node dir">PaganRebuild</span><span class="hint">from the release zip</span>
+            <ul>
+              <li class="new"><span class="node file">PaganRebuild.exe</span><span class="hint">run this</span></li>
+              <li><span class="node file">LICENSE</span></li>
+              <li><span class="node dir">soundfonts</span></li>
+            </ul>
+          </li>
+          <li class="new"><span class="node dir">album</span><span class="hint">optional: the album from Bandcamp</span>
+            <ul>
+              <li><span class="node file">… .ogg</span></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </figure>
   <p class="note" lang="de">Windows 64-bit. Linux und macOS sind noch nicht getestet.</p>
   <p class="note" lang="en">Windows 64-bit. Linux and macOS are not tested yet.</p>
   <h3 lang="de">Startoptionen</h3>
