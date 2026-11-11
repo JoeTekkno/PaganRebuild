@@ -222,6 +222,17 @@ pub struct Game {
     pub(crate) lerps: HashMap<u16, Lerp>,
     /// Where the gliding camera is right now, and when it was last moved.
     pub(crate) cam_smooth: Option<((f32, f32, f32), std::time::Instant)>,
+    /// The general light of the lighting as last drawn, and at which tick:
+    /// it goes over smoothly to a new one (into a cave, through the day).
+    ambient_now: Option<([f32; 3], u32)>,
+    /// Lights found covered by floor (see lighting.rs), on which map, and
+    /// when (by item id).
+    pub(crate) covered_seen: (usize, crate::hash::HashMap<u16, (bool, u32, (u32, i32, i32, i32))>),
+    /// Things found in a room under a roof (see lighting.rs).
+    rooms_seen: crate::lighting::RoomsSeen,
+    /// How far the light of rooms has come in (0 outside, 1 in a house),
+    /// and at which tick: it goes over smoothly when the Avatar goes in or out.
+    room_light: (f32, u32),
     /// Health the creatures started with, for the bars above them.
     pub(crate) full_hp: HashMap<u16, i32>,
     /// How fast the gliding camera is moving (world units per second).
@@ -409,6 +420,10 @@ impl Game {
             restart: false,
             options: settings.1,
             cam_smooth: None,
+            ambient_now: None,
+            covered_seen: (usize::MAX, crate::hash::HashMap::default()),
+            rooms_seen: (usize::MAX, HashMap::default()),
+            room_light: (0.0, 0),
             full_hp: HashMap::default(),
             cam_vel: (0.0, 0.0, 0.0),
             cam_target: None,
@@ -852,7 +867,18 @@ impl Game {
         // people are seen from the turned side
         let people = if angle != 0.0 { self.turned_people((cx, cy), quarter) } else { HashMap::default() };
         // lamps and fires (optional lighting)
-        let lights = if self.options.lighting { Some(self.lights(&xf)) } else { None };
+        let lighting = self.options.lighting;
+        let lights = if lighting { Some(self.lights(&xf)) } else { None };
+        // under the open sky (for shadows and the general light), and the time of day
+        let sky = (self.options.shadows || lighting) && crate::shadows::sunlit(self.cur_map, self.map(), avatar.x, avatar.y);
+        let hour = (self.tick.wrapping_add(self.time_offset) / 30 % (24 * 900)) as f32 / 900.0;
+        let outside = self.ambient_light(crate::lighting::ambient(hour, sky));
+        let look = crate::lighting::Look::by_day(outside);
+        // in a house under the open sky: the rooms' own light, eased in and out
+        let in_house = lighting && sky && !roofs_always && roof_above(self.map(), &self.data.infos, &avatar).is_some();
+        let room_k = self.room_light(in_house);
+        let inner = crate::lighting::indoor(outside);
+        let room_look = (room_k > 0.01).then(|| crate::lighting::Look::by_day([0, 1, 2].map(|c| outside[c] + (inner[c] - outside[c]) * room_k)));
         let ts = self.text_scale();
         let name_ts = self.name_scale();
         self.begin_hover_label();
@@ -861,7 +887,7 @@ impl Game {
         // the Avatar climbing onto a ledge is painted in front of it
         let climbing = self.actors.get(&AVATAR).is_some_and(|m| m.busy() && (crate::anim::CLIMB_FIRST..=crate::anim::CLIMB_LAST).contains(&m.last_anim()));
         opts.climbing = if climbing { self.map().index(AVATAR) } else { None };
-        let Game { data: crate::gamedata::GameData { shapes, infos, pal, .. }, maps, cur_map, turn, pixel_ids, .. } = self;
+        let Game { data: crate::gamedata::GameData { shapes, infos, pal, .. }, maps, cur_map, turn, pixel_ids, rooms_seen, .. } = self;
         let map = &maps[cur_map];
 
         // hide roofs (and everything above them) while the Avatar is below one
@@ -904,15 +930,22 @@ impl Game {
         self.view_origin = ((cam.x - cam.y) / 4 - surf.width / 2, (cam.x + cam.y) / 8 - cam.z - surf.height / 2);
         self.view_xf = xf;
         // shadows (optional), under the open sky (not in a cellar or cave), in the view as in the original (not turned)
-        if self.options.shadows && angle == 0.0 && crate::shadows::sunlit(*cur_map, map, avatar.x, avatar.y) {
+        if self.options.shadows && angle == 0.0 && sky {
             // the light as the time of day has it
-            let hour = (self.tick.wrapping_add(self.time_offset) / 30 % (24 * 900)) as f32 / 900.0;
             crate::shadows::apply(surf, pixel_ids, &self.painted, map, infos, shapes, crate::shadows::Sun::at(hour));
         }
         if let Some(lights) = &lights {
             // what gives the light keeps its own colours (lava would turn a flat yellow)
-            let glows = if angle == 0.0 { crate::lighting::glowing_pixels(pixel_ids, &map.items) } else { Vec::new() };
-            crate::lighting::apply(surf, lights, crate::lighting::AMBIENT, &glows);
+            // and how high things stand (only known for the view as in the original)
+            // (what is at each pixel is only known for the view as in the original)
+            let ids: &[u32] = if angle == 0.0 { pixel_ids } else { &[] };
+            // the things in the rooms of the house the Avatar is in
+            let rooms = match room_look {
+                Some(_) if angle == 0.0 => crate::lighting::rooms(&self.painted, map, *cur_map, infos, rooms_seen),
+                _ => Vec::new(),
+            };
+            let inside = room_look.filter(|_| !rooms.is_empty()).map(|l| (&rooms[..], l));
+            crate::lighting::apply(surf, lights, look, ids, &map.items, infos, inside);
         }
 
         // the way to the place chosen (option "map with guide")
@@ -1179,6 +1212,38 @@ impl Game {
         let _ = view_height;
         let line = (y - self.ask_top).div_euclid(self.ask_line.max(1));
         (line >= 0 && (line as usize) < choices.len()).then_some(line as usize)
+    }
+
+    /// How far the light of rooms is in now (0..1): towards 1 while the
+    /// Avatar is in a house, towards 0 outside, most of the way within half
+    /// a second of game time.
+    fn room_light(&mut self, in_house: bool) -> f32 {
+        let (was, at) = self.room_light;
+        let dt = self.tick.wrapping_sub(at) as f32;
+        let target = if in_house { 1.0 } else { 0.0 };
+        let k = if dt > 90.0 { 1.0 } else { 1.0 - (-dt / 6.0).exp() };
+        let now = was + (target - was) * k;
+        self.room_light = (now, self.tick);
+        now
+    }
+
+    /// The general light to draw with now: on the way from the one drawn
+    /// last to `target`, most of the way within a second of game time (a
+    /// jump of more than a few seconds, as after loading or sleeping, goes
+    /// there at once).
+    fn ambient_light(&mut self, target: [f32; 3]) -> [f32; 3] {
+        let now = self.tick;
+        let rgb = match self.ambient_now {
+            Some((was, at)) => {
+                // (30 ticks are a second)
+                let dt = now.wrapping_sub(at) as f32;
+                let k = if dt > 90.0 { 1.0 } else { 1.0 - (-dt / 12.0).exp() };
+                [0, 1, 2].map(|c| was[c] + (target[c] - was[c]) * k)
+            }
+            None => target,
+        };
+        self.ambient_now = Some((rgb, now));
+        rgb
     }
 
     /// The point the view is centred on in this frame.  With the smooth

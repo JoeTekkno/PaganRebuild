@@ -247,7 +247,8 @@ pub struct Options {
     pub road_keys: bool,
     /// The view can be turned to the other sides (keys , and .).
     pub turn_view: bool,
-    /// Lamps and fires light up their surroundings; elsewhere it is darker.
+    /// Light by the time of day, dimmer underground; lamps, fires and lava
+    /// light up their surroundings (see lighting.rs).
     pub lighting: bool,
     /// How the picture is shown when it is larger than drawn: sharp, smoothed
     /// (xBR) or as on a tube monitor (CRT), see `PIXELS_*`.
