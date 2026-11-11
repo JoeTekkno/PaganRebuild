@@ -1404,6 +1404,25 @@ impl Game {
         None
     }
 
+    /// Is there a floor or roof between something not solid (`low`) and
+    /// what stands higher in it (`high`, item `skip`)? A tall fire in a
+    /// house reaches through the roof, but one on the roof does not burn.
+    /// (Only a floor more than a step above the foot of `low` counts.)
+    pub fn floor_between(&self, low: &WorldBox, high: &WorldBox, skip: u16) -> bool {
+        if high.z <= low.z + 24 {
+            return false;
+        }
+        self.map().items_near(high.x, high.y, 640).into_iter().any(|i| {
+            let other = &self.map().items[i];
+            let Some(oi) = self.data.infos.get(other.shape as usize) else { return false };
+            if other.id == skip || !(oi.solid || oi.roof) {
+                return false;
+            }
+            let ob = WorldBox::of(other, oi);
+            ob.z > low.z + 24 && ob.z <= high.z && high.overlaps_xy(&ob)
+        })
+    }
+
     /// An actor has moved: everything it newly stands on or runs into is
     /// told so ("got hit" script). This is how water drowns, lava burns
     /// and pressure plates notice someone. `force`: how hard the step was
@@ -1436,9 +1455,15 @@ impl Game {
             }
             let Some(oi) = self.data.infos.get(other.shape as usize) else { continue };
             let ob = WorldBox::of(other, oi);
-            // standing on it, or inside it
-            if b.overlaps_xy(&ob) && (ob.z + ob.zd == b.z || b.overlaps(&ob)) {
-                now.push((other.id, ob.z + ob.zd == b.z));
+            // standing on it, or inside it (one stands only on what is solid
+            // or flat: the Avatar on a roof touched the top of a tall fire
+            // in the house below and burnt)
+            let on_top = ob.z + ob.zd == b.z && (oi.solid || ob.zd == 0);
+            if !oi.solid && !on_top && self.floor_between(&ob, &b, actor) {
+                continue;
+            }
+            if b.overlaps_xy(&ob) && (on_top || b.overlaps(&ob)) {
+                now.push((other.id, on_top));
             } else if mover_hits && b.x >= ob.x - ob.xd && b.x - b.xd <= ob.x && b.y >= ob.y - ob.yd && b.y - b.yd <= ob.y
                 && b.z < ob.z + ob.zd && b.z + b.zd > ob.z
             {

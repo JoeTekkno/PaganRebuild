@@ -471,8 +471,10 @@ impl Game {
                 let Some(other) = self.item(a.u16()) else { return 0 };
                 let (Some(si), Some(so)) = (self.data.infos.get(it.shape as usize), self.data.infos.get(other.shape as usize)) else { return 0 };
                 let (b1, b2) = (WorldBox::of(&it, si), WorldBox::of(&other, so));
+                // (not through a floor or roof: see `floor_between`)
+                let apart = |low: &WorldBox, high: &WorldBox, low_si: &crate::shape::ShapeInfo, skip: u16| !low_si.solid && self.floor_between(low, high, skip);
                 (match func {
-                    0x25 => b1.overlaps(&b2),
+                    0x25 => b1.overlaps(&b2) && !apart(&b1, &b2, si, other.id) && !apart(&b2, &b1, so, it.id),
                     0x27 => b1.overlaps_xy(&b2) && b1.z == b2.z + b2.zd,
                     _ => b1.overlaps_xy(&b2),
                 }) as u32

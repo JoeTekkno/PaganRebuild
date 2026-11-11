@@ -89,6 +89,8 @@ const BELOW: i32 = 104;
 /// Flat lights (lava, a fire field) light what stands up to this high
 /// above their ground: the rock beside lava is often a little higher.
 const FLAT_REACH: i32 = 40;
+/// Fires light what stands up to this high above their ground.
+const FIRE_REACH: i32 = 48;
 
 /// Height of a lamp post below its lamp.
 const POST: i32 = 80;
@@ -198,7 +200,9 @@ impl Game {
                 1.0
             };
             let z = it.z + mid;
-            let top = it.z + if zd <= 8 { FLAT_REACH } else { zd };
+            // (a fire's box is often taller than the room it burns in: its
+            // light ends at the height of a room, not on the roof above)
+            let top = it.z + if zd <= 8 { FLAT_REACH } else if flickers { zd.min(FIRE_REACH) } else { zd };
             if lamp_seen {
                 out.push(Light { x: sx, y: sy, radius: radius * (0.95 + 0.05 * strength), rgb: rgb.map(|c| c * strength), z, top });
             }

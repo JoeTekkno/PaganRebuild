@@ -267,7 +267,14 @@ impl SortItem {
         if a.land && b.land && a.roof != b.roof {
             return !a.roof;
         }
+        // what stands under a roof (its foot lower) is below it: a tall
+        // fire in a house reached into a beam of the roof, was painted
+        // after it and through a cycle over the roof as well
         if a.roof != b.roof {
+            let (roof, other) = if a.roof { (a, b) } else { (b, a) };
+            if other.z < roof.z {
+                return !a.roof;
+            }
             return a.roof;
         }
         if a.z != b.z {
