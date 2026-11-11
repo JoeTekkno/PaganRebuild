@@ -96,6 +96,8 @@ const FIRE_REACH: i32 = 48;
 const POST: i32 = 80;
 /// How much brighter than the original a lit spot may get.
 const MOST: f32 = 1.3;
+/// The most light that lights add together (in the strongest colour).
+const ADDED: f32 = 1.0;
 
 /// A light on screen.
 pub struct Light {
@@ -117,7 +119,8 @@ fn light_of(shape: u32, frame: u32) -> Option<(f32, [f32; 3], bool)> {
     const LAMP: [f32; 3] = [1.5, 1.25, 0.8];
     const FIRE: [f32; 3] = [1.1, 0.6, 0.25];
     const CANDLE: [f32; 3] = [1.0, 0.8, 0.45];
-    const LAVA: [f32; 3] = [1.0, 0.35, 0.1];
+    // (lava lies in fields of dozens of pieces: each one gives little)
+    const LAVA: [f32; 3] = [0.5, 0.18, 0.05];
     Some(match shape {
         // lamp posts (the lamp at the top), wall lamps that burn, the lamp at the end
         690 | 691 => (90.0, LAMP, false),
@@ -137,7 +140,8 @@ fn light_of(shape: u32, frame: u32) -> Option<(f32, [f32; 3], bool)> {
         786 | 804 => (45.0, FIRE, true),
         // spells: explosions, a fire storm, balls and bolts of fire
         // (260 the fireball that chases the Avatar, 261 a flame bolt)
-        480 | 483 | 660 => (160.0, FIRE, true),
+        // (480 and 483 also burst out of lava all the time: not too far)
+        480 | 483 | 660 => (100.0, FIRE, true),
         110 => (180.0, FIRE, true),
         260 | 261 => (90.0, FIRE, true),
         59 | 372 | 697 => (60.0, FIRE, true),
@@ -436,7 +440,12 @@ pub fn apply(surf: &mut Surface, lights: &[Light], look: Look, ids: &[u32], item
             }
             let (r, g, b) = ((*px >> 16) & 0xFF, (*px >> 8) & 0xFF, *px & 0xFF);
             let luma = ((77 * r + 151 * g + 28 * b) >> 8) as usize;
+            // where many lights meet (a field of lava) the light does not
+            // add up without end: at most as strong as one strong light,
+            // in its colour (else the rock by lava turned pale and pink)
             let l = l.map(|v| v * lamp);
+            let most = l[0].max(l[1]).max(l[2]);
+            let l = if most > ADDED { l.map(|v| v * ADDED / most) } else { l };
             let ch = |v: u32, c: usize| {
                 let k = (dim[c][luma] + l[c]).min(MOST);
                 ((v as f32 * k + 255.0 * TINT * l[c]) as u32).min(255)
