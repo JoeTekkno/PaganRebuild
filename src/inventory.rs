@@ -575,7 +575,7 @@ impl Game {
 }
 
 /// Paints a frame with its middle at (cx, cy), made smaller if it is
-/// larger than `room` (every n-th pixel); small ones are doubled.
+/// larger than `room` (every n-th pixel).
 fn paint_fitted(surf: &mut Surface, f: &Frame, cx: i32, cy: i32, room: i32, pal: &crate::palette::Palette) {
     if f.width <= 0 || f.height <= 0 {
         return;
@@ -593,8 +593,10 @@ fn paint_fitted(surf: &mut Surface, f: &Frame, cx: i32, cy: i32, room: i32, pal:
         return;
     }
     let (w, h) = (x1 - x0 + 1, y1 - y0 + 1);
-    // small things are shown twice as large (pixels doubled), large ones made to fit
-    let scale = if 2 * w.max(h) <= room { 2.0 } else { (room as f32 / w.max(h) as f32).min(1.0) };
+    // everything at its own size, so that all things have the same pixel
+    // size as the world (doubling only the small ones made them look like
+    // another style); only things too large for the slot are made smaller
+    let scale = (room as f32 / w.max(h) as f32).min(1.0);
     let (dw, dh) = (((w as f32 * scale).round() as i32).max(1), ((h as f32 * scale).round() as i32).max(1));
     let (left, top) = (cx - dw / 2, cy - dh / 2);
     for dy in 0..dh {
